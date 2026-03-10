@@ -1,0 +1,311 @@
+[
+  {
+    "case_id": "R001",
+    "name": "Tesoro换热器失效事故",
+    "year": 2010,
+    "fatalities": 6,
+    "process_type": "换热",
+    "equipment": "换热器",
+    "core_scenario": "设备完整性失效",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "过高",
+      "normal_value": "操作温度",
+      "abnormal_value": "超过设计温度"
+    },
+    "causes": {
+      "direct": "换热器管束长期高温氢损伤，材料强度严重劣化",
+      "root": "未按规定执行高温氢腐蚀检验，设备完整性管理缺失"
+    },
+    "consequences": [
+      "换热器管束突然破裂",
+      "大量氢气泄漏",
+      "遇点火源发生爆炸和火灾",
+      "6人死亡，装置严重损毁"
+    ],
+    "safeguards": {
+      "existing": ["压力报警", "紧急切断阀"],
+      "failure_reason": "设备在高温氢腐蚀下已脆化，报警触发时已来不及处置"
+    },
+    "recommendations": [
+      "建立高温氢腐蚀专项检验制度",
+      "对同类换热器进行全面完整性评估",
+      "完善操作程序，明确异常温度处置流程"
+    ],
+    "key_physics": [
+      "高温氢损伤（HTHA）：高温高压氢气渗入钢材，与碳化物反应生成甲烷气泡，导致材料脆化",
+      "Nelson曲线：确定碳钢和低合金钢在不同温度压力下的氢腐蚀风险边界"
+    ],
+    "embedding_text": "heat exchanger failure high temperature hydrogen attack HTHA material degradation explosion fatality process safety integrity management"
+  },
+  {
+    "case_id": "R002",
+    "name": "KMCO异构化装置爆炸事故",
+    "year": 2019,
+    "fatalities": 1,
+    "process_type": "反应",
+    "equipment": "反应器",
+    "core_scenario": "失控反应",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "过高",
+      "normal_value": "150°C",
+      "abnormal_value": "超过250°C"
+    },
+    "causes": {
+      "direct": "异构化反应器温度失控，触发爆炸性失控反应",
+      "root": "操作人员误判泄压阀动作为系统安全信号，未及时停车"
+    },
+    "consequences": [
+      "反应器超温超压",
+      "泄压阀频繁起跳",
+      "最终发生爆炸",
+      "1人死亡，多人受伤"
+    ],
+    "safeguards": {
+      "existing": ["泄压阀（PSV）", "温度报警", "DCS控制系统"],
+      "failure_reason": "操作人员错误认为PSV动作说明系统已在自动保护中，未按SOP执行紧急停车"
+    },
+    "recommendations": [
+      "明确PSV动作的应急处置流程：PSV起跳不等于系统安全",
+      "加强操作人员失控反应应急培训",
+      "安装独立的超温超压联锁切断系统"
+    ],
+    "key_physics": [
+      "放热反应失控：反应放热速率超过散热速率，温度正反馈加速，Arrhenius动力学使反应速率随温度指数增长",
+      "PSV泄放能力局限：PSV按正常超压工况定径，失控反应产气速率可能远超PSV泄放能力"
+    ],
+    "embedding_text": "reactor runaway temperature high exothermic reaction pressure relief valve PSV misinterpretation operator error emergency shutdown HAZOP"
+  },
+  {
+    "case_id": "R003",
+    "name": "West化肥厂硝酸铵爆炸事故",
+    "year": 2013,
+    "fatalities": 15,
+    "process_type": "储运",
+    "equipment": "储罐",
+    "core_scenario": "危险物料火灾引发爆炸",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "过高",
+      "normal_value": "常温储存",
+      "abnormal_value": "火灾加热导致超过分解温度"
+    },
+    "causes": {
+      "direct": "储罐区发生火灾，高温引发大量硝酸铵分解爆炸",
+      "root": "硝酸铵储存量严重超标，消防部门未掌握危险物料信息，初期处置错误"
+    },
+    "consequences": [
+      "硝酸铵分解产生大量气体",
+      "发生剧烈爆炸",
+      "15人死亡（含12名消防员）",
+      "周边建筑大面积损毁"
+    ],
+    "safeguards": {
+      "existing": ["消防系统", "储罐防火堤"],
+      "failure_reason": "消防用水引发硝酸铵溶液，并可能加速分解；消防队不知储罐内容物"
+    },
+    "recommendations": [
+      "强制要求向应急部门申报危险化学品储存信息",
+      "硝酸铵储存设施与居民区保持安全距离",
+      "制定针对硝酸铵火灾的专项应急预案（禁止使用大量水）"
+    ],
+    "key_physics": [
+      "硝酸铵热分解：NH4NO3 → N2O + 2H2O（慢速分解），在高温或污染条件下可发生爆炸性分解",
+      "Trouton规则与热失控：分解反应放热大于散热时发生不可逆热失控"
+    ],
+    "embedding_text": "ammonium nitrate storage fire explosion temperature decomposition runaway emergency response hazardous materials chemical safety"
+  },
+  {
+    "case_id": "R004",
+    "name": "德克萨斯城炼油厂爆炸事故",
+    "year": 2005,
+    "fatalities": 15,
+    "process_type": "蒸馏",
+    "equipment": "分馏塔",
+    "core_scenario": "液位过高溢出",
+    "deviation": {
+      "parameter": "液位",
+      "direction": "过高",
+      "normal_value": "正常操作液位50%",
+      "abnormal_value": "液位超过100%溢出"
+    },
+    "causes": {
+      "direct": "操作人员持续向塔内进料，液位传感器失效导致液位显示不准确",
+      "root": "管理层压力导致操作人员忽视异常信号，仪表维护不到位"
+    },
+    "consequences": [
+      "分馏塔液位过高，热烃液体溢出",
+      "大量可燃蒸气形成蒸气云",
+      "遇点火源发生蒸气云爆炸",
+      "15人死亡，170人受伤"
+    ],
+    "safeguards": {
+      "existing": ["液位报警", "高液位联锁", "压力泄放系统"],
+      "failure_reason": "液位传感器长期失准，高液位报警被操作人员忽视；管理层未落实安全文化"
+    },
+    "recommendations": [
+      "建立冗余液位测量系统",
+      "强化异常工况操作规程培训",
+      "建立安全文化，赋予操作人员停车权力"
+    ],
+    "key_physics": [
+      "液位静压原理：液位传感器基于压差测量，传感器堵塞或管线内有气体时读数失真",
+      "闪蒸过程：过热液体泄压时急剧汽化，产生大量蒸气，体积急剧膨胀"
+    ],
+    "embedding_text": "distillation column level high overflow flammable vapor cloud explosion level sensor failure instrumentation alarm management culture"
+  },
+  {
+    "case_id": "R005",
+    "name": "杜邦Belle工厂氯气泄漏事故",
+    "year": 2010,
+    "fatalities": 1,
+    "process_type": "管道输送",
+    "equipment": "管道阀门",
+    "core_scenario": "有毒气体泄漏",
+    "deviation": {
+      "parameter": "流量/压力",
+      "direction": "非预期释放",
+      "normal_value": "密闭管道输送",
+      "abnormal_value": "阀门失效导致泄漏"
+    },
+    "causes": {
+      "direct": "氯气管道阀门密封失效，导致氯气持续泄漏",
+      "root": "设备维护不到位，作业人员缺乏有毒气体泄漏应急知识"
+    },
+    "consequences": [
+      "氯气在车间内聚集",
+      "作业人员吸入高浓度氯气",
+      "1人死亡，多人中毒"
+    ],
+    "safeguards": {
+      "existing": ["气体探测器", "通风系统", "PPE个人防护"],
+      "failure_reason": "气体探测器报警后疏散不及时，作业人员未正确使用防毒面具"
+    },
+    "recommendations": [
+      "定期检查有毒气体管道阀门密封性",
+      "加强有毒气体泄漏应急演练",
+      "完善气体探测报警与自动通风联动系统"
+    ],
+    "key_physics": [
+      "气体扩散规律：氯气密度比空气大，泄漏后在低洼区域聚集，LC50约430ppm",
+      "Fick扩散定律：浓度梯度驱动扩散，通风可有效降低局部浓度"
+    ],
+    "embedding_text": "chlorine gas leak toxic pipe valve seal failure gas detector alarm evacuation PPE chemical exposure occupational safety"
+  },
+  {
+    "case_id": "R006",
+    "name": "Union Carbide博帕尔甲基异氰酸酯泄漏",
+    "year": 1984,
+    "fatalities": 3787,
+    "process_type": "储罐",
+    "equipment": "储罐/管道",
+    "core_scenario": "剧毒物质大规模泄漏",
+    "deviation": {
+      "parameter": "压力/温度",
+      "direction": "过高",
+      "normal_value": "低温常压储存",
+      "abnormal_value": "储罐压力骤升至126psig"
+    },
+    "causes": {
+      "direct": "水进入MIC储罐引发剧烈反应，大量热量和气体产生",
+      "root": "多道安全系统同时失效（冷冻系统、洗涤塔、火炬系统），设备维护长期缺失"
+    },
+    "consequences": [
+      "约40吨甲基异氰酸酯蒸气外泄",
+      "形成致命蒸气云覆盖周边居民区",
+      "立即死亡约3787人，长期影响超20万人"
+    ],
+    "safeguards": {
+      "existing": ["冷冻储存系统", "洗涤塔", "火炬塔", "压力报警"],
+      "failure_reason": "冷冻系统关闭以节省成本，洗涤塔碱液耗尽，火炬系统在维修中，所有备份同时失效"
+    },
+    "recommendations": [
+      "危险物料储量最小化原则（Minimize Inventory）",
+      "关键安全系统冗余设计，禁止同时停用",
+      "工厂选址应与居民区保持足够安全距离"
+    ],
+    "key_physics": [
+      "MIC水解反应：CH3NCO + H2O → CO2 + CH3NH2，强放热反应，大量气体产生",
+      "蒸气压与温度：温度升高导致MIC蒸气压急剧上升，加速泄漏"
+    ],
+    "embedding_text": "MIC methyl isocyanate storage tank toxic release water contamination reaction pressure rise safety system failure catastrophic accident Bhopal"
+  },
+  {
+    "case_id": "R007",
+    "name": "菲利普斯石油公司反应器爆炸事故",
+    "year": 1989,
+    "fatalities": 23,
+    "process_type": "反应",
+    "equipment": "聚乙烯反应器",
+    "core_scenario": "可燃气体释放爆炸",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "非预期释放",
+      "normal_value": "密闭循环操作",
+      "abnormal_value": "大量乙烯/己烷混合气体泄漏"
+    },
+    "causes": {
+      "direct": "维修作业中手动阀位置确认程序缺失，阀门处于开启状态导致物料泄漏",
+      "root": "操作锁定/挂牌程序（LOTO）执行不到位，书面作业许可流于形式"
+    },
+    "consequences": [
+      "大量乙烯和己烷泄漏形成蒸气云",
+      "蒸气云爆炸（VCE）",
+      "23人死亡，130余人受伤",
+      "经济损失超7亿美元"
+    ],
+    "safeguards": {
+      "existing": ["作业许可证制度", "LOTO程序", "可燃气体探测器"],
+      "failure_reason": "承包商未严格执行LOTO，作业许可证审批流于形式，探测器报警时爆炸已发生"
+    },
+    "recommendations": [
+      "严格执行能量隔离程序（LOTO）",
+      "对承包商实施与正式员工同等的安全管理",
+      "建立独立的作业许可证审核机制"
+    ],
+    "key_physics": [
+      "蒸气云爆炸（VCE）：可燃蒸气与空气混合达到爆炸极限（乙烯LEL=2.7%，UEL=36%），遇点火源发生爆炸",
+      "超压效应：爆炸超压波是建筑和人员伤亡的主要原因"
+    ],
+    "embedding_text": "polyethylene reactor ethylene vapor cloud explosion VCE LOTO lockout tagout permit to work contractor safety maintenance procedure"
+  },
+  {
+    "case_id": "R008",
+    "name": "Tosco炼油厂石脑油塔失火事故",
+    "year": 1999,
+    "fatalities": 4,
+    "process_type": "蒸馏",
+    "equipment": "分馏塔/管道",
+    "core_scenario": "热工作业引燃",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "点火源引入",
+      "normal_value": "密闭操作",
+      "abnormal_value": "热工作业产生火花"
+    },
+    "causes": {
+      "direct": "维修人员在未完全清空烃类物料的管道附近进行热工作业",
+      "root": "作业前气体检测不充分，热工作业许可证审批未确认管道已安全隔离"
+    },
+    "consequences": [
+      "残余烃类遇热工火花起火",
+      "火势迅速扩大蔓延至分馏塔",
+      "4人死亡，多人烧伤"
+    ],
+    "safeguards": {
+      "existing": ["热工作业许可证", "气体检测仪", "消防系统"],
+      "failure_reason": "气体检测仅检测了作业点，未检测管道内残余物料；隔离盲板未安装"
+    },
+    "recommendations": [
+      "热工作业前必须安装隔离盲板，不得仅依靠阀门隔离",
+      "气体检测需覆盖所有可能的泄漏路径",
+      "热工作业许可证由独立安全人员审批"
+    ],
+    "key_physics": [
+      "最小点火能（MIE）：汽油蒸气MIE约0.24mJ，热工火花远超此值，极易点燃",
+      "闪点与着火范围：石脑油闪点低，在常温下即可形成可燃蒸气"
+    ],
+    "embedding_text": "hot work permit naphtha distillation column fire ignition source gas testing isolation blind flange maintenance safety"
+  }
+]

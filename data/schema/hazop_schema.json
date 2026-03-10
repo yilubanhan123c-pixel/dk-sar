@@ -1,0 +1,102 @@
+{
+  "type": "object",
+  "required": ["node_info", "deviations"],
+  "properties": {
+    "node_info": {
+      "type": "object",
+      "required": ["equipment", "parameter", "deviation_type", "deviation_direction"],
+      "properties": {
+        "equipment":          { "type": "string", "description": "设备名称，如：反应釜、换热器、储罐" },
+        "parameter":          { "type": "string", "description": "分析参数，如：温度、压力、流量、液位" },
+        "deviation_type":     { "type": "string", "description": "偏差类型描述" },
+        "deviation_direction": {
+          "type": "string",
+          "enum": ["过高", "过低", "无/停止", "反向", "其他"],
+          "description": "偏差方向"
+        },
+        "normal_value":  { "type": "string", "description": "正常操作值或范围" },
+        "current_value": { "type": "string", "description": "当前异常值" }
+      }
+    },
+    "deviations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["causes", "consequences", "safeguards", "recommendations"],
+        "properties": {
+          "causes": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "description": "可能原因列表（至少3个，最多5个）",
+            "items": {
+              "type": "object",
+              "required": ["description", "type"],
+              "properties": {
+                "description": { "type": "string", "description": "原因描述" },
+                "type": {
+                  "type": "string",
+                  "enum": ["设备故障", "操作失误", "工艺异常", "外部因素", "管理缺陷"],
+                  "description": "原因类型"
+                }
+              }
+            }
+          },
+          "consequences": {
+            "type": "array",
+            "minItems": 1,
+            "description": "后果链描述（从初始事件到最终后果）",
+            "items": { "type": "string" }
+          },
+          "safeguards": {
+            "type": "array",
+            "description": "现有保护措施",
+            "items": {
+              "type": "object",
+              "required": ["measure", "effectiveness"],
+              "properties": {
+                "measure": { "type": "string", "description": "保护措施名称" },
+                "effectiveness": {
+                  "type": "string",
+                  "enum": ["有效", "部分有效", "需改进"],
+                  "description": "有效性评估"
+                }
+              }
+            }
+          },
+          "recommendations": {
+            "type": "array",
+            "minItems": 1,
+            "description": "建议措施",
+            "items": {
+              "type": "object",
+              "required": ["action", "priority"],
+              "properties": {
+                "action": { "type": "string", "description": "建议措施描述" },
+                "priority": {
+                  "type": "string",
+                  "enum": ["高", "中", "低"],
+                  "description": "优先级"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "analysis_metadata": {
+      "type": "object",
+      "properties": {
+        "referenced_cases":   { "type": "array", "items": { "type": "string" }, "description": "参考案例ID列表" },
+        "reflection_rounds":  { "type": "integer", "description": "物理反思轮次" },
+        "physical_issues_found": { "type": "array", "items": { "type": "string" }, "description": "发现的物理问题列表" },
+        "confidence_level": {
+          "type": "string",
+          "enum": ["高", "中", "低"],
+          "description": "分析置信度"
+        }
+      }
+    }
+  }
+}

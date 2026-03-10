@@ -1,0 +1,110 @@
+[
+  {
+    "fallacy_id": "B001",
+    "category": "工艺操作谬误",
+    "false_claim": "关闭冷却水可以让反应更快完成，节省时间",
+    "physics_checkpoint": "关闭冷却水→散热速率→0，放热反应热量积累→温度正反馈→热失控。Q_removal=UA(T-Tc)，Tc升高使ΔT→0",
+    "correct_understanding": "关闭冷却水会使放热反应失去散热能力，导致温度不可控上升，极易引发热失控事故",
+    "related_laws": ["能量守恒", "热失控判据：dQ_gen/dT > dQ_removal/dT"],
+    "embedding_text": "cooling water shut off reaction faster speed up remove cooling temperature control"
+  },
+  {
+    "fallacy_id": "B002",
+    "category": "工艺操作谬误",
+    "false_claim": "停止搅拌可以减少摩擦热，从而降低反应釜温度",
+    "physics_checkpoint": "传热系数Nu∝Re^(2/3)，停止搅拌→Re骤降→传热系数U→0→反应釜散热能力丧失，温度反而升高",
+    "correct_understanding": "搅拌的主要作用是强化传热，而非产生摩擦热。停止搅拌会使传热系数急剧下降，反应热无法散出，导致温度升高",
+    "related_laws": ["能量守恒", "牛顿冷却定律：Q=UA(Th-Tc)，U与Re相关"],
+    "embedding_text": "stop stirring reduce friction heat lower temperature reactor agitation mixing cooling"
+  },
+  {
+    "fallacy_id": "B003",
+    "category": "物理机理误判",
+    "false_claim": "泄压阀（PSV）动作说明系统已经安全，压力已经降下来了",
+    "physics_checkpoint": "PSV按特定工况定径，设计泄放量有上限。失控反应产气速率可能超过PSV泄放能力，PSV动作仅表示达到设定压力，不代表系统安全",
+    "correct_understanding": "PSV动作仅说明压力达到设定值并开始泄放。如果气体产生速率超过泄放能力，压力仍会持续升高。必须验证PSV定径是否覆盖当前工况",
+    "related_laws": ["质量守恒：积累=输入-输出，若产气>泄放，压力仍上升", "数值合理性"],
+    "embedding_text": "pressure relief valve PSV actuation system safe pressure drop reaction vent sizing"
+  },
+  {
+    "fallacy_id": "B004",
+    "category": "因果颠倒",
+    "false_claim": "压力升高是因为温度升高，只要降低压力就能降低温度",
+    "physics_checkpoint": "对于放热反应体系，压力升高是温度升高的结果（效应），而非原因。降压（如打开放空阀）不会降低反应速率，反而可能因闪蒸加速物料汽化",
+    "correct_understanding": "压力和温度在反应体系中是同步上升的，根本原因是反应放热。必须从源头控制反应速率（如投料、降温），而不是单纯降压",
+    "related_laws": ["时序因果：原因在先，结果在后", "理想气体定律：PV=nRT"],
+    "embedding_text": "pressure high temperature high reduce pressure lower temperature cause effect reaction system vent"
+  },
+  {
+    "fallacy_id": "B005",
+    "category": "工艺操作谬误",
+    "false_claim": "管道少量泄漏不用处理，气体会自然扩散掉",
+    "physics_checkpoint": "可燃气体扩散受风速、气体密度、障碍物影响，低洼区域（密度大于空气的气体）会积聚，LEL浓度可在无风条件下持续维持",
+    "correct_understanding": "可燃或有毒气体泄漏必须立即处理。密度大于空气的气体（如LPG、氯气）会在地面低洼处聚集，形成爆炸或中毒危险区域，自然扩散无法保证安全",
+    "related_laws": ["质量守恒", "Fick扩散定律：无强制通风时，密闭空间扩散极慢"],
+    "embedding_text": "small leak ignore gas disperse naturally flammable toxic accumulation low lying area LFL LEL concentration"
+  },
+  {
+    "fallacy_id": "B006",
+    "category": "物理机理误判",
+    "false_claim": "液位计显示液位正常，所以储罐内物料量一定是正常的",
+    "physics_checkpoint": "液位计基于浮力或压差测量，传感器堵塞、管线内存气、仪表零漂都会导致显示失真。单点测量有盲区，高粘度物料可能使传感器响应滞后",
+    "correct_understanding": "单一液位计的读数不应作为唯一判断依据。应设置冗余液位测量，并结合进出料流量平衡计算来交叉验证",
+    "related_laws": ["数值合理性：液位读数应与进出料量平衡相符"],
+    "embedding_text": "level gauge indicator normal reading tank inventory accurate sensor failure blockage redundancy measurement"
+  },
+  {
+    "fallacy_id": "B007",
+    "category": "因果颠倒",
+    "false_claim": "反应釜温度下降说明反应已经结束，可以安全出料",
+    "physics_checkpoint": "温度下降可能是因为：反应物耗尽（反应确实结束）、或冷却过度（反应被抑制但未结束）、或测温点与热点不重合。需验证转化率",
+    "correct_understanding": "温度下降不等于反应结束。必须通过分析检测（转化率、残余反应物浓度）或热量守恒计算确认反应完全，才能安全出料",
+    "related_laws": ["能量守恒：反应完全则无放热，温度自然下降；但温度下降不一定意味着反应完全"],
+    "embedding_text": "reactor temperature decrease reaction complete finished discharge safe conversion rate unreacted material"
+  },
+  {
+    "fallacy_id": "B008",
+    "category": "工艺操作谬误",
+    "false_claim": "阀门关小就能减少流量，系统压力不会有太大变化",
+    "physics_checkpoint": "节流阀关小→局部压降增大→上游压力升高（对于泵系统）或下游压力降低（重力流）。节流不等于系统无压力波动，可能引起振动或汽蚀",
+    "correct_understanding": "节流会导致阀门前后产生压差，可能引起管道振动、闪蒸或汽蚀。流量控制应通过调节泵速或使用正确尺寸的控制阀实现",
+    "related_laws": ["动量守恒", "伯努利方程：压力与速度的关系"],
+    "embedding_text": "valve throttle close reduce flow pressure no change vibration cavitation pump system piping"
+  },
+  {
+    "fallacy_id": "B009",
+    "category": "物理机理误判",
+    "false_claim": "氮气置换后容器内就没有氧气了，可以直接入罐作业",
+    "physics_checkpoint": "氮气置换效果取决于置换次数和死角。死角（盲管、凹坑）内气体不易被置换，单次置换后含氧量可能仍高于2%的窒息危险浓度",
+    "correct_understanding": "进入容器作业前必须用气体检测仪实测含氧量（应在19.5%-23.5%范围内）、可燃气体含量和有毒气体含量，不能仅凭置换记录确认安全",
+    "related_laws": ["质量守恒：死角残余气体不参与主流循环", "数值合理性"],
+    "embedding_text": "nitrogen purge oxygen free vessel entry confined space work permit gas testing dead leg pocket residual"
+  },
+  {
+    "fallacy_id": "B010",
+    "category": "工艺操作谬误",
+    "false_claim": "紧急情况下快速打开出口阀可以迅速降低反应釜压力，避免爆炸",
+    "physics_checkpoint": "快速降压→可能引起液体闪蒸→大量蒸气急速产生→压力可能瞬间升高后再降低；同时大量可燃物料外泄增加火灾爆炸风险",
+    "correct_understanding": "紧急降压应通过设计好的紧急泄压系统（EDP）进行，导向安全位置（火炬或洗涤塔）。随意打开出口阀会造成物料不可控外泄，极其危险",
+    "related_laws": ["质量守恒", "能量守恒：闪蒸过程热力学"],
+    "embedding_text": "emergency open outlet valve rapidly depressure reactor avoid explosion flash vaporization uncontrolled release dangerous"
+  },
+  {
+    "fallacy_id": "B011",
+    "category": "物理机理误判",
+    "false_claim": "水能扑灭所有火灾，遇到化工火灾用水浇就行",
+    "physics_checkpoint": "水与某些化学品反应剧烈：碱金属（Na、K）遇水生成H2，硫酸遇水释放大量热；对于比水轻的可燃液体（汽油），水会使其扩散蔓延",
+    "correct_understanding": "化工火灾灭火介质必须根据物料性质选择。硝酸铵火灾禁止用大量水；极性溶剂火灾需用抗溶泡沫；活泼金属火灾用干砂",
+    "related_laws": ["化学反应性：水与活泼物质的反应放热", "数值合理性"],
+    "embedding_text": "water extinguish all fire chemical fire reactive materials alkali metals explosion foam dry sand suppress"
+  },
+  {
+    "fallacy_id": "B012",
+    "category": "因果颠倒",
+    "false_claim": "流量计显示流量变小，说明下游需求减少了",
+    "physics_checkpoint": "流量减小的原因可能是：下游需求减少（正确理解）、管道堵塞、泵故障、上游供料不足、仪表故障。需排查根本原因，不能主观假设",
+    "correct_understanding": "流量异常必须系统排查原因：检查泵状态、管道压降、仪表读数交叉验证，以及与工艺平衡计算对比，才能确定根本原因",
+    "related_laws": ["质量守恒：进出料平衡计算", "时序因果：现象背后有多种可能原因"],
+    "embedding_text": "flow meter reading decrease low demand reduce consumption pump failure blockage instrumentation fault cause investigation"
+  }
+]
