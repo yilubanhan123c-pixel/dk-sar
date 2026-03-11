@@ -307,5 +307,864 @@
       "闪点与着火范围：石脑油闪点低，在常温下即可形成可燃蒸气"
     ],
     "embedding_text": "hot work permit naphtha distillation column fire ignition source gas testing isolation blind flange maintenance safety"
+  },
+   {
+    "case_id": "R009",
+    "name": "KMCO LLC Fatal Fire and Explosion",
+    "year": 2019,
+    "fatalities": 1,
+    "process_type": "反应",
+    "equipment": "reactor / batch chemical processing vessel",
+    "core_scenario": "A runaway decomposition / reactive event during specialty chemical processing caused fire and explosion.",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "not specified in CSB summary"
+    },
+    "causes": {
+      "direct": "Uncontrolled reactive/decomposition event in chemical processing led to fire and explosion.",
+      "root": "Reactive hazard management and process safety controls were inadequate."
+    },
+    "consequences": ["1 fatality", "multiple injuries", "major fire and explosion damage"],
+    "safeguards": {
+      "existing": ["process controls", "facility operating procedures"],
+      "failure_reason": "Reactive hazard controls were insufficient to prevent or mitigate the runaway event."
+    },
+    "recommendations": [
+      "Strengthen reactive hazard management",
+      "Improve process safety controls for specialty chemical processing"
+    ],
+    "key_physics": ["runaway reaction", "exothermic decomposition", "pressure rise"],
+    "embedding_text": "KMCO runaway reaction decomposition reactor temperature pressure explosion specialty chemical"
+  },
+  {
+    "case_id": "R010",
+    "name": "Optima Belle Explosion and Fire",
+    "year": 2020,
+    "fatalities": 1,
+    "process_type": "反应",
+    "equipment": "chemical reactor / process vessel",
+    "core_scenario": "A fatal chemical decomposition reaction caused an explosion and fire at a chemical manufacturing facility.",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "not specified in CSB summary"
+    },
+    "causes": {
+      "direct": "Chemical decomposition reaction escalated and exploded.",
+      "root": "Insufficient understanding and control of decomposition/reactive hazards."
+    },
+    "consequences": ["1 fatality", "2 injuries", "community shelter-in-place"],
+    "safeguards": {
+      "existing": ["process operating procedures", "facility emergency response"],
+      "failure_reason": "Controls did not adequately identify or contain decomposition hazard escalation."
+    },
+    "recommendations": [
+      "Improve reactive chemical hazard analysis",
+      "Strengthen decomposition reaction prevention and emergency planning"
+    ],
+    "key_physics": ["chemical decomposition", "thermal runaway", "overpressure"],
+    "embedding_text": "Optima Belle decomposition reaction reactor runaway explosion fire thermal overpressure"
+  },
+  {
+    "case_id": "R011",
+    "name": "T2 Laboratories Inc. Reactive Chemical Explosion",
+    "year": 2007,
+    "fatalities": 4,
+    "process_type": "反应",
+    "equipment": "reactor producing gasoline additive",
+    "core_scenario": "A reactive chemical event during gasoline additive production caused a catastrophic reactor explosion.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "not specified in CSB summary"
+    },
+    "causes": {
+      "direct": "Reactive event during batch production generated excessive pressure and explosion.",
+      "root": "Inadequate reactive hazard evaluation and insufficient pressure relief / safeguards."
+    },
+    "consequences": ["4 fatalities", "13 hospitalized", "severe blast damage"],
+    "safeguards": {
+      "existing": ["reactor system", "pressure relief"],
+      "failure_reason": "Safeguards were inadequate for the reactive overpressure scenario."
+    },
+    "recommendations": [
+      "Perform rigorous reactive hazard analysis",
+      "Ensure adequate relief and inherently safer design for reactive systems"
+    ],
+    "key_physics": ["reactive overpressure", "runaway chemistry", "vapor explosion"],
+    "embedding_text": "T2 Laboratories reactive explosion reactor overpressure runaway batch reaction gasoline additive"
+  },
+  {
+    "case_id": "R012",
+    "name": "Honeywell Geismar Chlorine and Hydrogen Fluoride Releases",
+    "year": 2024,
+    "fatalities": 0,
+    "process_type": "换热",
+    "equipment": "heat exchanger",
+    "core_scenario": "A heat exchanger rupture released hydrogen fluoride, chlorine, and other process fluids.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "not specified in CSB summary"
+    },
+    "causes": {
+      "direct": "Heat exchanger rupture caused toxic chemical release.",
+      "root": "Underlying mechanical/process integrity issues not fully specified on the case summary page."
+    },
+    "consequences": ["HF release", "chlorine release", "process fluid release"],
+    "safeguards": {
+      "existing": ["process containment", "mechanical integrity program"],
+      "failure_reason": "Primary containment failed at the heat exchanger."
+    },
+    "recommendations": [
+      "Strengthen exchanger mechanical integrity",
+      "Improve toxic release prevention and emergency safeguards"
+    ],
+    "key_physics": ["heat transfer equipment failure", "containment rupture", "toxic release"],
+    "embedding_text": "Honeywell Geismar heat exchanger rupture HF chlorine toxic release pressure containment"
+  },
+  {
+    "case_id": "R013",
+    "name": "Goodyear Heat Exchanger Rupture",
+    "year": 2008,
+    "fatalities": 1,
+    "process_type": "换热",
+    "equipment": "heat exchanger",
+    "core_scenario": "During maintenance, ammonia overpressured inside a heat exchanger and caused it to rupture.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "ammonia overpressured inside exchanger"
+    },
+    "causes": {
+      "direct": "Ammonia overpressure caused exchanger rupture.",
+      "root": "Maintenance / pressure vessel safety controls and emergency preparedness were inadequate."
+    },
+    "consequences": ["1 fatality", "approximately 7 injuries", "equipment rupture"],
+    "safeguards": {
+      "existing": ["maintenance procedures", "pressure containment"],
+      "failure_reason": "Exchanger was exposed to an overpressure condition during maintenance."
+    },
+    "recommendations": [
+      "Follow pressure vessel codes during maintenance",
+      "Improve emergency drills and maintenance isolation procedures"
+    ],
+    "key_physics": ["ammonia overpressure", "pressure vessel rupture", "stored energy release"],
+    "embedding_text": "Goodyear heat exchanger ammonia overpressure rupture maintenance pressure vessel"
+  },
+  {
+    "case_id": "R014",
+    "name": "Tesoro Anacortes Refinery Fatal Explosion and Fire",
+    "year": 2010,
+    "fatalities": 7,
+    "process_type": "换热",
+    "equipment": "heat exchanger",
+    "core_scenario": "A catastrophic heat exchanger failure during switching operations triggered a fatal refinery explosion and fire.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "catastrophic failure during process stream switching"
+    },
+    "causes": {
+      "direct": "Catastrophic exchanger failure released flammable hydrocarbons that ignited.",
+      "root": "Long-term degradation / integrity issues in exchanger system and inadequate hazard recognition."
+    },
+    "consequences": ["7 fatalities", "major refinery fire", "catastrophic equipment failure"],
+    "safeguards": {
+      "existing": ["mechanical integrity inspection", "refinery operating procedures"],
+      "failure_reason": "Degraded exchanger failed during operation changeover."
+    },
+    "recommendations": [
+      "Strengthen exchanger integrity management",
+      "Improve damage mechanism identification and inspection planning"
+    ],
+    "key_physics": ["heat exchanger failure", "hydrocarbon release", "ignition and explosion"],
+    "embedding_text": "Tesoro Anacortes heat exchanger failure hydrocarbon release ignition refinery mechanical integrity"
+  },
+  {
+    "case_id": "R015",
+    "name": "Intercontinental Terminals Company (ITC) Tank Fire",
+    "year": 2019,
+    "fatalities": 0,
+    "process_type": "储运",
+    "equipment": "atmospheric storage tank / tank farm",
+    "core_scenario": "A massive fire erupted in a storage tank farm handling flammable liquids.",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "catastrophic emergency leak / release scenario"
+    },
+    "causes": {
+      "direct": "A large flammable liquid release and tank fire occurred in the terminal tank farm.",
+      "root": "Deficiencies in process safety management, leak detection, isolation, and tank farm engineering controls."
+    },
+    "consequences": ["massive tank fire", "extended emergency response", "major facility disruption"],
+    "safeguards": {
+      "existing": ["terminal operations", "tank farm systems"],
+      "failure_reason": "Leak detection, emergency isolation, and tank farm design/spacing controls were insufficient."
+    },
+    "recommendations": [
+      "Install flammable gas detection in storage and transfer areas",
+      "Use remotely operated fail-closed emergency isolation valves",
+      "Evaluate tank farm spacing, containment, drainage, and fire protection",
+      "Implement a process safety management system for atmospheric storage tanks"
+    ],
+    "key_physics": ["flammable liquid release", "vapor cloud formation", "tank fire escalation"],
+    "embedding_text": "ITC tank fire atmospheric storage tank terminal flammable liquid leak detection isolation vapor cloud"
+  },
+  {
+    "case_id": "R016",
+    "name": "Caribbean Petroleum Corporation (CAPECO) Refinery Tank Explosion and Fire",
+    "year": 2009,
+    "fatalities": 0,
+    "process_type": "储运",
+    "equipment": "storage tank / refinery tank farm",
+    "core_scenario": "A major storage tank overfill / vapor release event escalated into a refinery tank explosion and fire.",
+    "deviation": {
+      "parameter": "液位",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "tank overfill scenario implied by CSB tank investigation context"
+    },
+    "causes": {
+      "direct": "Flammable vapor release from storage tank area ignited and caused explosion/fire.",
+      "root": "Tank overfill prevention and vapor release controls were inadequate."
+    },
+    "consequences": ["massive fire", "explosion damage", "offsite community impact"],
+    "safeguards": {
+      "existing": ["tank storage systems", "terminal/refinery operating procedures"],
+      "failure_reason": "Overfill / vapor control barriers failed to prevent ignition and escalation."
+    },
+    "recommendations": [
+      "Improve overfill prevention",
+      "Expand flammable liquid risk coverage and tank safety controls"
+    ],
+    "key_physics": ["tank overfill", "vapor cloud", "pool fire / explosion"],
+    "embedding_text": "CAPECO storage tank overfill vapor cloud explosion fire terminal refinery"
+  },
+  {
+    "case_id": "R017",
+    "name": "Allied Terminals Fertilizer Tank Collapse",
+    "year": 2008,
+    "fatalities": 0,
+    "process_type": "储运",
+    "equipment": "liquid fertilizer storage tank",
+    "core_scenario": "A two-million-gallon liquid fertilizer storage tank collapsed and caused major release consequences.",
+    "deviation": {
+      "parameter": "液位",
+      "direction": "过高",
+      "normal_value": "unknown",
+      "abnormal_value": "not specified in CSB summary"
+    },
+    "causes": {
+      "direct": "Structural failure / collapse of large storage tank.",
+      "root": "Tank design / maintenance / inspection deficiencies not fully specified on summary page."
+    },
+    "consequences": ["critical injuries", "major tank collapse", "large material release"],
+    "safeguards": {
+      "existing": ["tank structure", "inspection / maintenance activities"],
+      "failure_reason": "Structural integrity barriers were inadequate."
+    },
+    "recommendations": [
+      "Strengthen storage tank integrity management",
+      "Improve inspection and maintenance for large liquid storage tanks"
+    ],
+    "key_physics": ["structural instability", "hydrostatic loading", "loss of containment"],
+    "embedding_text": "Allied Terminals fertilizer storage tank collapse structural integrity liquid release hydrostatic"
+  },
+  {
+    "case_id": "R018",
+    "name": "BP America (Texas City) Refinery Explosion",
+    "year": 2005,
+    "fatalities": 15,
+    "process_type": "蒸馏",
+    "equipment": "raffinate splitter distillation tower and blowdown drum",
+    "core_scenario": "During startup, the raffinate splitter distillation tower overfilled, sending flammable hydrocarbons to the atmosphere where they ignited.",
+    "deviation": {
+      "parameter": "液位",
+      "direction": "过高",
+      "normal_value": "20-30 vertical feet of liquid at the tower bottom",
+      "abnormal_value": "tower likely became flooded / overfilled"
+    },
+    "causes": {
+      "direct": "Tower overfill and blowdown drum discharge released flammable hydrocarbons that ignited.",
+      "root": "Known instrument/alarm problems, inadequate startup decision-making, and poor process safety / mechanical integrity management."
+    },
+    "consequences": ["15 fatalities", "about 170-180 injuries", "major explosion and fire"],
+    "safeguards": {
+      "existing": ["level transmitter", "high-level alarms", "blowdown system"],
+      "failure_reason": "Level instrumentation and alarms failed or were known deficient; blowdown vented to atmosphere rather than flare."
+    },
+    "recommendations": [
+      "Improve startup safety and instrument reliability",
+      "Eliminate unsafe atmospheric blowdown arrangements",
+      "Strengthen process safety and mechanical integrity oversight"
+    ],
+    "key_physics": ["distillation tower overfill", "liquid carryover", "flammable vapor release"],
+    "embedding_text": "BP Texas City raffinate splitter distillation tower overfill level alarm blowdown hydrocarbon ignition"
+  },
+  {
+    "case_id": "R019",
+    "name": "Silver Eagle Refinery Flash Fire and Explosion and Catastrophic Pipe Explosion",
+    "year": 2009,
+    "fatalities": 0,
+    "process_type": "管道",
+    "equipment": "storage tank piping / 10-inch refinery pipe",
+    "core_scenario": "A tank vapor cloud flash fire was followed later by a catastrophic pipe failure caused by long-term corrosion.",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "过高",
+      "normal_value": "contained transfer / piping service",
+      "abnormal_value": "large uncontrolled vapor / hydrocarbon release"
+    },
+    "causes": {
+      "direct": "Large flammable vapor release from tank area caused flash fire; later a 10-inch pipe failed explosively.",
+      "root": "Pipe wall thinning from corrosion went uninspected for years; storage/piping integrity controls were inadequate."
+    },
+    "consequences": ["4 serious burn injuries in first event", "blast damage to nearby homes in second event", "major refinery disruption"],
+    "safeguards": {
+      "existing": ["tank farm and refinery piping systems", "inspection program"],
+      "failure_reason": "Corrosion damage and release hazards were not adequately detected or controlled."
+    },
+    "recommendations": [
+      "Improve corrosion inspection of refinery piping",
+      "Strengthen tank farm vapor release prevention and ignition control"
+    ],
+    "key_physics": ["corrosion thinning", "pipe rupture", "vapor cloud ignition"],
+    "embedding_text": "Silver Eagle pipeline pipe rupture corrosion thinning vapor cloud flash fire refinery piping"
+  },
+  {
+    "case_id": "R020",
+    "name": "Sunoco Logistics Partners Flash Fire",
+    "year": 2016,
+    "fatalities": 0,
+    "process_type": "管道",
+    "equipment": "terminal piping / transfer line",
+    "core_scenario": "Hot work near terminal equipment led to a flash fire that injured multiple workers.",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "过高",
+      "normal_value": "isolated / gas-free equipment for hot work",
+      "abnormal_value": "flammable material present in or near line/equipment"
+    },
+    "causes": {
+      "direct": "Hot work encountered flammable material, causing flash fire.",
+      "root": "Isolation, line clearing, and hot work hazard controls were inadequate."
+    },
+    "consequences": ["7 injuries", "3 critical injuries", "terminal fire event"],
+    "safeguards": {
+      "existing": ["hot work procedures", "equipment isolation procedures"],
+      "failure_reason": "Energy/material isolation was not sufficient for safe hot work."
+    },
+    "recommendations": [
+      "Improve line isolation and de-inventory before hot work",
+      "Strengthen hot work permitting and verification"
+    ],
+    "key_physics": ["flammable vapor ignition", "line residual release", "flash fire"],
+    "embedding_text": "Sunoco Logistics pipeline transfer line hot work flash fire isolation residual flammable vapor"
+  },
+   {
+    "case_id": "R021",
+    "name": "First Chemical Corp. Reactive Chemical Explosion",
+    "year": 2002,
+    "fatalities": 0,
+    "process_type": "蒸馏",
+    "equipment": "distillation tower for mononitrotoluene (MNT)",
+    "core_scenario": "An MNT distillation tower thought to be isolated remained heated, decomposed, and violently exploded.",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "过高",
+      "normal_value": "tower in standby / isolated condition",
+      "abnormal_value": "MNT remained hot and continued heating; exact value not specified"
+    },
+    "causes": {
+      "direct": "Thermal decomposition inside the distillation tower generated gases and led to explosion.",
+      "root": "Residual MNT was left in the tower, steam leakage continued heating, and the system lacked adequate alarms, interlocks, and relief protection."
+    },
+    "consequences": ["3 injuries", "tower rupture", "fire from punctured storage tank"],
+    "safeguards": {
+      "existing": ["tower isolation procedures", "basic process controls"],
+      "failure_reason": "The tower lacked high-temperature alarms, shutdown interlocks, and effective pressure relief for decomposition."
+    },
+    "recommendations": [
+      "Install effective high-temperature alarms and interlocks",
+      "Provide relief protection for decomposition scenarios",
+      "Improve shutdown isolation verification"
+    ],
+    "key_physics": ["thermal decomposition", "distillation tower overpressure", "confined gas generation"],
+    "embedding_text": "First Chemical distillation tower MNT decomposition overheating overpressure explosion shutdown isolation"
+  },
+  {
+    "case_id": "R022",
+    "name": "Isotec/Sigma Aldrich Nitric Oxide Explosion",
+    "year": 2003,
+    "fatalities": 0,
+    "process_type": "蒸馏",
+    "equipment": "underground distillation tower for nitric oxide separation",
+    "core_scenario": "A process upset in a nitric oxide distillation tower led to explosion and toxic gas release.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "stable nitric oxide separation operation",
+      "abnormal_value": "process upset alarm preceded explosion; exact value not specified"
+    },
+    "causes": {
+      "direct": "A violent explosion destroyed the nitric oxide distillation tower and ruptured connected piping.",
+      "root": "The process hazard analysis was incomplete and explosion hazards of nitric oxide were not adequately evaluated and controlled."
+    },
+    "consequences": ["1 injury", "carbon monoxide pipe rupture", "precautionary evacuation of about 2000 residents"],
+    "safeguards": {
+      "existing": ["tower operations", "alarm system", "company hazard review"],
+      "failure_reason": "Hazard evaluation and explosion-resistant design measures were insufficient."
+    },
+    "recommendations": [
+      "Improve process hazard analysis for reactive gas systems",
+      "Design for explosion consequences and shielding",
+      "Strengthen upset response procedures"
+    ],
+    "key_physics": ["reactive gas instability", "tower explosion", "toxic gas release"],
+    "embedding_text": "Isotec Sigma Aldrich nitric oxide distillation tower upset explosion reactive gas hazard analysis"
+  },
+  {
+    "case_id": "R023",
+    "name": "Concept Sciences Hydroxylamine Explosion",
+    "year": 1999,
+    "fatalities": 5,
+    "process_type": "蒸馏",
+    "equipment": "process vessel and associated piping in hydroxylamine distillation service",
+    "core_scenario": "After shutdown of a distillation process, concentrated hydroxylamine decomposed explosively in the process vessel and piping.",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "过高",
+      "normal_value": "controlled hydroxylamine concentration and temperature",
+      "abnormal_value": "high concentration and temperature after shutdown; exact value not specified"
+    },
+    "causes": {
+      "direct": "Hydroxylamine in the tank and piping explosively decomposed.",
+      "root": "The process entered a hazardous concentration/temperature regime and the decomposition hazard was not adequately managed."
+    },
+    "consequences": ["5 fatalities", "multiple injuries", "destruction of plant and nearby building damage"],
+    "safeguards": {
+      "existing": ["batch processing equipment", "shutdown procedures"],
+      "failure_reason": "The process did not maintain safe concentration and temperature limits after shutdown."
+    },
+    "recommendations": [
+      "Control hydroxylamine concentration and temperature strictly",
+      "Assess decomposition hazards during shutdown and hold periods",
+      "Apply inherently safer limits for reactive intermediates"
+    ],
+    "key_physics": ["thermal decomposition", "concentration-driven instability", "explosive overpressure"],
+    "embedding_text": "Concept Sciences hydroxylamine distillation shutdown concentration temperature decomposition explosion"
+  },
+  {
+    "case_id": "R024",
+    "name": "BP America (Texas City) Refinery Explosion",
+    "year": 2005,
+    "fatalities": 15,
+    "process_type": "蒸馏",
+    "equipment": "raffinate splitter distillation tower and blowdown drum",
+    "core_scenario": "During startup, the raffinate splitter tower flooded and overpressured, releasing flammable hydrocarbons that ignited.",
+    "deviation": {
+      "parameter": "液位",
+      "direction": "过高",
+      "normal_value": "20-30 vertical feet of liquid in the tower bottom",
+      "abnormal_value": "tower flooded / overfilled; exact peak level not specified on summary page"
+    },
+    "causes": {
+      "direct": "Tower flooding and overpressure caused a geyser-like discharge from the vent stack and a vapor cloud explosion.",
+      "root": "Deficient instrumentation, alarm management, startup procedures, and process safety / mechanical integrity oversight."
+    },
+    "consequences": ["15 fatalities", "about 180 injuries", "major refinery explosion and fire"],
+    "safeguards": {
+      "existing": ["level indicators", "alarms", "pressure relief / blowdown system"],
+      "failure_reason": "Known instrument deficiencies and unsafe atmospheric blowdown arrangement allowed escalation."
+    },
+    "recommendations": [
+      "Strengthen startup safety management",
+      "Upgrade instrumentation and alarm reliability",
+      "Eliminate unsafe atmospheric blowdown systems"
+    ],
+    "key_physics": ["distillation tower flooding", "overpressure", "flammable vapor cloud ignition"],
+    "embedding_text": "BP Texas City raffinate splitter distillation startup flooding overpressure blowdown vapor cloud"
+  },
+   {
+    "case_id": "R025",
+    "name": "MFG Chemical Inc. Toxic Gas Release",
+    "year": 2004,
+    "fatalities": 0,
+    "process_type": "反应",
+    "equipment": "4,000-gallon chemical reactor",
+    "core_scenario": "A runaway reaction overheated and rapidly pressurized a chemical reactor, venting toxic allyl alcohol vapor to the community.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "controlled batch reaction pressure",
+      "abnormal_value": "rapid pressurization activated emergency vent"
+    },
+    "causes": {
+      "direct": "A self-accelerating runaway reaction overheated and overpressurized the reactor.",
+      "root": "Scale-up heat removal limitations were not adequately recognized and adequate controls to prevent runaway were not implemented."
+    },
+    "consequences": ["154 people sent to hospital", "evacuation of nearby residents", "vegetation and aquatic life damage"],
+    "safeguards": {
+      "existing": ["reactor venting", "process development testing", "emergency plan"],
+      "failure_reason": "Runaway prevention controls and community emergency planning were inadequate."
+    },
+    "recommendations": [
+      "Evaluate scale-up heat removal limits",
+      "Implement stronger runaway prevention controls",
+      "Improve emergency planning for toxic releases"
+    ],
+    "key_physics": ["self-accelerating reaction", "rapid pressurization", "toxic vapor release"],
+    "embedding_text": "MFG Chemical runaway reaction reactor overpressure allyl alcohol toxic release scale-up heat removal"
+  },
+  {
+    "case_id": "R026",
+    "name": "Morton International Inc. Runaway Chemical Reaction",
+    "year": 1998,
+    "fatalities": 0,
+    "process_type": "反应",
+    "equipment": "2,000-gallon chemical vessel",
+    "core_scenario": "A runaway reaction overpressurized a chemical vessel during dye production, releasing flammable material that ignited.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "controlled batch vessel operation",
+      "abnormal_value": "vessel overpressurized; exact value not specified"
+    },
+    "causes": {
+      "direct": "Runaway reaction overpressurized the vessel and released flammable material.",
+      "root": "Reactive hazards and escalation controls were insufficient for the batch process."
+    },
+    "consequences": ["9 injuries", "explosion and fire", "process unit damage"],
+    "safeguards": {
+      "existing": ["batch vessel operation procedures", "process controls"],
+      "failure_reason": "The vessel was not adequately protected against runaway overpressure and release."
+    },
+    "recommendations": [
+      "Improve reactive hazard analysis",
+      "Provide effective overpressure protection",
+      "Strengthen batch process controls"
+    ],
+    "key_physics": ["runaway reaction", "overpressure", "flammable release ignition"],
+    "embedding_text": "Morton International runaway reaction batch vessel overpressure flammable release fire"
+  },
+  {
+    "case_id": "R027",
+    "name": "Silver Eagle Refinery Catastrophic Pipe Explosion",
+    "year": 2009,
+    "fatalities": 0,
+    "process_type": "管道",
+    "equipment": "10-inch reactor discharge pipe in refinery unit",
+    "core_scenario": "A corroded 10-inch pipe ruptured, releasing hydrogen that ignited and exploded.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "contained hydrogen service in process piping",
+      "abnormal_value": "massive uncontrolled hydrogen release after pipe rupture"
+    },
+    "causes": {
+      "direct": "Pipe rupture caused a massive hydrogen release and immediate fire/explosion.",
+      "root": "Pipe walls had thinned due to corrosion that went uninspected for years."
+    },
+    "consequences": ["major blast wave", "over 100 homes damaged", "severe refinery and community impact"],
+    "safeguards": {
+      "existing": ["piping system", "inspection / integrity program"],
+      "failure_reason": "Corrosion damage in the pipe was not identified and corrected."
+    },
+    "recommendations": [
+      "Improve inspection of corrosion-prone process piping",
+      "Strengthen mechanical integrity for hidden/insulated pipe sections",
+      "Address community consequence analysis"
+    ],
+    "key_physics": ["corrosion thinning", "pipe rupture", "hydrogen explosion"],
+    "embedding_text": "Silver Eagle pipe rupture corrosion thinning hydrogen release explosion refinery piping"
+  },
+  {
+    "case_id": "R028",
+    "name": "Silver Eagle Refinery Flash Fire and Explosion",
+    "year": 2009,
+    "fatalities": 0,
+    "process_type": "管道",
+    "equipment": "tank farm transfer piping / atmospheric storage tank system",
+    "core_scenario": "A large flammable vapor cloud released from tank 105 ignited, causing serious burn injuries.",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "过高",
+      "normal_value": "contained light naphtha storage and transfer",
+      "abnormal_value": "large uncontrolled vapor release from tank system"
+    },
+    "causes": {
+      "direct": "A large flammable vapor cloud released from tank 105 found an ignition source.",
+      "root": "The storage/transfer system did not adequately prevent or contain vapor release and ignition exposure."
+    },
+    "consequences": ["4 serious burn injuries", "flash fire spread about 230 feet", "major refinery upset"],
+    "safeguards": {
+      "existing": ["tank farm operations", "process equipment isolation"],
+      "failure_reason": "Release prevention and ignition control barriers were insufficient."
+    },
+    "recommendations": [
+      "Strengthen tank and transfer system release prevention",
+      "Improve ignition source control and gas detection",
+      "Review storage tank vapor hazard management"
+    ],
+    "key_physics": ["light naphtha vapor cloud", "flash fire", "loss of containment"],
+    "embedding_text": "Silver Eagle tank 105 vapor cloud flash fire naphtha storage transfer release ignition"
+  },
+  {
+    "case_id": "R029",
+    "name": "DuPont La Porte Facility Toxic Chemical Release",
+    "year": 2014,
+    "fatalities": 4,
+    "process_type": "管道",
+    "equipment": "methyl mercaptan piping and associated process lines",
+    "core_scenario": "During line clearing activities, liquid methyl mercaptan drained from piping, vaporized, and fatally exposed workers inside a manufacturing building.",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "过高",
+      "normal_value": "isolated and safely cleared line conditions",
+      "abnormal_value": "uncontrolled drain/release from piping; exact value not specified in CSB summary"
+    },
+    "causes": {
+      "direct": "Liquid methyl mercaptan drained from piping and filled the building with toxic vapor.",
+      "root": "Numerous safety deficiencies in line clearing, isolation, emergency response, and process safety management."
+    },
+    "consequences": ["4 fatalities", "1 injured worker", "toxic vapor exposure in occupied building"],
+    "safeguards": {
+      "existing": ["line clearing procedures", "building operations", "process isolation practices"],
+      "failure_reason": "Isolation and clearing activities did not prevent toxic chemical release into an occupied area."
+    },
+    "recommendations": [
+      "Improve isolation and line-clearing controls",
+      "Strengthen toxic release prevention and emergency response",
+      "Address process safety management deficiencies"
+    ],
+    "key_physics": ["toxic liquid release", "rapid vaporization", "confined-space vapor accumulation"],
+    "embedding_text": "dupont la porte piping methyl mercaptan toxic release line clearing isolation vapor exposure"
+  },
+  {
+    "case_id": "R030",
+    "name": "Chevron Richmond Refinery Fire",
+    "year": 2012,
+    "fatalities": 0,
+    "process_type": "管道",
+    "equipment": "crude unit process piping",
+    "core_scenario": "A corroded refinery pipe ruptured due to sulfidation corrosion, releasing hydrocarbon that ignited and caused a major fire.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "contained process flow in crude unit piping",
+      "abnormal_value": "loss of containment after catastrophic pipe rupture"
+    },
+    "causes": {
+      "direct": "Catastrophic piping failure due to sulfidation corrosion caused hydrocarbon release and fire.",
+      "root": "The refinery failed to adequately identify and manage corrosion damage mechanisms and material suitability."
+    },
+    "consequences": ["major refinery fire", "community shelter-in-place impacts", "significant unit damage"],
+    "safeguards": {
+      "existing": ["mechanical integrity program", "inspection practices", "materials of construction"],
+      "failure_reason": "Corrosion-prone carbon steel piping remained in service and degradation was not adequately prevented."
+    },
+    "recommendations": [
+      "Improve corrosion damage mechanism management",
+      "Upgrade susceptible materials of construction",
+      "Strengthen mechanical integrity and inherently safer design reviews"
+    ],
+    "key_physics": ["sulfidation corrosion", "pipe wall thinning", "flammable release and ignition"],
+    "embedding_text": "chevron richmond piping sulfidation corrosion wall thinning rupture hydrocarbon fire mechanical integrity"
+  },
+  {
+    "case_id": "R031",
+    "name": "Philadelphia Energy Solutions (PES) Refinery Fire and Explosions",
+    "year": 2019,
+    "fatalities": 0,
+    "process_type": "管道",
+    "equipment": "HF alkylation unit pipe elbow",
+    "core_scenario": "A corroded pipe elbow ruptured in the HF alkylation unit, releasing a large vapor cloud that ignited and triggered major explosions and fire.",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "过高",
+      "normal_value": "contained process fluid flow in alkylation piping",
+      "abnormal_value": "large uncontrolled release from ruptured elbow"
+    },
+    "causes": {
+      "direct": "A corroded pipe elbow ruptured and released flammable process fluid containing hydrofluoric acid.",
+      "root": "Corrosion management and inspection were inadequate for the vulnerable elbow geometry and service."
+    },
+    "consequences": ["major fire and explosions", "minor injuries", "severe unit damage and refinery shutdown"],
+    "safeguards": {
+      "existing": ["inspection program", "alkylation unit safeguards", "pressure containment"],
+      "failure_reason": "The corroded elbow deteriorated faster than surrounding piping and was not effectively protected."
+    },
+    "recommendations": [
+      "Improve corrosion inspection and piping circuit management",
+      "Address HF alkylation unit hazard reduction",
+      "Strengthen refinery mechanical integrity practices"
+    ],
+    "key_physics": ["HF-related corrosion", "pipe rupture", "ground-hugging vapor cloud ignition"],
+    "embedding_text": "pes refinery pipe elbow corrosion rupture hf alkylation vapor cloud explosion fire"
+  },
+  {
+    "case_id": "R032",
+    "name": "Kuraray Pasadena Release and Fire",
+    "year": 2018,
+    "fatalities": 0,
+    "process_type": "反应",
+    "equipment": "EVAL Reactor 2 and emergency pressure-relief discharge piping",
+    "core_scenario": "High-pressure conditions developed during reactor startup, and the emergency relief system discharged flammable ethylene vapor to an unsafe location where workers were exposed and injured by fire.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "reactor pressure below alarm limits during startup",
+      "abnormal_value": "high-pressure alarm conditions in reactor; exact value not specified in CSB summary"
+    },
+    "causes": {
+      "direct": "High-pressure conditions activated relief and flammable ethylene vapor was discharged to an unsafe location.",
+      "root": "Relief system discharge design was unsafe and startup/alarm response controls were inadequate."
+    },
+    "consequences": ["multiple worker injuries", "fire during startup upset", "reactor system emergency release event"],
+    "safeguards": {
+      "existing": ["high-pressure alarms", "pressure relief system", "startup procedures"],
+      "failure_reason": "The relief system vented flammable vapor near workers instead of to a safe location, and operator response did not restore safe pressure."
+    },
+    "recommendations": [
+      "Redesign emergency relief discharge to a safe location",
+      "Improve alarm response guidance during startup",
+      "Reduce worker exposure during startup and upset conditions"
+    ],
+    "key_physics": ["reactor overpressure", "relief discharge", "flammable vapor ignition"],
+    "embedding_text": "kuraray reactor startup high pressure relief discharge ethylene vapor ignition unsafe location"
+  },
+  {
+    "case_id": "R033",
+    "name": "Synthron Inc. Explosion and Fire",
+    "year": 2006,
+    "fatalities": 1,
+    "process_type": "反应",
+    "equipment": "1,500-gallon process vessel",
+    "core_scenario": "A runaway chemical reaction in a process vessel caused an explosion and fire that destroyed the facility.",
+    "deviation": {
+      "parameter": "压力",
+      "direction": "过高",
+      "normal_value": "controlled process vessel operation",
+      "abnormal_value": "runaway overpressure; exact value not specified in CSB release"
+    },
+    "causes": {
+      "direct": "A runaway chemical reaction in the process vessel led to explosion and fire.",
+      "root": "Management of reactive chemical hazards was inadequate and the facility was unprepared for a process emergency."
+    },
+    "consequences": ["1 fatality", "14 injuries", "facility destruction and offsite damage"],
+    "safeguards": {
+      "existing": ["process vessel operation", "facility emergency response"],
+      "failure_reason": "Reactive hazard controls and emergency preparedness were insufficient."
+    },
+    "recommendations": [
+      "Strengthen reactive hazard management",
+      "Improve emergency preparedness for process upsets",
+      "Assess runaway scenarios in vessel design and operation"
+    ],
+    "key_physics": ["runaway reaction", "vessel overpressure", "fire and blast"],
+    "embedding_text": "synthron runaway reaction process vessel overpressure explosion fire reactive hazard emergency"
+  },
+  {
+    "case_id": "R034",
+    "name": "MGPI Processing, Inc. Toxic Chemical Release",
+    "year": 2016,
+    "fatalities": 0,
+    "process_type": "储运",
+    "equipment": "chemical unloading line and tank farm day tank",
+    "core_scenario": "A delivery truck was mistakenly connected to a tank containing incompatible material, producing a toxic gas cloud that affected workers and the community.",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "过高",
+      "normal_value": "correct chemical transfer to intended receiving tank",
+      "abnormal_value": "misdirected transfer of sulfuric acid into incompatible material tank"
+    },
+    "causes": {
+      "direct": "Sulfuric acid was inadvertently transferred into a tank containing incompatible sodium hypochlorite, generating a toxic gas cloud.",
+      "root": "Connection management, unloading controls, and incompatibility safeguards were inadequate."
+    },
+    "consequences": ["multiple onsite exposures", "community shelter-in-place", "toxic plume release"],
+    "safeguards": {
+      "existing": ["tank farm fill connections", "chemical unloading practices"],
+      "failure_reason": "Transfer line identification and connection safeguards failed to prevent incompatible mixing."
+    },
+    "recommendations": [
+      "Improve transfer connection verification",
+      "Prevent incompatible chemical unloading errors",
+      "Strengthen community emergency notification and response"
+    ],
+    "key_physics": ["incompatible chemical mixing", "gas generation", "toxic plume dispersion"],
+    "embedding_text": "mgpi tank farm unloading sulfuric acid sodium hypochlorite incompatible mixing toxic gas cloud"
+  },
+  {
+    "case_id": "R035",
+    "name": "Husky Energy Superior Refinery Explosion and Fire",
+    "year": 2018,
+    "fatalities": 0,
+    "process_type": "储运",
+    "equipment": "FCC unit vessels and nearby asphalt storage tank",
+    "core_scenario": "Explosions in the FCC unit propelled debris that punctured a nearby asphalt storage tank, spilling hot asphalt that ignited and caused multiple fires.",
+    "deviation": {
+      "parameter": "流量",
+      "direction": "过高",
+      "normal_value": "contained storage in asphalt tank",
+      "abnormal_value": "large uncontrolled asphalt release after tank puncture"
+    },
+    "causes": {
+      "direct": "FCC unit explosions sent metal fragments into a nearby asphalt tank, causing a large hot asphalt spill and fire.",
+      "root": "The refinery lacked adequate safeguards to anticipate and limit escalating consequences during shutdown upset conditions."
+    },
+    "consequences": ["injuries requiring hospitalization", "multiple fires", "large hot asphalt spill"],
+    "safeguards": {
+      "existing": ["FCC unit safeguards", "storage tank containment", "shutdown procedures"],
+      "failure_reason": "Debris impact vulnerability and escalation pathways were not adequately controlled."
+    },
+    "recommendations": [
+      "Address escalation hazards between process units and storage",
+      "Improve shutdown upset consequence analysis",
+      "Strengthen safeguards for fragment impact and hot material release"
+    ],
+    "key_physics": ["vessel explosion", "projectile impact", "hot liquid release and fire"],
+    "embedding_text": "husky superior storage tank asphalt puncture explosion debris hot release fire escalation"
+  },
+  {
+    "case_id": "R036",
+    "name": "Concept Sciences Hydroxylamine Explosion",
+    "year": 1999,
+    "fatalities": 5,
+    "process_type": "反应",
+    "equipment": "process vessel and associated piping after hydroxylamine distillation",
+    "core_scenario": "After the distillation step was stopped, hydroxylamine in the tank and associated piping decomposed violently and exploded.",
+    "deviation": {
+      "parameter": "温度",
+      "direction": "过高",
+      "normal_value": "controlled hydroxylamine concentration and temperature",
+      "abnormal_value": "decomposition conditions after distillation shutdown; exact value not specified in CSB report excerpt"
+    },
+    "causes": {
+      "direct": "Hydroxylamine in the process vessel and piping explosively decomposed.",
+      "root": "The decomposition hazard of hydroxylamine under shutdown/hold conditions was not adequately controlled."
+    },
+    "consequences": ["5 fatalities", "multiple injuries", "destruction of process area"],
+    "safeguards": {
+      "existing": ["distillation process controls", "shutdown procedures", "process vessel system"],
+      "failure_reason": "Shutdown conditions did not prevent hazardous decomposition in the retained material."
+    },
+    "recommendations": [
+      "Control decomposition-sensitive materials during shutdown",
+      "Assess reactive hazards in vessels and associated piping",
+      "Use safer concentration and temperature limits"
+    ],
+    "key_physics": ["thermal decomposition", "reactive instability", "explosive overpressure"],
+    "embedding_text": "concept sciences hydroxylamine decomposition vessel piping shutdown reactive instability explosion"
   }
 ]

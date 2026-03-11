@@ -106,5 +106,392 @@
     "correct_understanding": "流量异常必须系统排查原因：检查泵状态、管道压降、仪表读数交叉验证，以及与工艺平衡计算对比，才能确定根本原因",
     "related_laws": ["质量守恒：进出料平衡计算", "时序因果：现象背后有多种可能原因"],
     "embedding_text": "flow meter reading decrease low demand reduce consumption pump failure blockage instrumentation fault cause investigation"
+  },
+  {
+    "fallacy_id": "B013",
+    "category": "工艺操作谬误",
+    "false_claim": "只要阀门开度不变，管道流量就一定恒定，不会受上下游压力波动影响。",
+    "physics_checkpoint": "Bernoulli equation and valve flow relation",
+    "correct_understanding": "阀门开度只是影响流阻的一个因素，实际流量还取决于上下游压差、流体密度、黏度及两相状态。压差变化时，即使阀位不变，流量也会显著变化。",
+    "related_laws": ["质量守恒", "机械能守恒", "动量守恒"],
+    "embedding_text": "valve opening flowrate pressure drop hydraulic resistance density viscosity bernoulli piping control"
+  },
+  {
+    "fallacy_id": "B014",
+    "category": "物理机理误判",
+    "false_claim": "换热器出口温度升高一定说明换热效率变好了。",
+    "physics_checkpoint": "Heat balance equation and overall heat transfer law",
+    "correct_understanding": "出口温度升高可能由流量下降、进口温度变化、热负荷波动、污垢热阻变化等多种因素造成，不能单独据此判断换热效率提升，必须结合热负荷和传热系数综合分析。",
+    "related_laws": ["能量守恒", "质量守恒"],
+    "embedding_text": "heat exchanger outlet temperature efficiency fouling heat duty mass flow transfer coefficient energy"
+  },
+  {
+    "fallacy_id": "B015",
+    "category": "因果颠倒",
+    "false_claim": "设备振动变大是因为电机电流升高，所以只要降电流就能消除振动。",
+    "physics_checkpoint": "Forced vibration and electromechanical coupling",
+    "correct_understanding": "电流升高和振动增大可能是共同结果，例如轴不对中、卡涩、负载异常或轴承损伤。振动不一定由电流直接引起，必须区分根因与伴生现象。",
+    "related_laws": ["能量守恒", "动量守恒"],
+    "embedding_text": "vibration motor current misalignment bearing fault load increase causality diagnostics rotating machinery"
+  },
+  {
+    "fallacy_id": "B016",
+    "category": "工艺操作谬误",
+    "false_claim": "储罐液位越高，说明系统越安全，因为不会抽空泵入口。",
+    "physics_checkpoint": "Hydrostatic pressure and NPSH relation",
+    "correct_understanding": "液位过低会带来泵汽蚀风险，但液位过高同样可能导致储罐满溢、气相空间不足、呼吸阀超负荷和挥发释放增加。安全液位应处于设计控制范围，而不是越高越好。",
+    "related_laws": ["质量守恒", "动量守恒", "能量守恒"],
+    "embedding_text": "tank level overfill npsh cavitation vapor space overflow hydrostatic pressure storage safety"
+  },
+  {
+    "fallacy_id": "B017",
+    "category": "物理机理误判",
+    "false_claim": "压力表读数下降就说明系统已经泄压，不可能再发生爆炸。",
+    "physics_checkpoint": "Ideal gas law and local pressure distribution",
+    "correct_understanding": "单个测点压力下降并不代表整个系统无危险，局部封闭空间、滞留腔体、液封段或反应器内部仍可能存在高压、可燃混合物或放热反应，爆炸风险未必解除。",
+    "related_laws": ["质量守恒", "能量守恒"],
+    "embedding_text": "pressure gauge depressurization confined volume explosion residual pressure dead leg trapped gas reaction"
+  },
+  {
+    "fallacy_id": "B018",
+    "category": "因果颠倒",
+    "false_claim": "温度升高之后压力才升高，所以先控制压力就能阻止热失控。",
+    "physics_checkpoint": "Thermal runaway feedback and ideal gas law",
+    "correct_understanding": "在放热体系中，温升和压升往往相互耦合，是同一失稳过程的联动结果。只盯压力而忽视热源、反应速率和散热能力，不能从根本上阻止热失控。",
+    "related_laws": ["能量守恒", "质量守恒"],
+    "embedding_text": "thermal runaway temperature pressure feedback exothermic kinetics heat removal instability reactor safety"
+  },
+  {
+    "fallacy_id": "B019",
+    "category": "工艺操作谬误",
+    "false_claim": "泵出口压力高说明泵工作状态一定更好，输送能力更强。",
+    "physics_checkpoint": "Pump characteristic curve and system curve",
+    "correct_understanding": "泵出口压力高可能是下游堵塞、阀门关小、流量下降所致，并不代表输送能力增强。评价泵工况应结合流量、扬程、效率、振动和功率综合判断。",
+    "related_laws": ["机械能守恒", "质量守恒"],
+    "embedding_text": "pump discharge pressure flow blockage head efficiency system curve hydraulic performance cavitation"
+  },
+  {
+    "fallacy_id": "B020",
+    "category": "物理机理误判",
+    "false_claim": "只要没有明火，挥发性有机物泄漏就不会点燃。",
+    "physics_checkpoint": "Ignition energy and flammability limit theory",
+    "correct_understanding": "可燃蒸气点燃不只依赖明火，还可能由静电放电、热表面、电火花、机械火花等触发。只要浓度进入爆炸极限并遇到足够点火能，就可能发生燃烧或爆炸。",
+    "related_laws": ["能量守恒", "质量守恒"],
+    "embedding_text": "flammable vapor ignition electrostatic discharge hot surface spark explosive limit fire safety"
+  },
+  {
+    "fallacy_id": "B021",
+    "category": "因果颠倒",
+    "false_claim": "塔顶温度下降说明分离效果变差，因为温度低代表蒸发不足。",
+    "physics_checkpoint": "Vapor liquid equilibrium and distillation balance",
+    "correct_understanding": "塔顶温度变化与组成、回流比、压力、热负荷都有关系。温度下降可能意味着轻组分纯度提高，也可能是操作扰动导致，不能直接等同于分离变差。",
+    "related_laws": ["质量守恒", "能量守恒", "相平衡约束"],
+    "embedding_text": "distillation top temperature separation efficiency reflux ratio pressure vapor liquid equilibrium composition"
+  },
+  {
+    "fallacy_id": "B022",
+    "category": "工艺操作谬误",
+    "false_claim": "反应器夹套冷却水流量开到最大，就一定能压住任何放热反应。",
+    "physics_checkpoint": "Heat generation and heat removal balance",
+    "correct_understanding": "夹套冷却能力受传热面积、总传热系数、温差和结垢影响，存在物理上限。若放热速率超过最大散热能力，即使冷却水全开也可能发生热失控。",
+    "related_laws": ["能量守恒", "质量守恒"],
+    "embedding_text": "reactor jacket cooling heat removal exothermic reaction transfer limit runaway fouling capacity"
+  },
+  {
+    "fallacy_id": "B023",
+    "category": "物理机理误判",
+    "false_claim": "管线没有看到明显泄漏液体，就说明不存在泄漏风险。",
+    "physics_checkpoint": "Compressible leakage and dispersion theory",
+    "correct_understanding": "气体、小孔泄漏或高挥发液体泄漏未必形成肉眼可见液滴，仍可能快速扩散形成可燃、有毒云团。可见性不能作为判断是否泄漏的依据。",
+    "related_laws": ["质量守恒", "动量守恒", "扩散传质规律"],
+    "embedding_text": "pipeline leak gas diffusion invisible release evaporation toxic cloud flammable dispersion inspection"
+  },
+  {
+    "fallacy_id": "B024",
+    "category": "因果颠倒",
+    "false_claim": "安全阀起跳导致了超压事故，所以把整定压力再调高就能避免问题。",
+    "physics_checkpoint": "Relief valve protection principle",
+    "correct_understanding": "安全阀起跳通常是系统已经发生超压后的保护结果，而不是超压根因。随意提高整定值会削弱保护能力，真正应排查的是热膨胀、堵塞、失控反应或误操作等致压源。",
+    "related_laws": ["质量守恒", "能量守恒"],
+    "embedding_text": "relief valve overpressure setpoint protection sizing blocked outlet thermal expansion reactor upset"
+  },
+  {
+    "fallacy_id": "B025",
+    "category": "工艺操作谬误",
+    "false_claim": "只要系统总质量不变，局部设备就不可能发生危险工况。",
+    "physics_checkpoint": "Continuity equation and control volume analysis",
+    "correct_understanding": "系统总量守恒不代表局部无累积。某一控制体内仍可能因进出失衡出现局部液位升高、气体积聚、温度热点或压力峰值，危险往往首先出现在局部而不是全局。",
+    "related_laws": ["质量守恒", "能量守恒", "动量守恒"],
+    "embedding_text": "local accumulation control volume continuity hotspot pressure spike level rise process hazard"
+  },
+  {
+    "fallacy_id": "B026",
+    "category": "物理机理误判",
+    "false_claim": "反应器温度传感器显示正常，就说明釜内没有局部过热。",
+    "physics_checkpoint": "Spatial temperature gradient and heat transfer theory",
+    "correct_understanding": "单点温度只能反映局部测点状态，釜内可能因混合不均、传热受限或局部放热形成热点。温度传感器正常不代表整体温度场安全。",
+    "related_laws": ["能量守恒", "传热学基本定律"],
+    "embedding_text": "reactor temperature sensor hotspot mixing gradient heat transfer local overheating measurement field"
+  },
+  {
+    "fallacy_id": "B027",
+    "category": "工艺操作谬误",
+    "false_claim": "提高搅拌转速一定能降低反应风险，因为混合越强越安全。",
+    "physics_checkpoint": "Mass transfer heat transfer and reaction kinetics coupling",
+    "correct_understanding": "增强搅拌可能改善传热传质，但也可能加快反应物接触、提高放热速率、卷入气体或引发剪切敏感体系失稳。搅拌强度不是越大越安全。",
+    "related_laws": ["质量守恒", "能量守恒"],
+    "embedding_text": "agitator mixing speed reaction risk heat transfer mass transfer kinetics shear gas entrainment"
+  },
+  {
+    "fallacy_id": "B028",
+    "category": "因果颠倒",
+    "false_claim": "压缩机出口温度高是因为冷却器坏了，所以只修冷却器就能解决问题。",
+    "physics_checkpoint": "Gas compression relation and heat balance",
+    "correct_understanding": "出口温度升高可能来自压比增大、回流异常、入口状态变化、效率下降或冷却不足。冷却器故障只是可能原因之一，不能把结果当成唯一原因。",
+    "related_laws": ["能量守恒", "质量守恒"],
+    "embedding_text": "compressor discharge temperature cooler failure compression ratio efficiency recycle inlet condition diagnosis"
+  },
+  {
+    "fallacy_id": "B029",
+    "category": "工艺操作谬误",
+    "false_claim": "管线冲洗时流速越大越好，越快越能把残留物全部带走。",
+    "physics_checkpoint": "Momentum equation and erosion corrosion relation",
+    "correct_understanding": "过高冲洗流速虽然能增强清洗效果，但也会增大冲蚀、振动和局部压降，甚至诱发水击或损伤脆弱部件。冲洗流速应在设计允许范围内优化。",
+    "related_laws": ["动量守恒", "质量守恒", "机械能守恒"],
+    "embedding_text": "flushing velocity erosion corrosion pressure drop water hammer vibration pipeline cleaning shear"
+  },
+  {
+    "fallacy_id": "B030",
+    "category": "物理机理误判",
+    "false_claim": "只要设备外壁温度不高，内部介质就不可能处于危险高温状态。",
+    "physics_checkpoint": "Thermal resistance network and transient conduction",
+    "correct_understanding": "设备壁面与内部介质之间存在热阻和时间滞后，厚壁、保温层或局部结垢都可能掩盖内部高温。外壁温度不能直接等同于介质核心温度。",
+    "related_laws": ["能量守恒", "传热学基本定律"],
+    "embedding_text": "wall temperature internal fluid thermal resistance insulation fouling transient conduction hotspot equipment"
+  },
+  {
+    "fallacy_id": "B031",
+    "category": "因果颠倒",
+    "false_claim": "液位波动是液位计坏了，因为真实液位不可能自己频繁变化。",
+    "physics_checkpoint": "Mass balance and surge dynamics",
+    "correct_understanding": "液位波动可能来自进出流扰动、闪蒸、气液夹带、回流脉动或控制回路振荡。仪表故障只是可能性之一，不能先验地把波动归因于测量错误。",
+    "related_laws": ["质量守恒", "动量守恒"],
+    "embedding_text": "level fluctuation instrument fault surge flashing two phase flow control oscillation tank dynamics"
+  },
+  {
+    "fallacy_id": "B032",
+    "category": "工艺操作谬误",
+    "false_claim": "系统已经停机，所有危险过程都会自动停止。",
+    "physics_checkpoint": "Residual heat and transient process dynamics",
+    "correct_understanding": "停机后仍可能存在余热释放、残余反应、热分解、压力滞留、液体倒灌或惰性破坏等延迟风险。停机不等于风险归零。",
+    "related_laws": ["能量守恒", "质量守恒"],
+    "embedding_text": "shutdown residual heat delayed reaction trapped pressure backflow decomposition transient hazard inertia"
+  },
+  {
+    "fallacy_id": "B033",
+    "category": "物理机理误判",
+    "false_claim": "塔釜温度升高一定是再沸器供热增加造成的。",
+    "physics_checkpoint": "Distillation energy balance and phase equilibrium",
+    "correct_understanding": "塔釜温度还受组成变化、系统压力、液位、回流和传热状态影响。即使再沸器热负荷不变，塔釜温度也可能因物性和操作条件变化而上升。",
+    "related_laws": ["能量守恒", "质量守恒", "相平衡约束"],
+    "embedding_text": "reboiler bottoms temperature distillation pressure composition reflux level heat duty equilibrium"
+  },
+  {
+    "fallacy_id": "B034",
+    "category": "工艺操作谬误",
+    "false_claim": "把冷却介质温度降得越低，换热系统就一定越稳定。",
+    "physics_checkpoint": "Heat transfer driving force and thermal stress relation",
+    "correct_understanding": "冷却介质温度过低可能导致热冲击、冷凝异常、结蜡结晶或材料应力升高。换热稳定性取决于整体热平衡和设备承受能力，不是冷源越冷越好。",
+    "related_laws": ["能量守恒", "热应力基本规律"],
+    "embedding_text": "cooling medium low temperature thermal shock condensation crystallization fouling heat exchanger stability"
+  },
+  {
+    "fallacy_id": "B035",
+    "category": "因果颠倒",
+    "false_claim": "安全联锁动作后系统停了，说明联锁本身导致了生产事故。",
+    "physics_checkpoint": "Protective system logic and control theory",
+    "correct_understanding": "联锁通常是对异常状态的响应，而不是异常根因。联锁停车说明系统已触发危险边界，真正原因应追溯到工艺偏离、设备故障或操作失误。",
+    "related_laws": ["控制系统基本规律", "因果分析原则"],
+    "embedding_text": "safety interlock trip shutdown causality process upset fault protection logic diagnostics"
+  },
+  {
+    "fallacy_id": "B036",
+    "category": "物理机理误判",
+    "false_claim": "管道里只要没有液体，就不会发生水击或压力冲击。",
+    "physics_checkpoint": "Transient fluid dynamics and pressure wave propagation",
+    "correct_understanding": "压力冲击不只发生在纯液体系统，气液混合、蒸汽冷凝、阀门快速动作和压缩性气体同样会引发显著瞬态压力波。无液体不代表无冲击风险。",
+    "related_laws": ["动量守恒", "质量守恒", "机械能守恒"],
+    "embedding_text": "pressure surge water hammer vapor condensation transient wave valve closure gas liquid pipeline"
+  },
+  {
+    "fallacy_id": "B037",
+    "category": "工艺操作谬误",
+    "false_claim": "只要维持高压操作，易挥发组分就不会汽化，因此更安全。",
+    "physics_checkpoint": "Phase equilibrium and flash calculation",
+    "correct_understanding": "提高压力确实可能抑制部分汽化，但一旦发生泄压或局部压降，闪蒸会更加剧烈。高压本身还提高了储能和失效后果，不能简单等同于更安全。",
+    "related_laws": ["相平衡约束", "能量守恒", "质量守恒"],
+    "embedding_text": "high pressure volatile component flashing phase equilibrium vapor pressure depressurization stored energy safety"
+  },
+  {
+    "fallacy_id": "B038",
+    "category": "因果颠倒",
+    "false_claim": "报警频繁出现是因为报警系统太敏感，所以直接屏蔽最有效。",
+    "physics_checkpoint": "Alarm management and signal detection principle",
+    "correct_understanding": "频繁报警可能反映真实扰动、控制不稳、设备劣化或报警设置不合理。直接屏蔽会丢失风险预警，应先区分误报、重复报警和真实异常来源。",
+    "related_laws": ["控制系统基本规律", "因果分析原则"],
+    "embedding_text": "alarm flooding nuisance alarm process disturbance monitoring control instability suppression diagnostics safety"
+  },
+  {
+    "fallacy_id": "B039",
+    "category": "物理机理误判",
+    "false_claim": "设备壳体没有变形，说明内部肯定没有发生超压。",
+    "physics_checkpoint": "Stress strain relation and pressure vessel mechanics",
+    "correct_understanding": "超压并不一定立即导致可见塑性变形，局部薄弱区、焊缝、法兰、垫片和附件可能先失效。外观完好不能否认内部曾出现危险压升。",
+    "related_laws": ["动量守恒", "材料力学基本规律"],
+    "embedding_text": "pressure vessel overpressure no deformation local failure flange gasket weld stress strain"
+  },
+  {
+    "fallacy_id": "B040",
+    "category": "工艺操作谬误",
+    "false_claim": "惰性气体已经通入系统，所以可燃混合物风险可以忽略。",
+    "physics_checkpoint": "Oxygen concentration limit and mixing law",
+    "correct_understanding": "惰化效果取决于氧浓度是否真正降到安全范围、是否存在死角、补氧路径和混合均匀性。只通入惰气不代表整个系统都已脱离可燃区。",
+    "related_laws": ["质量守恒", "组分守恒", "燃烧爆炸极限规律"],
+    "embedding_text": "inert gas oxygen concentration flammability envelope dead zone mixing purge combustible atmosphere"
+  },
+  {
+    "fallacy_id": "B041",
+    "category": "物理机理误判",
+    "false_claim": "反应器压力没有快速上升，就说明体系没有发生失控反应。",
+    "physics_checkpoint": "Reaction kinetics and thermal accumulation coupling",
+    "correct_understanding": "失控反应不一定立刻表现为压升，早期可能先表现为温升、组分变化、局部热点或诱导期缩短。若产气滞后或系统可压缩空间较大，压力响应可能晚于热失稳。",
+    "related_laws": ["能量守恒", "质量守恒"],
+    "embedding_text": "runaway reaction pressure rise delay induction period hotspot gas generation thermal accumulation reactor"
+  },
+  {
+    "fallacy_id": "B042",
+    "category": "工艺操作谬误",
+    "false_claim": "只要把进料流量降下来，超温问题就一定会缓解。",
+    "physics_checkpoint": "Dynamic mass energy balance and residence time effect",
+    "correct_understanding": "降流量有时会减小热负荷，但也可能延长停留时间、降低对流带热能力、破坏稀释效应，反而加剧局部过热。是否有效要看反应放热、传热能力和动态平衡。",
+    "related_laws": ["质量守恒", "能量守恒"],
+    "embedding_text": "feed flow reduction overheating residence time dilution heat removal dynamic balance reactor"
+  },
+  {
+    "fallacy_id": "B043",
+    "category": "因果颠倒",
+    "false_claim": "塔压升高是因为塔顶冷凝器负荷太大，所以减小冷凝一定能降压。",
+    "physics_checkpoint": "Distillation pressure balance and condensation coupling",
+    "correct_understanding": "塔压升高可能来自冷凝不足、非凝气积聚、下游阻塞、再沸过强或控制失配。把结果简单归因给冷凝器负荷过大容易误判，盲目减小冷凝甚至可能进一步恶化塔顶压力。",
+    "related_laws": ["质量守恒", "能量守恒", "相平衡约束"],
+    "embedding_text": "column pressure condenser duty noncondensable vapor generation blockage reflux pressure control"
+  },
+  {
+    "fallacy_id": "B044",
+    "category": "物理机理误判",
+    "false_claim": "只要氧含量低于平时运行值，系统就不会发生燃烧或爆炸。",
+    "physics_checkpoint": "Limiting oxygen concentration and flammability limit",
+    "correct_understanding": "是否可燃取决于氧浓度是否低于该物系的极限氧浓度，而不是低于平时运行值。不同可燃物、温度、压力和惰化程度下，可燃边界差异很大。",
+    "related_laws": ["组分守恒", "燃烧爆炸极限规律"],
+    "embedding_text": "oxygen concentration flammability limit loc inerting explosion combustible mixture safety"
+  },
+  {
+    "fallacy_id": "B045",
+    "category": "工艺操作谬误",
+    "false_claim": "设备已经放空到常压，就可以默认内部没有危险残留。",
+    "physics_checkpoint": "Holdup retention and dead volume effect",
+    "correct_understanding": "放空到常压只说明整体压力接近环境压力，不代表内部没有残余可燃、有毒或反应性物料。死角、液封、低点积液、吸附层和夹套空间都可能残留危险介质。",
+    "related_laws": ["质量守恒", "组分守恒"],
+    "embedding_text": "vented to atmospheric pressure residual material dead volume holdup trapped liquid adsorption toxic"
+  },
+  {
+    "fallacy_id": "B046",
+    "category": "因果颠倒",
+    "false_claim": "换热器压降变大一定是因为结垢变厚，所以只要清洗就能恢复系统。",
+    "physics_checkpoint": "Pressure drop relation and hydraulic resistance",
+    "correct_understanding": "压降增大也可能由流量上升、两相流出现、堵塞、阀位变化、分配恶化或测量偏差造成。结垢只是原因之一，不能把压降变化直接等同于结垢厚度变化。",
+    "related_laws": ["动量守恒", "质量守恒"],
+    "embedding_text": "heat exchanger pressure drop fouling blockage two phase flow maldistribution hydraulic resistance"
+  },
+  {
+    "fallacy_id": "B047",
+    "category": "物理机理误判",
+    "false_claim": "只要安全阀容量足够大，任何反应失控都可以靠泄放解决。",
+    "physics_checkpoint": "Runaway relief sizing and DIERS principle",
+    "correct_understanding": "安全阀只能缓解部分超压后果，未必能控制放热源本身。对两相喷放、泡沫、聚合、自加速分解等情形，单靠泄放可能不足，且会带来下游排放和着火风险。",
+    "related_laws": ["质量守恒", "能量守恒"],
+    "embedding_text": "relief valve runaway reaction diers two phase relief decomposition venting overpressure"
+  },
+  {
+    "fallacy_id": "B048",
+    "category": "工艺操作谬误",
+    "false_claim": "提高再沸器蒸汽量一定能提高蒸馏塔处理能力。",
+    "physics_checkpoint": "Column hydraulics and flooding limit",
+    "correct_understanding": "增加再沸器热负荷会提高汽相负荷，但塔内存在液泛、夹带、降液管受限和压降上升等水力学上限。超过极限后分离效率和处理能力反而下降。",
+    "related_laws": ["质量守恒", "能量守恒", "相平衡约束"],
+    "embedding_text": "reboiler steam distillation capacity flooding entrainment vapor traffic column hydraulics efficiency"
+  },
+  {
+    "fallacy_id": "B049",
+    "category": "因果颠倒",
+    "false_claim": "泵发生汽蚀是因为出口压力低，所以把出口阀关小就能消除汽蚀。",
+    "physics_checkpoint": "NPSH criterion and cavitation condition",
+    "correct_understanding": "汽蚀本质上与泵入口可利用汽蚀余量不足有关，主要受入口压力、液温、吸入管阻力和流速影响。关小出口阀有时会改变工况，但并不是针对根因的通用解决办法。",
+    "related_laws": ["机械能守恒", "质量守恒"],
+    "embedding_text": "pump cavitation npsh suction pressure vapor pressure outlet valve hydraulic diagnosis"
+  },
+  {
+    "fallacy_id": "B050",
+    "category": "物理机理误判",
+    "false_claim": "工艺波动幅度小，就说明控制系统和设备一定健康。",
+    "physics_checkpoint": "Control loop dynamics and observability limitation",
+    "correct_understanding": "小波动可能来自控制器强抑制、测量滤波、系统惯性大或异常尚未显性化，并不等于设备健康。传感器漂移、阀门卡涩和局部失效都可能在表面平稳下持续发展。",
+    "related_laws": ["控制系统基本规律", "因果分析原则"],
+    "embedding_text": "small fluctuation healthy system hidden failure sensor drift valve stiction control loop observability"
+  },
+  {
+    "fallacy_id": "B051",
+    "category": "工艺操作谬误",
+    "false_claim": "发现温度异常时，最快的方法就是立即全量加入冷料压温。",
+    "physics_checkpoint": "Mixing enthalpy and thermal shock relation",
+    "correct_understanding": "紧急加冷料可能带来额外反应、局部混合放热、热冲击或液位突升风险。是否适合淬冷取决于物系相容性、反应路径、设备余量和应急程序设计。",
+    "related_laws": ["能量守恒", "质量守恒"],
+    "embedding_text": "temperature excursion cold feed quench thermal shock compatibility emergency response reactor"
+  },
+  {
+    "fallacy_id": "B052",
+    "category": "因果颠倒",
+    "false_claim": "过滤器前后压差下降，说明堵塞被自动冲开，系统已经恢复正常。",
+    "physics_checkpoint": "Pressure drop flow relation and channeling effect",
+    "correct_understanding": "压差下降也可能意味着流量下降、旁路开启、滤芯破损、测点失真或通道化形成。不能仅凭压差下降判断堵塞消失，必须结合流量和过滤完整性分析。",
+    "related_laws": ["质量守恒", "动量守恒"],
+    "embedding_text": "filter differential pressure decrease bypass channeling rupture flow reduction blockage diagnosis"
+  },
+  {
+    "fallacy_id": "B053",
+    "category": "物理机理误判",
+    "false_claim": "金属壁厚还有裕量，短时间超温不会明显影响设备安全。",
+    "physics_checkpoint": "Temperature dependent material strength and creep damage",
+    "correct_understanding": "高温下材料强度、蠕变速率和组织稳定性对温度非常敏感，短时间超温也可能显著损伤寿命，尤其在受压焊缝、薄弱区和循环载荷条件下更明显。",
+    "related_laws": ["材料力学基本规律", "能量守恒"],
+    "embedding_text": "wall thickness margin overtemperature creep damage thermal aging material strength pressure equipment"
+  },
+  {
+    "fallacy_id": "B054",
+    "category": "工艺操作谬误",
+    "false_claim": "只要泄漏点很小，就不会形成需要重视的危险后果。",
+    "physics_checkpoint": "Choked flow and release dispersion theory",
+    "correct_understanding": "小孔泄漏在高压下仍可能形成高速喷射、可燃云团或局部低温脆化，持续时间足够长时危险累积后果很大。风险取决于压力、介质性质、通风和点火条件，而不只看孔径。",
+    "related_laws": ["质量守恒", "动量守恒", "能量守恒"],
+    "embedding_text": "small leak choked flow jet release dispersion accumulation ignition high pressure hazard"
+  },
+  {
+    "fallacy_id": "B055",
+    "category": "因果颠倒",
+    "false_claim": "事故发生前最后一个操作动作就是事故根因。",
+    "physics_checkpoint": "Multifactor causation and barrier analysis",
+    "correct_understanding": "最后一个操作动作常常只是触发点，真正根因可能早已由设计缺陷、维护不足、报警失效、误设定或长期劣化埋下。事故分析必须区分触发事件、直接原因和根本原因。",
+    "related_laws": ["因果分析原则", "屏障失效分析规律"],
+    "embedding_text": "last action root cause trigger event latent failure barrier analysis accident causation"
   }
 ]
