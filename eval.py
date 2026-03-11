@@ -1,196 +1,155 @@
 """
-DK-SAR 评估模块
-实现论文中的四个核心评估指标：
-  - PCC  (Physical Concept Coverage)    物理概念覆盖率
-  - CCC  (Causal Chain Completeness)    因果链完整性
-  - RDI  (Recommendation Detail Index)  建议措施详细度
-  - LCC  (Literature Case Correlation)  案例关联度
-
-用法：
-    from eval import evaluate_report
-    scores = evaluate_report(report, reference=None)
-    print(scores)
+DK-SAR 评估模块 v2
+修复：兼容新版分层报告格式（causes为dict，consequences为dict列表，recommendations为dict）
+指标：PCC / CCC / RDI / LCC
 """
-
 import json
-import re
 from utils.logger import eval_log
-from utils.llm import call_llm_json
 
 
-# ── 物理概念关键词库（用于 PCC 计算）─────────────────────────────
 PHYSICS_CONCEPTS = {
-    "热力学": ["温度", "热量", "焓", "熵", "热平衡", "绝热", "等温", "热失控",
-               "Arrhenius", "活化能", "放热", "吸热", "冷却", "散热"],
-    "传热传质": ["传热系数", "Nu", "Re", "对流", "导热", "辐射", "换热",
-                "传质", "扩散", "蒸发", "冷凝", "闪蒸"],
-    "流体力学": ["压力", "流量", "流速", "伯努利", "压降", "节流",
-                "汽蚀", "水锤", "湍流", "层流"],
+    "热力学":   ["温度", "热量", "焓", "熵", "热平衡", "绝热", "热失控", "放热", "吸热", "冷却"],
+    "传热传质": ["传热", "Nu", "Re", "对流", "导热", "换热", "传质", "扩散", "蒸发", "冷凝"],
+    "流体力学": ["压力", "流量", "流速", "伯努利", "压降", "汽蚀", "湍流", "层流"],
     "守恒定律": ["质量守恒", "能量守恒", "动量守恒", "物料平衡", "热平衡"],
-    "化学反应": ["反应速率", "转化率", "选择性", "催化", "失控反应",
-                "爆炸极限", "LEL", "UEL", "闪点", "自燃温度"],
-    "设备完整性": ["腐蚀", "疲劳", "蠕变", "氢损伤", "应力", "裂纹", "泄漏"],
+    "化学反应": ["反应速率", "转化率", "催化", "失控反应", "爆炸极限", "LEL", "闪点"],
+    "设备完整性": ["腐蚀", "疲劳", "泄漏", "裂纹", "应力", "密封"],
 }
 
-# ── 因果链完整性检查项 ─────────────────────────────────────────
-CAUSAL_CHAIN_ELEMENTS = ["初始原因", "触发事件", "扩展后果", "最终后果"]
+
+# ── 工具函数：兼容新旧两种格式 ────────────────────────────────────
+
+def _extract_causes(deviation: dict) -> list:
+    """提取所有原因条目，兼容 list 和 dict 分层两种格式"""
+    causes_raw = deviation.get("causes", [])
+    if isinstance(causes_raw, list):
+        return causes_raw
+    # 新版分层格式：{"primary": [...], "secondary": [...], "pending": [...]}
+    all_causes = []
+    for layer in ["primary", "secondary", "pending"]:
+        all_causes.extend(causes_raw.get(layer, []))
+    return all_causes
+
+
+def _extract_consequences(deviation: dict) -> list:
+    """提取后果链文本列表，兼容 str 和 {"stage":..., "description":...} 两种格式"""
+    raw = deviation.get("consequences", [])
+    texts = []
+    for c in raw:
+        if isinstance(c, dict):
+            texts.append(c.get("description", ""))
+        else:
+            texts.append(str(c))
+    return [t for t in texts if t]
+
+
+def _extract_recommendations(deviation: dict) -> list:
+    """提取建议措施列表，兼容 list 和 dict 三层格式"""
+    recs_raw = deviation.get("recommendations", [])
+    if isinstance(recs_raw, list):
+        return recs_raw
+    # 新版三层格式：{"immediate": [...], "short_term": [...], "long_term": [...]}
+    all_recs = []
+    for layer in ["immediate", "short_term", "long_term"]:
+        all_recs.extend(recs_raw.get(layer, []))
+    return all_recs
+
+
+def _report_to_plain_text(report: dict) -> str:
+    return json.dumps(report, ensure_ascii=False)
 
 
 # ════════════════════════════════════════════════════════════════
-#  指标1：PCC — 物理概念覆盖率
-#  计算报告中涉及的物理概念类别数 / 总类别数
+#  PCC — 物理概念覆盖率
 # ════════════════════════════════════════════════════════════════
 
 def compute_pcc(report: dict) -> float:
-    """
-    Physical Concept Coverage (PCC)
-    衡量报告对物理机理的覆盖广度
-    
-    返回: 0.0 ~ 1.0
-    """
     report_text = _report_to_plain_text(report).lower()
-    
-    covered_categories = 0
-    total_categories = len(PHYSICS_CONCEPTS)
+    covered = 0
     details = {}
-    
     for category, keywords in PHYSICS_CONCEPTS.items():
         hits = [kw for kw in keywords if kw.lower() in report_text]
         if hits:
-            covered_categories += 1
-            details[category] = hits[:3]  # 最多记录3个命中词
-    
-    pcc = covered_categories / total_categories if total_categories > 0 else 0.0
-    
-    eval_log.debug(f"PCC: {covered_categories}/{total_categories} 类别覆盖 → {pcc:.3f}")
+            covered += 1
+            details[category] = hits[:3]
+    pcc = covered / len(PHYSICS_CONCEPTS)
+    eval_log.debug(f"PCC: {covered}/{len(PHYSICS_CONCEPTS)} 类别覆盖 → {pcc:.3f}")
     eval_log.debug(f"命中详情: {details}")
-    
     return round(pcc, 4)
 
 
 # ════════════════════════════════════════════════════════════════
-#  指标2：CCC — 因果链完整性
-#  检查后果链是否包含完整的事故演化路径
+#  CCC — 因果链完整性
 # ════════════════════════════════════════════════════════════════
 
 def compute_ccc(report: dict) -> float:
-    """
-    Causal Chain Completeness (CCC)
-    衡量因果链描述的完整程度
-    
-    返回: 0.0 ~ 1.0
-    """
     scores = []
-    
     for deviation in report.get("deviations", []):
-        causes       = deviation.get("causes", [])
-        consequences = deviation.get("consequences", [])
-        
-        # 检查原因数量（至少3个）
+        causes = _extract_causes(deviation)
+        consequences = _extract_consequences(deviation)
+
         cause_score = min(len(causes) / 3, 1.0)
-        
-        # 检查后果链长度（至少3步）
         consequence_score = min(len(consequences) / 3, 1.0)
-        
-        # 检查原因类型多样性（覆盖多种类型更好）
-        cause_types = set(c.get("type", "") for c in causes)
+
+        # 原因类型多样性
+        cause_types = set(c.get("type", "") for c in causes if isinstance(c, dict))
         diversity_score = min(len(cause_types) / 3, 1.0)
-        
-        deviation_score = (cause_score + consequence_score + diversity_score) / 3
-        scores.append(deviation_score)
-    
+
+        scores.append((cause_score + consequence_score + diversity_score) / 3)
+
     ccc = sum(scores) / len(scores) if scores else 0.0
-    
-    eval_log.debug(f"CCC: {ccc:.3f} （{len(scores)} 个偏差分析）")
-    
+    eval_log.debug(f"CCC: {ccc:.3f} （{len(scores)} 个偏差）")
     return round(ccc, 4)
 
 
 # ════════════════════════════════════════════════════════════════
-#  指标3：RDI — 建议措施详细度
-#  检查建议措施的可操作性和优先级分布
+#  RDI — 建议措施详细度
 # ════════════════════════════════════════════════════════════════
 
 def compute_rdi(report: dict) -> float:
-    """
-    Recommendation Detail Index (RDI)
-    衡量建议措施的具体性和可执行性
-    
-    返回: 0.0 ~ 1.0
-    """
-    all_recommendations = []
-    
+    all_recs = []
     for deviation in report.get("deviations", []):
-        all_recommendations.extend(deviation.get("recommendations", []))
-    
-    if not all_recommendations:
+        all_recs.extend(_extract_recommendations(deviation))
+
+    if not all_recs:
         return 0.0
-    
+
+    action_verbs = ["建立", "安装", "定期", "检查", "培训", "制定",
+                    "增加", "设置", "更换", "完善", "加强", "实施", "停止", "启动"]
     scores = []
-    for rec in all_recommendations:
+    for rec in all_recs:
+        if not isinstance(rec, dict):
+            continue
         action = rec.get("action", "")
         priority = rec.get("priority", "")
-        
-        # 动作描述长度得分（越具体越长）
         length_score = min(len(action) / 30, 1.0)
-        
-        # 是否有优先级
         priority_score = 1.0 if priority in ["高", "中", "低"] else 0.0
-        
-        # 是否包含具体动词（建立、安装、定期、检查等）
-        action_verbs = ["建立", "安装", "定期", "检查", "培训", "制定",
-                       "增加", "设置", "更换", "完善", "加强", "实施"]
         verb_score = 1.0 if any(v in action for v in action_verbs) else 0.5
-        
-        rec_score = (length_score + priority_score + verb_score) / 3
-        scores.append(rec_score)
-    
-    # 优先级分布加分（高中低都有更好）
-    priorities = [r.get("priority", "") for r in all_recommendations]
-    has_high = "高" in priorities
-    has_medium = "中" in priorities
-    diversity_bonus = 0.1 if (has_high and has_medium) else 0.0
-    
-    rdi = min(sum(scores) / len(scores) + diversity_bonus, 1.0)
-    
-    eval_log.debug(f"RDI: {rdi:.3f} （{len(all_recommendations)} 条建议）")
-    
+        scores.append((length_score + priority_score + verb_score) / 3)
+
+    # 三层分级加分（有立即/短期/长期更好）
+    recs_raw = report.get("deviations", [{}])[0].get("recommendations", {})
+    diversity_bonus = 0.1 if isinstance(recs_raw, dict) and len(recs_raw) >= 2 else 0.0
+
+    rdi = min((sum(scores) / len(scores) if scores else 0.0) + diversity_bonus, 1.0)
+    eval_log.debug(f"RDI: {rdi:.3f} （{len(all_recs)} 条建议）")
     return round(rdi, 4)
 
 
 # ════════════════════════════════════════════════════════════════
-#  指标4：LCC — 案例关联度
-#  衡量检索到的历史案例与当前场景的相关程度
+#  LCC — 案例关联度
 # ════════════════════════════════════════════════════════════════
 
 def compute_lcc(report: dict) -> float:
-    """
-    Literature Case Correlation (LCC)
-    衡量参考案例与分析内容的关联程度
-    
-    返回: 0.0 ~ 1.0
-    """
     meta = report.get("analysis_metadata", {})
     referenced_cases = meta.get("referenced_cases", [])
-    
     if not referenced_cases:
-        eval_log.debug("LCC: 无参考案例，得分 0.0")
         return 0.0
-    
-    # 检查案例是否被实际引用在分析中
-    report_text = _report_to_plain_text(report)
-    
-    # 基础分：有案例就给基础分
     base_score = min(len(referenced_cases) / 3, 1.0) * 0.6
-    
-    # 引用质量分：案例ID是否出现在元数据中
     quality_score = 0.4 if len(referenced_cases) >= 2 else 0.2
-    
-    lcc = base_score + quality_score
-    
+    lcc = min(base_score + quality_score, 1.0)
     eval_log.debug(f"LCC: {lcc:.3f} （引用案例: {referenced_cases}）")
-    
-    return round(min(lcc, 1.0), 4)
+    return round(lcc, 4)
 
 
 # ════════════════════════════════════════════════════════════════
@@ -198,38 +157,18 @@ def compute_lcc(report: dict) -> float:
 # ════════════════════════════════════════════════════════════════
 
 def evaluate_report(report: dict) -> dict:
-    """
-    对 HAZOP 分析报告进行综合评估
-    
-    返回:
-    {
-        "PCC": 0.83,   # 物理概念覆盖率
-        "CCC": 0.91,   # 因果链完整性
-        "RDI": 0.78,   # 建议详细度
-        "LCC": 0.85,   # 案例关联度
-        "overall": 0.84,  # 综合得分（加权平均）
-        "grade": "良好",
-        "details": {...}
-    }
-    """
     eval_log.info("开始评估 HAZOP 分析报告...")
-    
     pcc = compute_pcc(report)
     ccc = compute_ccc(report)
     rdi = compute_rdi(report)
     lcc = compute_lcc(report)
-    
-    # 加权综合得分（PCC和CCC权重更高，对应论文重点）
+
     weights = {"PCC": 0.35, "CCC": 0.30, "RDI": 0.20, "LCC": 0.15}
-    overall = (
-        pcc * weights["PCC"] +
-        ccc * weights["CCC"] +
-        rdi * weights["RDI"] +
-        lcc * weights["LCC"]
+    overall = round(
+        pcc * weights["PCC"] + ccc * weights["CCC"] +
+        rdi * weights["RDI"] + lcc * weights["LCC"], 4
     )
-    overall = round(overall, 4)
-    
-    # 评级
+
     if overall >= 0.85:
         grade = "优秀 ★★★★★"
     elif overall >= 0.70:
@@ -238,90 +177,30 @@ def evaluate_report(report: dict) -> dict:
         grade = "一般 ★★★"
     else:
         grade = "较差 ★★"
-    
-    result = {
-        "PCC": pcc,
-        "CCC": ccc,
-        "RDI": rdi,
-        "LCC": lcc,
-        "overall": overall,
-        "grade": grade,
-        "weights": weights,
-    }
-    
+
+    result = {"PCC": pcc, "CCC": ccc, "RDI": rdi, "LCC": lcc,
+              "overall": overall, "grade": grade, "weights": weights}
+
     eval_log.success(
         f"评估完成 | PCC={pcc:.2f} CCC={ccc:.2f} "
         f"RDI={rdi:.2f} LCC={lcc:.2f} | 综合={overall:.2f} {grade}"
     )
-    
     return result
 
 
 def format_scores_markdown(scores: dict) -> str:
-    """将评估结果格式化为 Markdown 展示"""
     if not scores:
         return "暂无评估数据"
-    
     lines = [
         "### 📊 报告质量评估",
         "",
-        f"**综合得分: {scores['overall']*100:.1f}分 / 100分　{scores['grade']}**",
+        f"**综合得分：{scores['overall']*100:.1f} / 100　{scores['grade']}**",
         "",
-        "| 指标 | 全称 | 得分 | 说明 |",
-        "|------|------|------|------|",
-        f"| PCC | 物理概念覆盖率 | {scores['PCC']*100:.1f}% | 涵盖的物理机理类别 |",
-        f"| CCC | 因果链完整性 | {scores['CCC']*100:.1f}% | 原因→后果链的完整程度 |",
-        f"| RDI | 建议详细度 | {scores['RDI']*100:.1f}% | 措施的可操作性 |",
-        f"| LCC | 案例关联度 | {scores['LCC']*100:.1f}% | 历史案例的相关性 |",
+        "| 指标 | 全称 | 得分 | 权重 | 说明 |",
+        "|------|------|------|------|------|",
+        f"| PCC | 物理概念覆盖率 | {scores['PCC']*100:.1f}% | 35% | 涵盖的物理机理类别数 |",
+        f"| CCC | 因果链完整性  | {scores['CCC']*100:.1f}% | 30% | 原因→后果链的完整程度 |",
+        f"| RDI | 建议详细度    | {scores['RDI']*100:.1f}% | 20% | 措施的可操作性 |",
+        f"| LCC | 案例关联度    | {scores['LCC']*100:.1f}% | 15% | 历史案例的相关性 |",
     ]
     return "\n".join(lines)
-
-
-# ── 工具函数 ───────────────────────────────────────────────────
-
-def _report_to_plain_text(report: dict) -> str:
-    """将报告 JSON 展平为纯文本，用于关键词匹配"""
-    return json.dumps(report, ensure_ascii=False)
-
-
-# ── 命令行测试 ─────────────────────────────────────────────────
-
-if __name__ == "__main__":
-    # 测试用假数据
-    sample_report = {
-        "node_info": {
-            "equipment": "反应釜", "parameter": "温度",
-            "deviation_type": "温度过高", "deviation_direction": "过高",
-            "normal_value": "80°C", "current_value": "120°C"
-        },
-        "deviations": [{
-            "causes": [
-                {"description": "冷却水流量不足导致散热能力下降，热平衡被打破", "type": "设备故障"},
-                {"description": "Arrhenius动力学：温度升高使反应速率指数增长，放热加速", "type": "工艺异常"},
-                {"description": "操作人员未及时发现温度报警", "type": "操作失误"},
-            ],
-            "consequences": [
-                "冷却能力不足，温度持续升高",
-                "反应速率加快，放热量增加，形成正反馈",
-                "温度超过设计值，可能引发失控反应"
-            ],
-            "safeguards": [
-                {"measure": "温度报警系统", "effectiveness": "部分有效"},
-                {"measure": "紧急冷却联锁", "effectiveness": "有效"},
-            ],
-            "recommendations": [
-                {"action": "建立冷却水流量与温度的联锁保护", "priority": "高"},
-                {"action": "定期检查冷却系统换热效率", "priority": "中"},
-            ]
-        }],
-        "analysis_metadata": {
-            "referenced_cases": ["R001", "R002"],
-            "reflection_rounds": 2,
-            "physical_issues_found": [],
-            "confidence_level": "高"
-        }
-    }
-    
-    scores = evaluate_report(sample_report)
-    print("\n评估结果:")
-    print(format_scores_markdown(scores))

@@ -21,7 +21,7 @@ LLM_MODEL = "qwen-plus"
 # ── 智能体参数 ─────────────────────────────────────────
 MAX_REFLECTION_ROUNDS = 3      # 最多反思修正几轮
 TOP_K_CASES = 3                # 检索几个相似案例
-SIMILARITY_THRESHOLD = 0.75    # 负样本匹配阈值（0~1，越高越严格）
+SIMILARITY_THRESHOLD = 0.85    # 负样本匹配阈值（0~1，越高越严格）
 
 # ── 数据路径 ───────────────────────────────────────────
 DATA_DIR = "data"
