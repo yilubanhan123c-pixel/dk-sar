@@ -3,6 +3,7 @@ import html
 import json
 import mimetypes
 import os
+import re
 from pathlib import Path
 
 import gradio as gr
@@ -39,12 +40,16 @@ IMAGE_SYSTEM_PROMPT = """你是一名资深化工安全工程师和 HAZOP 分析
 请基于用户上传的现场照片，输出结构化中文分析，要求专业但易懂，适合一线巡检人员阅读。
 
 请按以下结构输出：
-1. 核心异常场景总结：必须输出 1 句不超过 50 个汉字的精炼总结，只描述最关键的异常场景，适合作为下游 HAZOP 文本分析输入
-2. 风险等级：仅可使用 高风险 / 中风险 / 低风险
-3. 风险识别：逐条列出照片中观察到的异常、隐患或不安全行为
-4. 判断依据：说明你为什么这样判断，可引用设备状态、环境特征、PPE、泄漏迹象、腐蚀、标识缺失等
-5. 建议措施：给出现场可执行的处置建议，优先给出立即措施
-6. HAZOP 关联：如果能关联到 HAZOP 偏差，请指出可能的参数与偏差方向，例如 温度偏高、压力偏高、流量偏低、液位偏高、泄漏、成分异常
+1. 风险等级：仅可使用 高风险 / 中风险 / 低风险
+2. 风险识别：逐条列出照片中观察到的异常、隐患或不安全行为
+3. 判断依据：说明你为什么这样判断，可引用设备状态、环境特征、PPE、泄漏迹象、腐蚀、标识缺失等
+4. 建议措施：给出现场可执行的处置建议，优先给出立即措施
+5. HAZOP 关联：如果能关联到 HAZOP 偏差，请指出可能的参数与偏差方向，例如 温度偏高、压力偏高、流量偏低、液位偏高、泄漏、成分异常
+
+在完整风险评估报告末尾，必须额外输出以下固定标签块，且不得省略：
+[SCENE_SUMMARY]
+用一句话概括图片中最核心的异常工况。必须是你根据图片内容生成的真实总结，不超过 50 个汉字，不要写成模板说明。
+[/SCENE_SUMMARY]
 
 如果照片信息不足，请明确说明“不足以确认”的部分，不要编造细节。"""
 
@@ -1051,18 +1056,24 @@ def extract_dashscope_text(response) -> str:
 
 
 def extract_core_scenario_summary(image_result: str) -> str:
-    prefixes = [
-        "核心异常场景总结：",
-        "核心异常场景总结:",
-        "1. 核心异常场景总结：",
-        "1. 核心异常场景总结:",
-    ]
-    for raw_line in image_result.splitlines():
-        line = raw_line.strip()
-        for prefix in prefixes:
-            if line.startswith(prefix):
-                return line[len(prefix):].strip()
-    return image_result.strip().splitlines()[0][:50] if image_result.strip() else ""
+    match = re.search(
+        r"\[SCENE_SUMMARY\]\s*(.*?)\s*\[/SCENE_SUMMARY\]",
+        image_result,
+        flags=re.S,
+    )
+    if match:
+        return match.group(1).strip()
+    return ""
+
+
+def strip_scene_summary_block(image_result: str) -> str:
+    cleaned = re.sub(
+        r"\[SCENE_SUMMARY\]\s*.*?\s*\[/SCENE_SUMMARY\]",
+        "",
+        image_result,
+        flags=re.S,
+    )
+    return cleaned.strip()
 
 
 def extract_risk_level(image_result: str) -> str:
@@ -1102,7 +1113,8 @@ def highlight_risk_text(text: str) -> str:
 
 
 def format_image_report(image_result: str) -> str:
-    risk_level = extract_risk_level(image_result)
+    cleaned_report = strip_scene_summary_block(image_result)
+    risk_level = extract_risk_level(cleaned_report)
     badge_html = ""
     if "高风险" in risk_level:
         badge_html = "<div class='dk-risk-badge-row'><span class='dk-risk-badge high'>🚨 高风险</span></div>"
@@ -1112,7 +1124,7 @@ def format_image_report(image_result: str) -> str:
         badge_html = "<div class='dk-risk-badge-row'><span class='dk-risk-badge low'>✅ 低风险</span></div>"
 
     paragraphs = []
-    for raw_line in image_result.splitlines():
+    for raw_line in cleaned_report.splitlines():
         line = raw_line.strip()
         if not line:
             continue
@@ -1168,9 +1180,11 @@ def render_progress_panel(steps) -> str:
 
 
 def analyze_image_risk(image_path: str, additional_context: str):
+    print("[analyze_image_risk] 收到图片分析请求")
     if not image_path:
         message = "请先上传现场照片。"
-        return (
+        print("[analyze_image_risk] 未上传图片，直接返回")
+        result = (
             gr.update(visible=True),
             gr.update(visible=False),
             gr.update(value="", visible=False),
@@ -1179,11 +1193,14 @@ def analyze_image_risk(image_path: str, additional_context: str):
             gr.update(visible=False),
             message,
         )
+        print("[analyze_image_risk] 返回完成：empty-state")
+        return result
 
     api_key = os.getenv("DASHSCOPE_API_KEY")
     if not api_key:
         message = "未检测到 `DASHSCOPE_API_KEY`，请先在环境变量或 `.env` 中配置后再进行图片分析。"
-        return (
+        print("[analyze_image_risk] 缺少 DASHSCOPE_API_KEY，直接返回")
+        result = (
             gr.update(visible=True),
             gr.update(visible=False),
             gr.update(value="", visible=False),
@@ -1192,12 +1209,15 @@ def analyze_image_risk(image_path: str, additional_context: str):
             gr.update(visible=False),
             message,
         )
+        print("[analyze_image_risk] 返回完成：missing-api-key")
+        return result
 
     try:
         from dashscope import MultiModalConversation
     except ImportError:
         message = "未安装 `dashscope`，请先执行 `pip install -r requirements.txt`。"
-        return (
+        print("[analyze_image_risk] 缺少 dashscope 依赖，直接返回")
+        result = (
             gr.update(visible=True),
             gr.update(visible=False),
             gr.update(value="", visible=False),
@@ -1206,16 +1226,21 @@ def analyze_image_risk(image_path: str, additional_context: str):
             gr.update(visible=False),
             message,
         )
+        print("[analyze_image_risk] 返回完成：missing-dashscope")
+        return result
 
     user_text = "请分析这张化工现场照片中的安全风险。"
     if additional_context and additional_context.strip():
         user_text += f"\n补充说明：{additional_context.strip()}"
 
     try:
+        print("[analyze_image_risk] 正在读取并编码图片")
         data_url = image_to_data_url(image_path)
+        print("[analyze_image_risk] 正在调用 MultiModalConversation.call")
         response = MultiModalConversation.call(
             model="qwen-vl-max",
             api_key=api_key,
+            stream=False,
             messages=[
                 {"role": "system", "content": [{"text": IMAGE_SYSTEM_PROMPT}]},
                 {
@@ -1227,23 +1252,28 @@ def analyze_image_risk(image_path: str, additional_context: str):
                 },
             ],
         )
+        print("[analyze_image_risk] 视觉模型返回成功，正在解析文本")
         result_text = extract_dashscope_text(response)
         core_summary = extract_core_scenario_summary(result_text)
-        hazop_seed = compose_hazop_seed(core_summary, additional_context)
-        _current_result["image_seed"] = hazop_seed
+        if not core_summary:
+            core_summary = "未从视觉模型返回中提取到核心异常场景总结，请重试或补充现场说明。"
+        _current_result["image_seed"] = core_summary
         status = "图片分析完成，可以将识别结果一键转入文本 HAZOP 分析。"
-        return (
+        result = (
             gr.update(visible=False),
             gr.update(visible=True),
             gr.update(value=format_image_report(result_text), visible=True),
-            gr.update(value=hazop_seed, visible=True),
+            gr.update(value=core_summary, visible=True),
             gr.update(value="识别完成后可一键回填到文本分析。", visible=True),
             gr.update(visible=True),
             status,
         )
+        print("[analyze_image_risk] 返回完成：success")
+        return result
     except Exception as exc:
         message = f"图片分析失败：{exc}"
-        return (
+        print(f"[analyze_image_risk] 执行异常：{exc}")
+        result = (
             gr.update(visible=True),
             gr.update(visible=False),
             gr.update(value="", visible=False),
@@ -1252,6 +1282,8 @@ def analyze_image_risk(image_path: str, additional_context: str):
             gr.update(visible=False),
             message,
         )
+        print("[analyze_image_risk] 返回完成：error")
+        return result
 
 
 def analyze_streaming(user_input: str):
@@ -1725,21 +1757,21 @@ def create_ui():
                 transfer_btn,
                 image_status,
             ],
-            queue=True,
+            queue=False,
         )
         transfer_btn.click(
             fn=send_image_seed_to_text,
             inputs=[image_seed],
             outputs=[user_input, transfer_status],
-            queue=True,
+            queue=False,
         )
         feedback_btn.click(
             fn=submit_feedback,
             inputs=[rating_slider, comment_box],
             outputs=[feedback_result],
-            queue=True,
+            queue=False,
         )
-        refresh_btn.click(fn=refresh_stats, outputs=[stats_output], queue=True)
+        refresh_btn.click(fn=refresh_stats, outputs=[stats_output], queue=False)
 
         gr.HTML(
             """
