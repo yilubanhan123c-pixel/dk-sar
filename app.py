@@ -1,4 +1,5 @@
 import base64
+import html
 import json
 import mimetypes
 import os
@@ -61,43 +62,676 @@ THEME = gr.themes.Soft(
     neutral_hue="slate",
 )
 
+CUSTOM_CSS = """
+html, body, .gradio-container {
+  background: #FFFFFF !important;
+  color: #1F2937 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif !important;
+}
+.gradio-container * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif !important;
+}
+.gr-block, .gr-panel, .gr-box, .gr-form, .gr-group, .gr-accordion, .gradio-container .block {
+  border: 1px solid #E5E7EB !important;
+  box-shadow: none !important;
+  background: #FFFFFF !important;
+}
+.gradio-container {
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+}
+.gradio-container .main,
+.gradio-container .contain,
+.gradio-container .wrap {
+  gap: 10px !important;
+}
+.gradio-container .gr-row,
+.gradio-container .gr-column {
+  gap: 10px !important;
+}
+.gradio-container .tabs,
+.gradio-container .tabitem,
+.gradio-container .tab-nav,
+.gradio-container .tab-nav button {
+  box-shadow: none !important;
+}
+.gradio-container .tab-nav {
+  gap: 6px !important;
+  padding-bottom: 4px !important;
+}
+.gradio-container .tab-nav button {
+  border: 1px solid #E5E7EB !important;
+  background: #FFFFFF !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  min-height: 36px !important;
+}
+.gradio-container .tab-nav button.selected {
+  border-color: #0F766E !important;
+  color: #0F766E !important;
+  background: #F8FAFC !important;
+}
+.gradio-container .form,
+.gradio-container .wrap,
+.gradio-container .panel {
+  box-shadow: none !important;
+}
+.gradio-container .block-label,
+.gradio-container label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #4B5563 !important;
+  letter-spacing: 0.01em;
+}
+.gradio-container textarea,
+.gradio-container input[type="text"] {
+  min-height: 42px !important;
+  border: 1px solid #D1D5DB !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  font-size: 14px !important;
+}
+.gradio-container textarea {
+  line-height: 1.5 !important;
+}
+.gradio-container .gr-textbox,
+.gradio-container .gr-code,
+.gradio-container .gr-markdown,
+.gradio-container .gr-file,
+.gradio-container .gr-image,
+.gradio-container .gr-slider {
+  margin: 0 !important;
+}
+.gradio-container .gr-button,
+.gradio-container button {
+  min-height: 38px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 8px 14px !important;
+}
+.gradio-container button.primary {
+  background: #0F766E !important;
+  border: 1px solid #0F766E !important;
+}
+.gradio-container button.secondary {
+  background: #FFFFFF !important;
+  border: 1px solid #D1D5DB !important;
+  color: #1F2937 !important;
+}
+.gradio-container .gr-accordion {
+  border-radius: 6px !important;
+}
+.gradio-container .gr-accordion .label-wrap {
+  min-height: 38px !important;
+}
+.gradio-container .gr-markdown.prose {
+  font-size: 14px !important;
+}
+.gradio-container .gr-code textarea,
+.gradio-container .gr-code pre {
+  font-size: 12px !important;
+}
+.gradio-container .prose,
+.gradio-container label,
+.gradio-container p,
+.gradio-container span,
+.gradio-container div {
+  color: #1F2937;
+}
+.gradio-container .secondary-text,
+.dk-top-meta,
+.dk-subtitle,
+.dk-helper {
+  color: #6B7280 !important;
+}
+.dk-banner {
+  border: 1px solid #E5E7EB;
+  background: #FFFFFF;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.dk-banner-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.dk-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1F2937;
+}
+.dk-subtitle {
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+.dk-top-meta {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  padding-top: 4px;
+}
+.dk-footer {
+  margin-top: 12px;
+  padding: 12px 0 0 0;
+  border-top: 1px solid #E5E7EB;
+  color: #6B7280;
+  font-size: 0.9rem;
+}
+.gradio-container .examples,
+.gradio-container .examples-table,
+.gradio-container .examples-table table,
+.gradio-container .examples-table td,
+.gradio-container .examples-table tr {
+  text-align: left !important;
+}
+button.primary, .gradio-container button.primary {
+  box-shadow: none !important;
+}
+.dk-section-title {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+.dk-progress {
+  border: 1px solid #E5E7EB;
+  background: #FFFFFF;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+.dk-progress {
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+}
+.dk-progress-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dk-progress-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  padding: 9px 10px;
+  background: #FFFFFF;
+}
+.dk-progress-icon {
+  width: 20px;
+  flex: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.dk-progress-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.dk-progress-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+}
+.dk-progress-desc {
+  margin-top: 2px;
+  font-size: 12px;
+  color: #6B7280;
+}
+.dk-progress-item.is-pending {
+  background: #FFFFFF;
+}
+.dk-progress-item.is-running {
+  background: #FEFCE8;
+  border-color: #FCD34D;
+}
+.dk-progress-item.is-running .dk-progress-title,
+.dk-progress-item.is-running .dk-progress-icon {
+  color: #B45309;
+}
+.dk-progress-item.is-done {
+  background: #ECFDF5;
+  border-color: #86EFAC;
+}
+.dk-progress-item.is-done .dk-progress-title,
+.dk-progress-item.is-done .dk-progress-icon {
+  color: #047857;
+}
+.dk-progress-item.is-error {
+  background: #FEF2F2;
+  border-color: #FCA5A5;
+}
+.dk-progress-item.is-error .dk-progress-title,
+.dk-progress-item.is-error .dk-progress-icon {
+  color: #B91C1C;
+}
+.dk-helper {
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+.dk-empty-state {
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #D1D5DB;
+  border-radius: 8px;
+  background: #FAFAFA;
+  text-align: center;
+  padding: 24px;
+}
+.dk-empty-state-icon {
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.dk-empty-state-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+.dk-empty-state-desc {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #6B7280;
+}
+.dk-report {
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+.dk-report-section {
+  border-top: 1px solid #E5E7EB;
+}
+.dk-report-section:first-child {
+  border-top: none;
+}
+.dk-report-title {
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  background: #F9FAFB;
+  border-bottom: 1px solid #E5E7EB;
+}
+.dk-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.dk-report-table th,
+.dk-report-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #E5E7EB;
+  vertical-align: top;
+  text-align: left;
+  font-size: 13px;
+  color: #1F2937;
+  word-break: break-word;
+}
+.dk-report-table th {
+  width: 180px;
+  font-weight: 700;
+  color: #111827;
+  background: #F9FAFB;
+}
+.dk-report-table tr:nth-child(even) td,
+.dk-report-table tr:nth-child(even) th {
+  background: #FCFCFD;
+}
+.dk-report-table tr:last-child th,
+.dk-report-table tr:last-child td {
+  border-bottom: none;
+}
+.dk-report-list {
+  margin: 0;
+  padding-left: 18px;
+}
+.dk-report-list li {
+  margin: 0 0 4px 0;
+}
+.dk-source-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dk-source-section {
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+.dk-source-title {
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  background: #F9FAFB;
+  border-bottom: 1px solid #E5E7EB;
+}
+.dk-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+}
+.dk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid #D1D5DB;
+  border-radius: 999px;
+  background: #F8FAFC;
+  font-size: 12px;
+  color: #334155;
+}
+.dk-timeline {
+  padding: 12px 12px 4px 12px;
+}
+.dk-timeline-item {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 10px;
+}
+.dk-timeline-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dk-timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #0F766E;
+  margin-top: 3px;
+  flex: 0 0 auto;
+}
+.dk-timeline-line {
+  width: 2px;
+  flex: 1 1 auto;
+  background: #D1D5DB;
+  margin-top: 4px;
+  min-height: 44px;
+}
+.dk-timeline-item:last-child .dk-timeline-line {
+  background: transparent;
+}
+.dk-timeline-card {
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  background: #FFFFFF;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.dk-timeline-step {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6B7280;
+  margin-bottom: 6px;
+}
+.dk-timeline-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #ECFEFF;
+  color: #0F766E;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.dk-timeline-desc {
+  font-size: 13px;
+  color: #1F2937;
+  line-height: 1.6;
+}
+.dk-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
+}
+.dk-metric-card {
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  background: #FFFFFF;
+  padding: 12px;
+}
+.dk-metric-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.1;
+}
+.dk-metric-label {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6B7280;
+}
+.dk-metric-note {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #4B5563;
+  line-height: 1.45;
+}
+.dk-reflection-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dk-reflection-empty {
+  border: 1px dashed #D1D5DB;
+  border-radius: 6px;
+  background: #FAFAFA;
+  padding: 18px;
+  color: #6B7280;
+  font-size: 13px;
+}
+.dk-reflection-accordion {
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+.dk-reflection-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dk-reflection-summary::-webkit-details-marker {
+  display: none;
+}
+.dk-reflection-summary-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dk-reflection-status {
+  font-size: 12px;
+  font-weight: 700;
+}
+.dk-reflection-body {
+  padding: 12px 14px 14px 14px;
+  border-top: 1px solid rgba(229, 231, 235, 0.9);
+}
+.dk-reflection-issue {
+  border: 1px solid #FED7AA;
+  background: #FFF7ED;
+}
+.dk-reflection-issue .dk-reflection-summary {
+  background: #FFF7ED;
+  color: #9A3412;
+}
+.dk-reflection-issue .dk-reflection-status {
+  color: #C2410C;
+}
+.dk-reflection-pass {
+  border: 1px solid #A7F3D0;
+  background: #ECFDF5;
+}
+.dk-reflection-pass .dk-reflection-summary {
+  background: #ECFDF5;
+  color: #065F46;
+}
+.dk-reflection-pass .dk-reflection-status {
+  color: #047857;
+}
+.dk-reflection-subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4B5563;
+  margin: 0 0 8px 0;
+}
+.dk-reflection-list {
+  margin: 0;
+  padding-left: 18px;
+}
+.dk-reflection-list li {
+  margin: 0 0 6px 0;
+  color: #1F2937;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.dk-reflection-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+.dk-reflection-badge.issue {
+  background: #FFEDD5;
+  color: #C2410C;
+}
+.dk-reflection-badge.hit {
+  background: #DBEAFE;
+  color: #1D4ED8;
+}
+.dk-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
+}
+.dk-summary-card {
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #FFFFFF;
+}
+.dk-summary-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6B7280;
+  margin-bottom: 4px;
+}
+.dk-summary-value {
+  font-size: 14px;
+  color: #1F2937;
+  line-height: 1.5;
+}
+.dk-summary-core .dk-summary-value {
+  font-weight: 700;
+}
+.dk-summary-risk {
+  background: #FEF2F2;
+  border-color: #FCA5A5;
+}
+.dk-summary-risk .dk-summary-label,
+.dk-summary-risk .dk-summary-value {
+  color: #B91C1C;
+}
+.dk-summary-action {
+  background: #EFF6FF;
+  border-color: #93C5FD;
+}
+.dk-summary-action .dk-summary-label,
+.dk-summary-action .dk-summary-value {
+  color: #1D4ED8;
+}
+"""
+
 
 def render_report(report: dict) -> str:
     if not report:
-        return "请先在左侧输入场景并开始分析。"
+        return "<div class='dk-report'><div class='dk-report-title'>HAZOP 报告</div><table class='dk-report-table'><tr><th>状态</th><td>请先在左侧输入场景并开始分析。</td></tr></table></div>"
 
-    lines = []
     summary = report.get("summary", {})
     node = report.get("node_info", {})
+    sections = []
 
-    if summary:
-        lines.extend(
-            [
-                "## 分析摘要",
-                f"- 核心偏差：{summary.get('core_deviation', 'N/A')}",
-                f"- 首要怀疑：{summary.get('top_suspect', 'N/A')}",
-                f"- 最高风险：{summary.get('highest_risk', 'N/A')}",
-                f"- 首要动作：{summary.get('immediate_action', 'N/A')}",
-                "",
-            ]
+    def esc(value) -> str:
+        if value is None:
+            return ""
+        return html.escape(str(value))
+
+    def list_html(items) -> str:
+        if not items:
+            return "-"
+        return "<ul class='dk-report-list'>" + "".join(
+            f"<li>{esc(item)}</li>" for item in items
+        ) + "</ul>"
+
+    def rows_html(rows) -> str:
+        return "".join(
+            f"<tr><th>{esc(label)}</th><td>{value if isinstance(value, str) else esc(value)}</td></tr>"
+            for label, value in rows
         )
 
-    lines.extend(
-        [
-            "## HAZOP 报告",
-            f"- 设备：{node.get('equipment', 'N/A')}",
-            f"- 参数：{node.get('parameter', 'N/A')}",
-            f"- 偏差方向：{node.get('deviation_direction', 'N/A')}",
-            f"- 正常值：{node.get('normal_value', 'N/A')}",
-            f"- 当前值：{node.get('current_value', 'N/A')}",
-            "",
-        ]
+    if summary:
+        sections.append(
+            "<div class='dk-report-section'>"
+            "<div class='dk-report-title'>分析摘要</div>"
+            "<div class='dk-summary-grid'>"
+            f"<div class='dk-summary-card dk-summary-core'>"
+            f"<div class='dk-summary-label'>核心偏差</div>"
+            f"<div class='dk-summary-value'>{esc(summary.get('core_deviation', 'N/A'))}</div>"
+            f"</div>"
+            f"<div class='dk-summary-card'>"
+            f"<div class='dk-summary-label'>首要怀疑</div>"
+            f"<div class='dk-summary-value'>{esc(summary.get('top_suspect', 'N/A'))}</div>"
+            f"</div>"
+            f"<div class='dk-summary-card dk-summary-risk'>"
+            f"<div class='dk-summary-label'>最高风险</div>"
+            f"<div class='dk-summary-value'>{esc(summary.get('highest_risk', 'N/A'))}</div>"
+            f"</div>"
+            f"<div class='dk-summary-card dk-summary-action'>"
+            f"<div class='dk-summary-label'>首要动作 / 立即处置</div>"
+            f"<div class='dk-summary-value'>{esc(summary.get('immediate_action', 'N/A'))}</div>"
+            f"</div>"
+            "</div></div>"
+        )
+
+    sections.append(
+        "<div class='dk-report-section'>"
+        "<div class='dk-report-title'>节点信息</div>"
+        "<table class='dk-report-table'>"
+        + rows_html(
+            [
+                ("设备", esc(node.get("equipment", "N/A"))),
+                ("参数", esc(node.get("parameter", "N/A"))),
+                ("偏差方向", esc(node.get("deviation_direction", "N/A"))),
+                ("正常值", esc(node.get("normal_value", "N/A"))),
+                ("当前值", esc(node.get("current_value", "N/A"))),
+            ]
+        )
+        + "</table></div>"
     )
 
     for index, deviation in enumerate(report.get("deviations", []), start=1):
-        lines.append(f"### 偏差条目 {index}")
-
         causes = deviation.get("causes", {})
+        cause_items = []
         if isinstance(causes, dict):
             for key, title in [
                 ("primary", "首要怀疑"),
@@ -106,36 +740,36 @@ def render_report(report: dict) -> str:
             ]:
                 items = causes.get(key, [])
                 if items:
-                    lines.append(f"**{title}**")
-                    for item in items:
-                        lines.append(
-                            f"- [{item.get('type', '未分类')}] {item.get('description', '')}"
-                        )
+                    rendered = [
+                        f"[{item.get('type', '未分类')}] {item.get('description', '')}"
+                        for item in items
+                    ]
+                    cause_items.append((title, list_html(rendered)))
 
         consequences = deviation.get("consequences", [])
+        consequence_items = []
         if consequences:
-            lines.append("**后果链**")
             for item in consequences:
                 if isinstance(item, dict):
-                    lines.append(
-                        f"- {item.get('stage', '后果')}：{item.get('description', '')}"
+                    consequence_items.append(
+                        f"{item.get('stage', '后果')}：{item.get('description', '')}"
                     )
                 else:
-                    lines.append(f"- {item}")
+                    consequence_items.append(str(item))
 
+        safeguard_items = []
         safeguards = deviation.get("safeguards", [])
         if safeguards:
-            lines.append("**现有保护措施**")
             for safeguard in safeguards:
-                lines.append(
-                    f"- {safeguard.get('measure', '')}："
+                safeguard_items.append(
+                    f"{safeguard.get('measure', '')}："
                     f"{safeguard.get('effectiveness', '未说明')}，"
                     f"{safeguard.get('effectiveness_reason', '暂无说明')}"
                 )
 
+        recommendation_rows = []
         recommendations = deviation.get("recommendations", {})
         if isinstance(recommendations, dict):
-            lines.append("**建议措施**")
             for key, title in [
                 ("immediate", "立即处置"),
                 ("short_term", "短期整改"),
@@ -143,85 +777,184 @@ def render_report(report: dict) -> str:
             ]:
                 items = recommendations.get(key, [])
                 if items:
-                    lines.append(f"- {title}")
-                    for item in items:
-                        lines.append(f"  - {item.get('action', '')}")
-        lines.append("")
+                    recommendation_rows.append(
+                        (title, list_html([item.get("action", "") for item in items]))
+                    )
 
-    return "\n".join(lines).strip()
+        section_rows = []
+        section_rows.extend(cause_items)
+        if consequence_items:
+            section_rows.append(("后果链", list_html(consequence_items)))
+        if safeguard_items:
+            section_rows.append(("现有保护措施", list_html(safeguard_items)))
+        section_rows.extend(recommendation_rows)
+        if not section_rows:
+            section_rows.append(("状态", "暂无结构化信息"))
+
+        sections.append(
+            "<div class='dk-report-section'>"
+            f"<div class='dk-report-title'>偏差条目 {index}</div>"
+            "<table class='dk-report-table'>"
+            + rows_html(section_rows)
+            + "</table></div>"
+        )
+
+    return "<div class='dk-report'>" + "".join(sections) + "</div>"
 
 
 def render_sources_panel(report: dict) -> str:
     if not report:
-        return "分析完成后，这里会展示参考案例、证据链和置信信息。"
+        return (
+            "<div class='dk-source-wrap'>"
+            "<div class='dk-source-section'>"
+            "<div class='dk-source-title'>知识溯源</div>"
+            "<div class='dk-chip-row'><span class='dk-chip'>🔖 分析完成后，这里会展示参考案例</span></div>"
+            "</div>"
+            "</div>"
+        )
 
     meta = report.get("analysis_metadata", {})
     evidence_chain = report.get("evidence_chain", [])
     ref_ids = meta.get("referenced_cases", [])
     ref_names = meta.get("referenced_names", {})
     issues = meta.get("physical_issues_found", [])
+    confidence_level = meta.get("confidence_level", "N/A")
+    confidence_reason = meta.get("confidence_reason", "暂无说明")
+    reflection_rounds = meta.get("reflection_rounds", 0)
+    issue_count = len(issues)
 
-    lines = ["## 知识溯源"]
+    def esc(value) -> str:
+        return html.escape(str(value if value is not None else ""))
+
+    chips = []
     if ref_ids:
-        lines.append("### 参考案例")
         for case_id in ref_ids:
             case_name = ref_names.get(case_id, "")
             label = f"{case_id} - {case_name}" if case_name else case_id
-            lines.append(f"- {label}")
+            chips.append(f"<span class='dk-chip'>🔖 {esc(label)}</span>")
+    else:
+        chips.append("<span class='dk-chip'>🔖 未检索到明确参考案例</span>")
 
+    timeline_items = []
     if evidence_chain:
-        lines.append("")
-        lines.append("### 证据链")
         for item in evidence_chain:
-            lines.append(
-                f"- Step {item.get('step', '?')} | {item.get('type', '未分类')}："
-                f"{item.get('content', '')}"
+            timeline_items.append(
+                "<div class='dk-timeline-item'>"
+                "<div class='dk-timeline-rail'>"
+                "<div class='dk-timeline-dot'></div>"
+                "<div class='dk-timeline-line'></div>"
+                "</div>"
+                "<div class='dk-timeline-card'>"
+                f"<div class='dk-timeline-step'>Step {esc(item.get('step', '?'))}</div>"
+                f"<div class='dk-timeline-tag'>{esc(item.get('type', '未分类'))}</div>"
+                f"<div class='dk-timeline-desc'>{esc(item.get('content', ''))}</div>"
+                "</div></div>"
             )
+    else:
+        timeline_items.append(
+            "<div class='dk-timeline-item'>"
+            "<div class='dk-timeline-rail'><div class='dk-timeline-dot'></div><div class='dk-timeline-line'></div></div>"
+            "<div class='dk-timeline-card'>"
+            "<div class='dk-timeline-step'>Step -</div>"
+            "<div class='dk-timeline-tag'>证据链</div>"
+            "<div class='dk-timeline-desc'>暂无证据链数据。</div>"
+            "</div></div>"
+        )
 
-    lines.extend(
-        [
-            "",
-            "### 置信与校验",
-            f"- 置信水平：{meta.get('confidence_level', 'N/A')}",
-            f"- 置信依据：{meta.get('confidence_reason', 'N/A')}",
-            f"- 反思轮次：{meta.get('reflection_rounds', 0)}",
-            f"- 物理问题数：{len(issues)}",
-        ]
+    metrics = (
+        "<div class='dk-metric-grid'>"
+        f"<div class='dk-metric-card'><div class='dk-metric-value'>{esc(confidence_level)}</div><div class='dk-metric-label'>置信水平</div><div class='dk-metric-note'>{esc(confidence_reason)}</div></div>"
+        f"<div class='dk-metric-card'><div class='dk-metric-value'>{esc(reflection_rounds)}</div><div class='dk-metric-label'>反思轮次</div><div class='dk-metric-note'>多智能体校验与修正次数</div></div>"
+        f"<div class='dk-metric-card'><div class='dk-metric-value'>{esc(issue_count)}</div><div class='dk-metric-label'>物理问题数</div><div class='dk-metric-note'>识别到的物理一致性问题数量</div></div>"
+        "</div>"
     )
-    return "\n".join(lines).strip()
+
+    return (
+        "<div class='dk-source-wrap'>"
+        "<div class='dk-source-section'>"
+        "<div class='dk-source-title'>参考案例</div>"
+        f"<div class='dk-chip-row'>{''.join(chips)}</div>"
+        "</div>"
+        "<div class='dk-source-section'>"
+        "<div class='dk-source-title'>证据链</div>"
+        f"<div class='dk-timeline'>{''.join(timeline_items)}</div>"
+        "</div>"
+        "<div class='dk-source-section'>"
+        "<div class='dk-source-title'>置信与校验</div>"
+        f"{metrics}"
+        "</div>"
+        "</div>"
+    )
 
 
 def render_reflection_panel(reflection_history: list) -> str:
     if not reflection_history:
-        return "分析完成后，这里会展示反思日志和物理校验过程。"
-
-    lines = ["## 反思日志"]
-    for record in reflection_history:
-        lines.append(
-            f"### 第 {record.get('round', '?')} 轮 - "
-            f"{'通过' if record.get('passed') else '发现问题'}"
+        return (
+            "<div class='dk-reflection-wrap'>"
+            "<div class='dk-reflection-empty'>分析完成后，这里会展示系统如何拦截物理幻觉与修正推理过程。</div>"
+            "</div>"
         )
 
-        fallacy_hits = record.get("fallacy_hits", [])
-        if fallacy_hits:
-            lines.append("**负样本库命中**")
-            for hit in fallacy_hits:
-                lines.append(
-                    f"- {hit.get('fallacy_id', '')}：{hit.get('matched_proposition', '')}"
-                )
+    def esc(value) -> str:
+        return html.escape(str(value if value is not None else ""))
 
+    panels = []
+    has_issue_round = any(not record.get("passed") for record in reflection_history)
+
+    for record in reflection_history:
+        passed = record.get("passed", False)
+        round_num = record.get("round", "?")
         issues = record.get("issues", [])
-        if issues:
-            lines.append("**问题清单**")
-            for issue in issues:
-                lines.append(
-                    f"- [{issue.get('issue_type', '未分类')}] {issue.get('description', '')}"
-                )
-        else:
-            lines.append("- 本轮未发现新的物理问题。")
-        lines.append("")
+        fallacy_hits = record.get("fallacy_hits", [])
+        open_attr = " open" if (not passed or not has_issue_round) else ""
+        box_class = "dk-reflection-pass" if passed else "dk-reflection-issue"
+        icon = "✅" if passed else "⚠️"
+        status_text = "已通过" if passed else f"发现 {len(issues)} 个问题"
 
-    return "\n".join(lines).strip()
+        issue_items = []
+        for issue in issues:
+            issue_type = esc(issue.get("issue_type", "未分类"))
+            description = esc(issue.get("description", ""))
+            issue_items.append(
+                f"<li><span class='dk-reflection-badge issue'>{issue_type}</span>{description}</li>"
+            )
+
+        hit_items = []
+        for hit in fallacy_hits:
+            label = esc(hit.get("fallacy_id", "命中"))
+            proposition = esc(hit.get("matched_proposition", ""))
+            hit_items.append(
+                f"<li><span class='dk-reflection-badge hit'>{label}</span>{proposition}</li>"
+            )
+
+        body_parts = []
+        if hit_items:
+            body_parts.append(
+                "<div class='dk-reflection-subtitle'>负样本库命中</div>"
+                f"<ul class='dk-reflection-list'>{''.join(hit_items)}</ul>"
+            )
+        if issue_items:
+            body_parts.append(
+                "<div class='dk-reflection-subtitle'>问题清单</div>"
+                f"<ul class='dk-reflection-list'>{''.join(issue_items)}</ul>"
+            )
+        if not issue_items and not hit_items:
+            body_parts.append(
+                "<div class='dk-reflection-subtitle'>校验结果</div>"
+                "<ul class='dk-reflection-list'><li>本轮未发现新的物理问题，报告通过校验。</li></ul>"
+            )
+
+        panels.append(
+            f"<details class='dk-reflection-accordion {box_class}'{open_attr}>"
+            "<summary class='dk-reflection-summary'>"
+            f"<span class='dk-reflection-summary-text'><span>{icon}</span><span>第 {esc(round_num)} 轮反思</span></span>"
+            f"<span class='dk-reflection-status'>{status_text}</span>"
+            "</summary>"
+            f"<div class='dk-reflection-body'>{''.join(body_parts)}</div>"
+            "</details>"
+        )
+
+    return "<div class='dk-reflection-wrap'>" + "".join(panels) + "</div>"
 
 
 def image_to_data_url(image_path: str) -> str:
@@ -276,21 +1009,71 @@ def compose_hazop_seed(image_result: str, additional_context: str) -> str:
     )
 
 
+def render_progress_panel(steps) -> str:
+    icon_map = {
+        "pending": "⬜",
+        "running": "⏳",
+        "done": "✅",
+        "error": "❌",
+    }
+    items = []
+    for step in steps:
+        status = step.get("status", "pending")
+        items.append(
+            "<div class='dk-progress-item is-{status}'>"
+            "<div class='dk-progress-icon'>{icon}</div>"
+            "<div class='dk-progress-body'>"
+            "<div class='dk-progress-title'>{title}</div>"
+            "<div class='dk-progress-desc'>{desc}</div>"
+            "</div></div>".format(
+                status=html.escape(status),
+                icon=icon_map.get(status, "⬜"),
+                title=html.escape(step.get("title", "")),
+                desc=html.escape(step.get("desc", "")),
+            )
+        )
+    return "<div class='dk-progress'><div class='dk-progress-stack'>" + "".join(items) + "</div></div>"
+
+
 def analyze_image_risk(image_path: str, additional_context: str):
     if not image_path:
         message = "请先上传现场照片。"
-        return message, "", message
+        return (
+            gr.update(visible=True),
+            gr.update(visible=False),
+            gr.update(value="", visible=False),
+            gr.update(value="", visible=False),
+            gr.update(value="", visible=False),
+            gr.update(visible=False),
+            message,
+        )
 
     api_key = os.getenv("DASHSCOPE_API_KEY")
     if not api_key:
         message = "未检测到 `DASHSCOPE_API_KEY`，请先在环境变量或 `.env` 中配置后再进行图片分析。"
-        return message, "", message
+        return (
+            gr.update(visible=True),
+            gr.update(visible=False),
+            gr.update(value="", visible=False),
+            gr.update(value="", visible=False),
+            gr.update(value="", visible=False),
+            gr.update(visible=False),
+            message,
+        )
 
     try:
         from dashscope import MultiModalConversation
     except ImportError:
         message = "未安装 `dashscope`，请先执行 `pip install -r requirements.txt`。"
-        return message, "", message
+        return (
+            gr.update(visible=True),
+            gr.update(visible=False),
+            gr.update(value="", visible=False),
+            gr.update(value="", visible=False),
+            gr.update(value="", visible=False),
+            gr.update(visible=False),
+            message,
+        )
 
     user_text = "请分析这张化工现场照片中的安全风险。"
     if additional_context and additional_context.strip():
@@ -316,22 +1099,42 @@ def analyze_image_risk(image_path: str, additional_context: str):
         hazop_seed = compose_hazop_seed(result_text, additional_context)
         _current_result["image_seed"] = hazop_seed
         status = "图片分析完成，可以将识别结果一键转入文本 HAZOP 分析。"
-        return result_text, hazop_seed, status
+        return (
+            gr.update(visible=False),
+            gr.update(visible=True),
+            gr.update(value=result_text, visible=True),
+            gr.update(value=hazop_seed, visible=True),
+            gr.update(value="识别完成后可一键回填到文本分析。", visible=True),
+            gr.update(visible=True),
+            status,
+        )
     except Exception as exc:
         message = f"图片分析失败：{exc}"
-        return message, "", message
+        return (
+            gr.update(visible=True),
+            gr.update(visible=False),
+            gr.update(value="", visible=False),
+            gr.update(value="", visible=False),
+            gr.update(value="", visible=False),
+            gr.update(visible=False),
+            message,
+        )
 
 
 def analyze_streaming(user_input: str):
     global _current_result
+    initial_steps = [
+        {"title": "Step 1/3 上下文解析", "desc": "等待开始", "status": "pending"},
+        {"title": "Step 2/3 RAG分析", "desc": "等待开始", "status": "pending"},
+        {"title": "Step 3/3 物理反思", "desc": "等待开始", "status": "pending"},
+    ]
     empty = (
         "请先输入要分析的化工异常场景。",
         "分析完成后，这里会展示参考案例、证据链和置信信息。",
         "分析完成后，这里会展示反思日志和物理校验过程。",
-        "评估结果将在分析完成后自动生成。",
         "{}",
         None,
-        "等待开始分析。",
+        render_progress_panel(initial_steps),
     )
 
     if not user_input or not user_input.strip():
@@ -346,21 +1149,23 @@ def analyze_streaming(user_input: str):
         "image_seed": _current_result.get("image_seed", ""),
     }
 
-    progress_lines = []
     report = None
     context = None
     reflection_history = []
-
-    def push(message: str) -> str:
-        progress_lines.append(message)
-        return "\n".join(progress_lines)
-
-    progress = push("Step 1/3 上下文解析中：提取设备、参数、偏差方向和工艺条件。")
+    progress_steps = [
+        {
+            "title": "Step 1/3 上下文解析",
+            "desc": "正在提取设备、参数、偏差方向和工艺条件...",
+            "status": "running",
+        },
+        {"title": "Step 2/3 RAG分析", "desc": "等待开始", "status": "pending"},
+        {"title": "Step 3/3 物理反思", "desc": "等待开始", "status": "pending"},
+    ]
+    progress = render_progress_panel(progress_steps)
     yield (
         "分析中，请稍候...",
         "正在整理知识溯源信息...",
         "正在准备反思日志...",
-        "评估结果生成中...",
         "{}",
         None,
         progress,
@@ -369,19 +1174,30 @@ def analyze_streaming(user_input: str):
     try:
         ctx_result = ContextAgent().run(user_input.strip())
         context = ctx_result["context"]
-        progress = push(
-            f"Step 1/3 已完成：{context['equipment']} / "
-            f"{context['parameter']} / {context['deviation_direction']}"
-        )
+        progress_steps[0] = {
+            "title": "Step 1/3 上下文解析",
+            "desc": f"已完成，识别到 {context['equipment']} / {context['parameter']} / {context['deviation_direction']}",
+            "status": "done",
+        }
+        progress_steps[1] = {
+            "title": "Step 2/3 RAG分析",
+            "desc": "正在检索相似案例并生成结构化报告...",
+            "status": "running",
+        }
+        progress = render_progress_panel(progress_steps)
     except Exception as exc:
+        progress_steps[0] = {
+            "title": "Step 1/3 上下文解析",
+            "desc": f"执行失败：{exc}",
+            "status": "error",
+        }
         yield (
             f"上下文解析失败：{exc}",
             "未生成知识溯源。",
             "未生成反思日志。",
-            "未生成评估结果。",
             "{}",
             None,
-            progress,
+            render_progress_panel(progress_steps),
         )
         return
 
@@ -389,7 +1205,6 @@ def analyze_streaming(user_input: str):
         "正在执行 RAG 检索与报告生成...",
         "正在汇总参考案例...",
         "等待反思日志...",
-        "评估结果生成中...",
         "{}",
         None,
         progress,
@@ -399,12 +1214,16 @@ def analyze_streaming(user_input: str):
     round_num = 0
 
     while round_num < config.MAX_REFLECTION_ROUNDS:
-        progress = push(f"Step 2/3 RAG 分析中：第 {round_num + 1} 轮检索和报告生成。")
+        progress_steps[1] = {
+            "title": "Step 2/3 RAG分析",
+            "desc": f"第 {round_num + 1} 轮检索和报告生成中...",
+            "status": "running",
+        }
+        progress = render_progress_panel(progress_steps)
         yield (
             "正在执行 RAG 检索与报告生成...",
             "正在汇总参考案例...",
             "等待反思日志...",
-            "评估结果生成中...",
             "{}",
             None,
             progress,
@@ -416,25 +1235,38 @@ def analyze_streaming(user_input: str):
                 correction_guidance=correction_guidance,
                 reflection_rounds=round_num,
             )
-            progress = push("Step 2/3 已完成：已生成结构化 HAZOP 报告草案。")
+            matched_count = len(report.get("analysis_metadata", {}).get("referenced_cases", []))
+            progress_steps[1] = {
+                "title": "Step 2/3 RAG分析",
+                "desc": f"已完成，匹配 {matched_count} 个相似案例",
+                "status": "done",
+            }
         except Exception as exc:
+            progress_steps[1] = {
+                "title": "Step 2/3 RAG分析",
+                "desc": f"执行失败：{exc}",
+                "status": "error",
+            }
             yield (
                 f"RAG 报告生成失败：{exc}",
                 "未生成知识溯源。",
                 "未生成反思日志。",
-                "未生成评估结果。",
                 "{}",
                 None,
-                progress,
+                render_progress_panel(progress_steps),
             )
             return
 
-        progress = push(f"Step 3/3 物理反思中：第 {round_num + 1} 轮双层校验。")
+        progress_steps[2] = {
+            "title": "Step 3/3 物理反思",
+            "desc": f"第 {round_num + 1} 轮双层校验中，三个智能体正在接力思考...",
+            "status": "running",
+        }
+        progress = render_progress_panel(progress_steps)
         yield (
             "正在执行物理校验与反思修正...",
             render_sources_panel(report),
             "正在生成反思日志...",
-            "评估结果生成中...",
             json.dumps(report, ensure_ascii=False, indent=2),
             None,
             progress,
@@ -451,16 +1283,40 @@ def analyze_streaming(user_input: str):
             reflection_history.append(record)
 
             if ref_result["passed"]:
-                progress = push("Step 3/3 已完成：通过双层物理校验。")
+                progress_steps[2] = {
+                    "title": "Step 3/3 物理反思",
+                    "desc": "已完成，通过双层物理校验",
+                    "status": "done",
+                }
                 break
 
             correction_guidance = ref_result["correction_guidance"]
-            progress = push(
-                f"Step 3/3 发现 {len(ref_result['issues'])} 个问题，返回第 2 步修正。"
+            progress_steps[2] = {
+                "title": "Step 3/3 物理反思",
+                "desc": f"发现 {len(ref_result['issues'])} 个问题，正在回传修正意见并重新生成...",
+                "status": "running",
+            }
+            progress = render_progress_panel(progress_steps)
+            yield (
+                "正在根据反思结果修正报告...",
+                render_sources_panel(report),
+                render_reflection_panel(reflection_history),
+                json.dumps(report, ensure_ascii=False, indent=2),
+                None,
+                progress,
             )
+            progress_steps[1] = {
+                "title": "Step 2/3 RAG分析",
+                "desc": f"收到第 {round_num + 1} 轮修正意见，准备重新生成...",
+                "status": "running",
+            }
             round_num += 1
         except Exception as exc:
-            progress = push(f"物理校验异常，保留当前报告：{exc}")
+            progress_steps[2] = {
+                "title": "Step 3/3 物理反思",
+                "desc": f"校验异常，已保留当前报告（{exc}）",
+                "status": "error",
+            }
             break
 
     if not report:
@@ -468,10 +1324,9 @@ def analyze_streaming(user_input: str):
             "分析失败，未生成报告。",
             "未生成知识溯源。",
             "未生成反思日志。",
-            "未生成评估结果。",
             "{}",
             None,
-            progress,
+            render_progress_panel(progress_steps),
         )
         return
 
@@ -507,12 +1362,11 @@ def analyze_streaming(user_input: str):
         "image_seed": _current_result.get("image_seed", ""),
     }
 
-    progress = push("分析完成：可查看 HAZOP 报告、知识溯源、反思日志和原始 JSON。")
+    progress = render_progress_panel(progress_steps)
     yield (
         report_md,
         sources_md,
         reflection_md,
-        scores_md,
         raw_json,
         export_path,
         progress,
@@ -551,18 +1405,18 @@ def create_ui():
         title="DK-SAR Chemical Safety Analysis",
         fill_height=True,
     ) as demo:
+        gr.HTML(f"<style>{CUSTOM_CSS}</style>")
         gr.HTML(
             """
-            <div style="padding:24px 0 12px 0;text-align:center;">
-              <div style="font-size:30px;font-weight:700;color:#0f766e;">DK-SAR 化工安全分析系统</div>
-              <div style="margin-top:6px;color:#334155;font-size:15px;">
-                Dual Knowledge-enhanced Self-Adaptive Reasoning for Automated HAZOP Analysis
-              </div>
-              <div style="margin-top:12px;">
-                <img src="https://img.shields.io/badge/Gradio-5.x-0f766e?style=flat-square" />
-                <img src="https://img.shields.io/badge/Mode-Text%20%2B%20Vision-14b8a6?style=flat-square" />
-                <img src="https://img.shields.io/badge/RAG-Positive%20Cases-0ea5e9?style=flat-square" />
-                <img src="https://img.shields.io/badge/Reflection-Negative%20Physics%20Checks-f97316?style=flat-square" />
+            <div class="dk-banner">
+              <div class="dk-banner-row">
+                <div>
+                  <h2 class="dk-title">DK-SAR 化工安全分析系统</h2>
+                  <div class="dk-subtitle">
+                    Dual Knowledge-enhanced Self-Adaptive Reasoning · HAZOP Analysis Platform
+                  </div>
+                </div>
+                <div class="dk-top-meta">支持文本分析 · 图片识别 · 物理反思校验</div>
               </div>
             </div>
             """
@@ -572,16 +1426,16 @@ def create_ui():
             with gr.Tab("HAZOP 文本分析"):
                 with gr.Row():
                     with gr.Column(scale=1, min_width=320):
-                        gr.Markdown("### 输入场景")
+                        gr.Markdown("<div class='dk-section-title'>输入场景</div>")
                         user_input = gr.Textbox(
                             label="化工异常场景描述",
                             placeholder="例如：3号反应釜温度持续升高，压力同步上升，冷却水温偏高，操作员已开启泄压阀。",
-                            lines=8,
+                            lines=7,
                         )
                         gr.Examples(
                             examples=EXAMPLES,
                             inputs=[user_input],
-                            label="预置示例场景",
+                            label="快速开始：选择示例场景",
                         )
                         analyze_btn = gr.Button("开始 HAZOP 分析", variant="primary", size="lg")
 
@@ -602,27 +1456,28 @@ def create_ui():
                             comment_box = gr.Textbox(
                                 label="反馈意见",
                                 placeholder="这次分析是否准确、哪里还可以更好。",
-                                lines=3,
+                                lines=2,
                             )
                             feedback_btn = gr.Button("提交反馈")
                             feedback_result = gr.Markdown()
 
                     with gr.Column(scale=2):
-                        progress_output = gr.Markdown("等待开始分析。")
+                        gr.Markdown("<div class='dk-section-title'>分析进度</div>")
+                        progress_output = gr.HTML(render_progress_panel([
+                            {"title": "Step 1/3 上下文解析", "desc": "等待开始", "status": "pending"},
+                            {"title": "Step 2/3 RAG分析", "desc": "等待开始", "status": "pending"},
+                            {"title": "Step 3/3 物理反思", "desc": "等待开始", "status": "pending"},
+                        ]))
                         with gr.Tabs():
                             with gr.Tab("HAZOP 报告"):
-                                report_output = gr.Markdown()
+                                report_output = gr.HTML()
                             with gr.Tab("知识溯源"):
-                                sources_output = gr.Markdown(
-                                    "分析完成后，这里会展示参考案例、证据链和置信信息。"
+                                sources_output = gr.HTML(
+                                    render_sources_panel(None)
                                 )
                             with gr.Tab("反思日志"):
-                                reflection_output = gr.Markdown(
-                                    "分析完成后，这里会展示反思日志和物理校验过程。"
-                                )
-                            with gr.Tab("论文指标评估"):
-                                scores_output = gr.Markdown(
-                                    "评估结果将在分析完成后自动生成。"
+                                reflection_output = gr.HTML(
+                                    render_reflection_panel([])
                                 )
                             with gr.Tab("原始 JSON"):
                                 json_output = gr.Code(language="json", value="{}")
@@ -631,9 +1486,12 @@ def create_ui():
                         stats_output = gr.Markdown(value=format_stats_markdown(get_stats()))
                         refresh_btn = gr.Button("刷新统计", size="sm")
 
-            with gr.Tab("现场拍照识别"):
+            with gr.Tab("现场巡检识别"):
                 with gr.Row():
                     with gr.Column(scale=1, min_width=320):
+                        gr.Markdown(
+                            "<div class='dk-helper'>上传设备、管道、阀门、作业环境等现场照片，系统自动识别安全风险</div>"
+                        )
                         image_input = gr.Image(
                             label="上传现场照片",
                             type="filepath",
@@ -643,22 +1501,42 @@ def create_ui():
                         image_context = gr.Textbox(
                             label="补充说明",
                             placeholder="例如：这是 3 号车间冷却水管道附近，设备已运行 2 年。",
-                            lines=3,
+                            lines=2,
                         )
                         image_btn = gr.Button("开始图片风险识别", variant="primary", size="lg")
                         image_status = gr.Markdown("等待上传照片。")
 
                     with gr.Column(scale=2):
+                        image_placeholder = gr.Markdown(
+                            """
+                            <div class="dk-empty-state">
+                              <div>
+                                <div class="dk-empty-state-icon">🖼️</div>
+                                <div class="dk-empty-state-title">请先在左侧上传巡检照片</div>
+                                <div class="dk-empty-state-desc">
+                                  系统将自动识别现场风险，并关联 HAZOP 分析线索
+                                </div>
+                              </div>
+                            </div>
+                            """,
+                            visible=True,
+                        )
+                        image_report_title = gr.Markdown(
+                            "<div class='dk-section-title'>风险评估报告</div>",
+                            visible=False,
+                        )
                         image_output = gr.Markdown(
-                            "图片分析完成后，这里会展示风险等级、风险识别、建议措施和 HAZOP 关联。"
+                            value="",
+                            visible=False,
                         )
                         image_seed = gr.Textbox(
                             label="转写后的 HAZOP 输入草稿",
-                            lines=10,
+                            lines=8,
                             interactive=False,
+                            visible=False,
                         )
-                        transfer_status = gr.Markdown("识别完成后可一键回填到文本分析。")
-                        transfer_btn = gr.Button("将识别结果转为 HAZOP 分析")
+                        transfer_status = gr.Markdown("", visible=False)
+                        transfer_btn = gr.Button("将识别结果转为 HAZOP 分析", visible=False)
 
         analyze_btn.click(
             fn=analyze_streaming,
@@ -667,7 +1545,6 @@ def create_ui():
                 report_output,
                 sources_output,
                 reflection_output,
-                scores_output,
                 json_output,
                 export_file,
                 progress_output,
@@ -676,7 +1553,15 @@ def create_ui():
         image_btn.click(
             fn=analyze_image_risk,
             inputs=[image_input, image_context],
-            outputs=[image_output, image_seed, image_status],
+            outputs=[
+                image_placeholder,
+                image_report_title,
+                image_output,
+                image_seed,
+                transfer_status,
+                transfer_btn,
+                image_status,
+            ],
         )
         transfer_btn.click(
             fn=send_image_seed_to_text,
@@ -692,11 +1577,8 @@ def create_ui():
 
         gr.HTML(
             """
-            <div style="margin-top:20px;padding:18px 0;border-top:1px solid #dbe4e8;color:#475569;font-size:14px;">
-              <div><strong>技术架构：</strong>LangGraph 多智能体编排 · 双知识库 RAG/反思校验 · DashScope 多模态视觉分析</div>
-              <div style="margin-top:6px;"><strong>论文：</strong>DK-SAR: Dual Knowledge-enhanced Self-Adaptive Reasoning for Automated HAZOP Analysis</div>
-              <div style="margin-top:6px;"><strong>作者：</strong>陈仕透，华东理工大学</div>
-              <div style="margin-top:6px;"><strong>GitHub：</strong><a href="https://github.com/yilubanhan123c-pixel/dk-sar" target="_blank">yilubanhan123c-pixel/dk-sar</a></div>
+            <div class="dk-footer">
+              技术架构：LangGraph 多智能体编排 · 双知识库 RAG/反思校验 · DashScope 多模态视觉分析
             </div>
             """
         )
