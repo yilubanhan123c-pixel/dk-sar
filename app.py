@@ -1036,43 +1036,31 @@ def render_progress_panel(steps) -> str:
 
 
 def analyze_image_risk(image_path: str, additional_context: str):
-    if not image_path:
-        message = "请先上传现场照片。"
+    def _error_result(message: str):
         return (
-            gr.update(visible=True),
-            gr.update(visible=False),
-            gr.update(value="", visible=False),
-            gr.update(value="", visible=False),
-            gr.update(value="", visible=False),
-            gr.update(visible=False),
+            gr.Markdown(visible=True),
+            gr.Markdown(visible=False),
+            gr.Markdown(value="", visible=False),
+            gr.Textbox(value="", visible=False),
+            gr.Markdown(value="", visible=False),
+            gr.Button(visible=False),
             message,
         )
 
+    if not image_path:
+        return _error_result("请先上传现场照片。")
+
     api_key = os.getenv("DASHSCOPE_API_KEY")
     if not api_key:
-        message = "未检测到 `DASHSCOPE_API_KEY`，请先在环境变量或 `.env` 中配置后再进行图片分析。"
-        return (
-            gr.update(visible=True),
-            gr.update(visible=False),
-            gr.update(value="", visible=False),
-            gr.update(value="", visible=False),
-            gr.update(value="", visible=False),
-            gr.update(visible=False),
-            message,
+        return _error_result(
+            "未检测到 `DASHSCOPE_API_KEY`，请先在环境变量或 `.env` 中配置后再进行图片分析。"
         )
 
     try:
         from dashscope import MultiModalConversation
     except ImportError:
-        message = "未安装 `dashscope`，请先执行 `pip install -r requirements.txt`。"
-        return (
-            gr.update(visible=True),
-            gr.update(visible=False),
-            gr.update(value="", visible=False),
-            gr.update(value="", visible=False),
-            gr.update(value="", visible=False),
-            gr.update(visible=False),
-            message,
+        return _error_result(
+            "未安装 `dashscope`，请先执行 `pip install -r requirements.txt`。"
         )
 
     user_text = "请分析这张化工现场照片中的安全风险。"
@@ -1094,31 +1082,23 @@ def analyze_image_risk(image_path: str, additional_context: str):
                     ],
                 },
             ],
+            stream=False,
         )
         result_text = extract_dashscope_text(response)
         hazop_seed = compose_hazop_seed(result_text, additional_context)
         _current_result["image_seed"] = hazop_seed
         status = "图片分析完成，可以将识别结果一键转入文本 HAZOP 分析。"
         return (
-            gr.update(visible=False),
-            gr.update(visible=True),
-            gr.update(value=result_text, visible=True),
-            gr.update(value=hazop_seed, visible=True),
-            gr.update(value="识别完成后可一键回填到文本分析。", visible=True),
-            gr.update(visible=True),
+            gr.Markdown(visible=False),
+            gr.Markdown(visible=True),
+            gr.Markdown(value=result_text, visible=True),
+            gr.Textbox(value=hazop_seed, visible=True),
+            gr.Markdown(value="识别完成后可一键回填到文本分析。", visible=True),
+            gr.Button(visible=True),
             status,
         )
     except Exception as exc:
-        message = f"图片分析失败：{exc}"
-        return (
-            gr.update(visible=True),
-            gr.update(visible=False),
-            gr.update(value="", visible=False),
-            gr.update(value="", visible=False),
-            gr.update(value="", visible=False),
-            gr.update(visible=False),
-            message,
-        )
+        return _error_result(f"图片分析失败：{exc}")
 
 
 def analyze_streaming(user_input: str):
