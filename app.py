@@ -39,11 +39,12 @@ IMAGE_SYSTEM_PROMPT = """你是一名资深化工安全工程师和 HAZOP 分析
 请基于用户上传的现场照片，输出结构化中文分析，要求专业但易懂，适合一线巡检人员阅读。
 
 请按以下结构输出：
-1. 风险等级：仅可使用 高风险 / 中风险 / 低风险
-2. 风险识别：逐条列出照片中观察到的异常、隐患或不安全行为
-3. 判断依据：说明你为什么这样判断，可引用设备状态、环境特征、PPE、泄漏迹象、腐蚀、标识缺失等
-4. 建议措施：给出现场可执行的处置建议，优先给出立即措施
-5. HAZOP 关联：如果能关联到 HAZOP 偏差，请指出可能的参数与偏差方向，例如 温度偏高、压力偏高、流量偏低、液位偏高、泄漏、成分异常
+1. 核心异常场景总结：必须输出 1 句不超过 50 个汉字的精炼总结，只描述最关键的异常场景，适合作为下游 HAZOP 文本分析输入
+2. 风险等级：仅可使用 高风险 / 中风险 / 低风险
+3. 风险识别：逐条列出照片中观察到的异常、隐患或不安全行为
+4. 判断依据：说明你为什么这样判断，可引用设备状态、环境特征、PPE、泄漏迹象、腐蚀、标识缺失等
+5. 建议措施：给出现场可执行的处置建议，优先给出立即措施
+6. HAZOP 关联：如果能关联到 HAZOP 偏差，请指出可能的参数与偏差方向，例如 温度偏高、压力偏高、流量偏低、液位偏高、泄漏、成分异常
 
 如果照片信息不足，请明确说明“不足以确认”的部分，不要编造细节。"""
 
@@ -336,6 +337,56 @@ button.primary, .gradio-container button.primary {
   margin-top: 6px;
   font-size: 13px;
   color: #6B7280;
+}
+.dk-risk-badge-row {
+  margin-bottom: 10px;
+}
+.dk-risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.dk-risk-badge.high {
+  background: #DC2626;
+  color: #FFFFFF;
+}
+.dk-risk-badge.medium {
+  background: #EA580C;
+  color: #FFFFFF;
+}
+.dk-risk-badge.low {
+  background: #0F766E;
+  color: #FFFFFF;
+}
+.dk-image-report {
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+.dk-image-report-body {
+  padding: 12px;
+  font-size: 13px;
+  color: #1F2937;
+  line-height: 1.7;
+}
+.dk-image-report-body p {
+  margin: 0 0 8px 0;
+}
+.dk-image-report-body strong {
+  color: #111827;
+}
+.dk-risk-highlight {
+  color: #B91C1C;
+  font-weight: 700;
+}
+.dk-seed-box textarea,
+.dk-seed-box input {
+  background: #F0F9FF !important;
 }
 .dk-report {
   border: 1px solid #E5E7EB;
@@ -999,13 +1050,94 @@ def extract_dashscope_text(response) -> str:
     return str(content) if content else "模型未返回可解析内容。"
 
 
-def compose_hazop_seed(image_result: str, additional_context: str) -> str:
+def extract_core_scenario_summary(image_result: str) -> str:
+    prefixes = [
+        "核心异常场景总结：",
+        "核心异常场景总结:",
+        "1. 核心异常场景总结：",
+        "1. 核心异常场景总结:",
+    ]
+    for raw_line in image_result.splitlines():
+        line = raw_line.strip()
+        for prefix in prefixes:
+            if line.startswith(prefix):
+                return line[len(prefix):].strip()
+    return image_result.strip().splitlines()[0][:50] if image_result.strip() else ""
+
+
+def extract_risk_level(image_result: str) -> str:
+    prefixes = ["风险等级：", "风险等级:"]
+    for raw_line in image_result.splitlines():
+        line = raw_line.strip()
+        for prefix in prefixes:
+            if line.startswith(prefix):
+                return line[len(prefix):].strip()
+    return ""
+
+
+def highlight_risk_text(text: str) -> str:
+    keywords = [
+        "锈蚀",
+        "腐蚀",
+        "泄漏",
+        "渗漏",
+        "裂纹",
+        "未佩戴护目镜",
+        "未佩戴",
+        "护目镜",
+        "手轮颜色不一致",
+        "警示标识缺失",
+        "阀门异常",
+        "保温破损",
+        "管线裸露",
+    ]
+    highlighted = html.escape(text)
+    for keyword in sorted(set(keywords), key=len, reverse=True):
+        escaped_keyword = html.escape(keyword)
+        highlighted = highlighted.replace(
+            escaped_keyword,
+            f"<span class='dk-risk-highlight'>{escaped_keyword}</span>",
+        )
+    return highlighted
+
+
+def format_image_report(image_result: str) -> str:
+    risk_level = extract_risk_level(image_result)
+    badge_html = ""
+    if "高风险" in risk_level:
+        badge_html = "<div class='dk-risk-badge-row'><span class='dk-risk-badge high'>🚨 高风险</span></div>"
+    elif "中风险" in risk_level:
+        badge_html = "<div class='dk-risk-badge-row'><span class='dk-risk-badge medium'>⚠️ 中风险</span></div>"
+    elif "低风险" in risk_level:
+        badge_html = "<div class='dk-risk-badge-row'><span class='dk-risk-badge low'>✅ 低风险</span></div>"
+
+    paragraphs = []
+    for raw_line in image_result.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line.startswith("风险等级：") or line.startswith("风险等级:"):
+            continue
+        paragraphs.append(f"<p>{highlight_risk_text(line)}</p>")
+
+    if not paragraphs:
+        paragraphs.append("<p>暂无可展示的识别结果。</p>")
+
+    return (
+        "<div class='dk-image-report'>"
+        "<div class='dk-image-report-body'>"
+        f"{badge_html}{''.join(paragraphs)}"
+        "</div></div>"
+    )
+
+
+def compose_hazop_seed(core_summary: str, additional_context: str) -> str:
+    summary_line = core_summary.strip() if core_summary else "未提取到核心异常场景总结。"
     context_line = additional_context.strip() if additional_context else "未提供额外上下文。"
     return (
         "请基于以下现场巡检信息执行 HAZOP 文本分析：\n"
-        f"补充说明：{context_line}\n"
-        "现场拍照识别结果如下：\n"
-        f"{image_result}"
+        f"核心异常场景总结：{summary_line}\n"
+        f"补充说明：{context_line}"
     )
 
 
@@ -1096,13 +1228,14 @@ def analyze_image_risk(image_path: str, additional_context: str):
             ],
         )
         result_text = extract_dashscope_text(response)
-        hazop_seed = compose_hazop_seed(result_text, additional_context)
+        core_summary = extract_core_scenario_summary(result_text)
+        hazop_seed = compose_hazop_seed(core_summary, additional_context)
         _current_result["image_seed"] = hazop_seed
         status = "图片分析完成，可以将识别结果一键转入文本 HAZOP 分析。"
         return (
             gr.update(visible=False),
             gr.update(visible=True),
-            gr.update(value=result_text, visible=True),
+            gr.update(value=format_image_report(result_text), visible=True),
             gr.update(value=hazop_seed, visible=True),
             gr.update(value="识别完成后可一键回填到文本分析。", visible=True),
             gr.update(visible=True),
@@ -1123,6 +1256,7 @@ def analyze_image_risk(image_path: str, additional_context: str):
 
 def analyze_streaming(user_input: str):
     global _current_result
+    print("[analyze_streaming] 收到分析请求")
     initial_steps = [
         {"title": "Step 1/3 上下文解析", "desc": "等待开始", "status": "pending"},
         {"title": "Step 2/3 RAG分析", "desc": "等待开始", "status": "pending"},
@@ -1138,6 +1272,7 @@ def analyze_streaming(user_input: str):
     )
 
     if not user_input or not user_input.strip():
+        print("[analyze_streaming] 输入为空，返回空状态")
         yield empty
         return
 
@@ -1162,6 +1297,7 @@ def analyze_streaming(user_input: str):
         {"title": "Step 3/3 物理反思", "desc": "等待开始", "status": "pending"},
     ]
     progress = render_progress_panel(progress_steps)
+    print("[analyze_streaming] 正在执行：Step 1/3 初始化进度面板并首次 yield")
     yield (
         "分析中，请稍候...",
         "正在整理知识溯源信息...",
@@ -1172,6 +1308,7 @@ def analyze_streaming(user_input: str):
     )
 
     try:
+        print("[analyze_streaming] 正在执行：Step 1/3 上下文解析")
         ctx_result = ContextAgent().run(user_input.strip())
         context = ctx_result["context"]
         progress_steps[0] = {
@@ -1185,12 +1322,15 @@ def analyze_streaming(user_input: str):
             "status": "running",
         }
         progress = render_progress_panel(progress_steps)
+        print("[analyze_streaming] Step 1/3 完成，准备推进到 Step 2/3")
     except Exception as exc:
+        print(f"[analyze_streaming] Step 1/3 失败：{exc}")
         progress_steps[0] = {
             "title": "Step 1/3 上下文解析",
             "desc": f"执行失败：{exc}",
             "status": "error",
         }
+        print("[analyze_streaming] 正在执行：Step 1/3 失败后的 yield")
         yield (
             f"上下文解析失败：{exc}",
             "未生成知识溯源。",
@@ -1201,6 +1341,7 @@ def analyze_streaming(user_input: str):
         )
         return
 
+    print("[analyze_streaming] 正在执行：Step 2/3 开始前的过渡 yield")
     yield (
         "正在执行 RAG 检索与报告生成...",
         "正在汇总参考案例...",
@@ -1214,12 +1355,14 @@ def analyze_streaming(user_input: str):
     round_num = 0
 
     while round_num < config.MAX_REFLECTION_ROUNDS:
+        print(f"[analyze_streaming] 进入反思循环，第 {round_num + 1} 轮")
         progress_steps[1] = {
             "title": "Step 2/3 RAG分析",
             "desc": f"第 {round_num + 1} 轮检索和报告生成中...",
             "status": "running",
         }
         progress = render_progress_panel(progress_steps)
+        print(f"[analyze_streaming] 正在执行：第 {round_num + 1} 轮 Step 2/3 的 yield")
         yield (
             "正在执行 RAG 检索与报告生成...",
             "正在汇总参考案例...",
@@ -1230,23 +1373,27 @@ def analyze_streaming(user_input: str):
         )
 
         try:
+            print(f"[analyze_streaming] 正在执行：第 {round_num + 1} 轮 RAGAgent.run")
             report = RAGAgent().run(
                 context=context,
                 correction_guidance=correction_guidance,
                 reflection_rounds=round_num,
             )
             matched_count = len(report.get("analysis_metadata", {}).get("referenced_cases", []))
+            print(f"[analyze_streaming] 第 {round_num + 1} 轮 Step 2/3 完成，匹配案例数：{matched_count}")
             progress_steps[1] = {
                 "title": "Step 2/3 RAG分析",
                 "desc": f"已完成，匹配 {matched_count} 个相似案例",
                 "status": "done",
             }
         except Exception as exc:
+            print(f"[analyze_streaming] 第 {round_num + 1} 轮 Step 2/3 失败：{exc}")
             progress_steps[1] = {
                 "title": "Step 2/3 RAG分析",
                 "desc": f"执行失败：{exc}",
                 "status": "error",
             }
+            print("[analyze_streaming] 正在执行：Step 2/3 失败后的 yield")
             yield (
                 f"RAG 报告生成失败：{exc}",
                 "未生成知识溯源。",
@@ -1263,6 +1410,7 @@ def analyze_streaming(user_input: str):
             "status": "running",
         }
         progress = render_progress_panel(progress_steps)
+        print(f"[analyze_streaming] 正在执行：第 {round_num + 1} 轮 Step 3/3 的 yield")
         yield (
             "正在执行物理校验与反思修正...",
             render_sources_panel(report),
@@ -1273,6 +1421,7 @@ def analyze_streaming(user_input: str):
         )
 
         try:
+            print(f"[analyze_streaming] 正在执行：第 {round_num + 1} 轮 ReflectionAgent.run")
             ref_result = ReflectionAgent().run(report)
             record = {
                 "round": round_num + 1,
@@ -1281,6 +1430,10 @@ def analyze_streaming(user_input: str):
                 "fallacy_hits": ref_result.get("fallacy_hits", []),
             }
             reflection_history.append(record)
+            print(
+                f"[analyze_streaming] 第 {round_num + 1} 轮反思完成："
+                f"passed={ref_result['passed']} issues={len(ref_result['issues'])}"
+            )
 
             if ref_result["passed"]:
                 progress_steps[2] = {
@@ -1288,6 +1441,7 @@ def analyze_streaming(user_input: str):
                     "desc": "已完成，通过双层物理校验",
                     "status": "done",
                 }
+                print("[analyze_streaming] Step 3/3 通过，跳出循环")
                 break
 
             correction_guidance = ref_result["correction_guidance"]
@@ -1297,6 +1451,7 @@ def analyze_streaming(user_input: str):
                 "status": "running",
             }
             progress = render_progress_panel(progress_steps)
+            print(f"[analyze_streaming] 第 {round_num + 1} 轮发现问题，正在执行修正提示 yield")
             yield (
                 "正在根据反思结果修正报告...",
                 render_sources_panel(report),
@@ -1311,7 +1466,9 @@ def analyze_streaming(user_input: str):
                 "status": "running",
             }
             round_num += 1
+            print(f"[analyze_streaming] 进入下一轮，round_num={round_num}")
         except Exception as exc:
+            print(f"[analyze_streaming] 第 {round_num + 1} 轮 Step 3/3 异常：{exc}")
             progress_steps[2] = {
                 "title": "Step 3/3 物理反思",
                 "desc": f"校验异常，已保留当前报告（{exc}）",
@@ -1320,6 +1477,7 @@ def analyze_streaming(user_input: str):
             break
 
     if not report:
+        print("[analyze_streaming] 未生成 report，返回失败态")
         yield (
             "分析失败，未生成报告。",
             "未生成知识溯源。",
@@ -1330,6 +1488,7 @@ def analyze_streaming(user_input: str):
         )
         return
 
+    print("[analyze_streaming] 正在执行：生成最终展示内容")
     report.setdefault("analysis_metadata", {})
     report["analysis_metadata"]["reflection_rounds"] = len(reflection_history) or 1
 
@@ -1363,6 +1522,7 @@ def analyze_streaming(user_input: str):
     }
 
     progress = render_progress_panel(progress_steps)
+    print("[analyze_streaming] 正在执行：最终结果 yield")
     yield (
         report_md,
         sources_md,
@@ -1525,18 +1685,20 @@ def create_ui():
                             "<div class='dk-section-title'>风险评估报告</div>",
                             visible=False,
                         )
-                        image_output = gr.Markdown(
+                        image_output = gr.HTML(
                             value="",
                             visible=False,
                         )
                         image_seed = gr.Textbox(
-                            label="转写后的 HAZOP 输入草稿",
+                            label="核心异常场景总结（用于 HAZOP 草稿）",
                             lines=8,
                             interactive=False,
+                            placeholder="系统提取的核心场景将显示在此处，您也可以手动修改...",
+                            elem_classes=["dk-seed-box"],
                             visible=False,
                         )
                         transfer_status = gr.Markdown("", visible=False)
-                        transfer_btn = gr.Button("将识别结果转为 HAZOP 分析", visible=False)
+                        transfer_btn = gr.Button("➡️ 将识别结果转为 HAZOP 分析", variant="primary", visible=False)
 
         analyze_btn.click(
             fn=analyze_streaming,
@@ -1549,6 +1711,7 @@ def create_ui():
                 export_file,
                 progress_output,
             ],
+            queue=True,
         )
         image_btn.click(
             fn=analyze_image_risk,
@@ -1562,18 +1725,21 @@ def create_ui():
                 transfer_btn,
                 image_status,
             ],
+            queue=True,
         )
         transfer_btn.click(
             fn=send_image_seed_to_text,
             inputs=[image_seed],
             outputs=[user_input, transfer_status],
+            queue=True,
         )
         feedback_btn.click(
             fn=submit_feedback,
             inputs=[rating_slider, comment_box],
             outputs=[feedback_result],
+            queue=True,
         )
-        refresh_btn.click(fn=refresh_stats, outputs=[stats_output])
+        refresh_btn.click(fn=refresh_stats, outputs=[stats_output], queue=True)
 
         gr.HTML(
             """
@@ -1591,10 +1757,12 @@ if __name__ == "__main__":
     print("  DK-SAR 系统启动中...")
     print("=" * 60)
     initialize_system()
-    create_ui().launch(
+    create_ui().queue(default_concurrency_limit=1, status_update_rate=1).launch(
         server_name="127.0.0.1",
         server_port=7860,
         share=False,
         inbrowser=True,
         theme=THEME,
+        show_error=True,
+        debug=True,
     )
