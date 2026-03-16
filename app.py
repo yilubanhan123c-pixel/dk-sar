@@ -1030,14 +1030,6 @@ def extract_scene_summary(full_text: str) -> tuple:
     return full_text, fallback
 
 
-def compose_hazop_seed(scene_summary: str, additional_context: str) -> str:
-    context_line = additional_context.strip() if additional_context else ""
-    return (
-        "请基于以下现场巡检信息执行 HAZOP 文本分析：\n"
-        + (f"核心异常场景总结：{scene_summary}\n" if scene_summary else "")
-        + (f"补充说明：{context_line}" if context_line else "")
-    ).rstrip()
-
 
 def render_progress_panel(steps) -> str:
     icon_map = {
@@ -1116,14 +1108,13 @@ def analyze_image_risk(image_path: str, additional_context: str):
         )
         raw_text = extract_dashscope_text(response)
         report_text, scene_summary = extract_scene_summary(raw_text)
-        hazop_seed = compose_hazop_seed(scene_summary, additional_context)
-        _current_result["image_seed"] = hazop_seed
+        _current_result["image_seed"] = scene_summary
         status = "图片分析完成，可以将识别结果一键转入文本 HAZOP 分析。"
         return (
             gr.Markdown(visible=False),
             gr.Markdown(visible=True),
             gr.Markdown(value=report_text, visible=True),
-            gr.Textbox(value=hazop_seed, visible=True),
+            gr.Textbox(value=scene_summary, visible=True),
             gr.Markdown(value="识别完成后可一键回填到文本分析。", visible=True),
             gr.Button(visible=True),
             status,
