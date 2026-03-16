@@ -3,6 +3,7 @@ import html
 import json
 import mimetypes
 import os
+import re
 from pathlib import Path
 
 import gradio as gr
@@ -45,7 +46,12 @@ IMAGE_SYSTEM_PROMPT = """你是一名资深化工安全工程师和 HAZOP 分析
 4. 建议措施：给出现场可执行的处置建议，优先给出立即措施
 5. HAZOP 关联：如果能关联到 HAZOP 偏差，请指出可能的参数与偏差方向，例如 温度偏高、压力偏高、流量偏低、液位偏高、泄漏、成分异常
 
-如果照片信息不足，请明确说明“不足以确认”的部分，不要编造细节。"""
+如果照片信息不足，请明确说明“不足以确认”的部分，不要编造细节。
+
+最后，请在输出末尾额外添加以下段落（用标记包裹）：
+[SCENE_SUMMARY]
+用一句话概括图片中最核心的异常工况，供后续 HAZOP 文本分析使用。例如：“管道法兰连接处存在明显锈蚀和疑似泄漏痕迹，压力表读数异常”。
+[/SCENE_SUMMARY]"""
 
 _current_result = {
     "report": None,
@@ -999,14 +1005,38 @@ def extract_dashscope_text(response) -> str:
     return str(content) if content else "模型未返回可解析内容。"
 
 
-def compose_hazop_seed(image_result: str, additional_context: str) -> str:
-    context_line = additional_context.strip() if additional_context else "未提供额外上下文。"
+def extract_scene_summary(full_text: str) -> tuple:
+    """Extract [SCENE_SUMMARY] block from the model response.
+
+    Returns (report_text, scene_summary).
+    report_text has the [SCENE_SUMMARY] block removed.
+    scene_summary is the extracted summary, or a fallback if not found.
+    """
+    match = re.search(
+        r"\[SCENE_SUMMARY\]\s*\n?(.*?)\n?\s*\[/SCENE_SUMMARY\]",
+        full_text,
+        re.DOTALL,
+    )
+    if match:
+        scene_summary = match.group(1).strip()
+        report_text = (
+            full_text[: match.start()] + full_text[match.end() :]
+        ).strip()
+        return report_text, scene_summary
+
+    # Fallback: model did not produce the tags — use first meaningful sentence
+    lines = [ln.strip() for ln in full_text.splitlines() if ln.strip()]
+    fallback = lines[0] if lines else ""
+    return full_text, fallback
+
+
+def compose_hazop_seed(scene_summary: str, additional_context: str) -> str:
+    context_line = additional_context.strip() if additional_context else ""
     return (
         "请基于以下现场巡检信息执行 HAZOP 文本分析：\n"
-        f"补充说明：{context_line}\n"
-        "现场拍照识别结果如下：\n"
-        f"{image_result}"
-    )
+        + (f"核心异常场景总结：{scene_summary}\n" if scene_summary else "")
+        + (f"补充说明：{context_line}" if context_line else "")
+    ).rstrip()
 
 
 def render_progress_panel(steps) -> str:
@@ -1084,14 +1114,15 @@ def analyze_image_risk(image_path: str, additional_context: str):
             ],
             stream=False,
         )
-        result_text = extract_dashscope_text(response)
-        hazop_seed = compose_hazop_seed(result_text, additional_context)
+        raw_text = extract_dashscope_text(response)
+        report_text, scene_summary = extract_scene_summary(raw_text)
+        hazop_seed = compose_hazop_seed(scene_summary, additional_context)
         _current_result["image_seed"] = hazop_seed
         status = "图片分析完成，可以将识别结果一键转入文本 HAZOP 分析。"
         return (
             gr.Markdown(visible=False),
             gr.Markdown(visible=True),
-            gr.Markdown(value=result_text, visible=True),
+            gr.Markdown(value=report_text, visible=True),
             gr.Textbox(value=hazop_seed, visible=True),
             gr.Markdown(value="识别完成后可一键回填到文本分析。", visible=True),
             gr.Button(visible=True),
@@ -1510,8 +1541,8 @@ def create_ui():
                             visible=False,
                         )
                         image_seed = gr.Textbox(
-                            label="转写后的 HAZOP 输入草稿",
-                            lines=8,
+                            label="核心异常场景总结（用于HAZOP草稿）",
+                            lines=6,
                             interactive=False,
                             visible=False,
                         )
