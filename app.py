@@ -5,8 +5,10 @@ import mimetypes
 import os
 import re
 from pathlib import Path
+from typing import TypedDict
 
 import gradio as gr
+from langgraph.graph import END, START, StateGraph
 
 import config
 from agents.context_agent import ContextAgent
@@ -1179,6 +1181,93 @@ def render_progress_panel(steps) -> str:
     return "<div class='dk-progress'><div class='dk-progress-stack'>" + "".join(items) + "</div></div>"
 
 
+class AgentState(TypedDict):
+    user_input: str
+    context: dict
+    report: dict
+    correction_guidance: str
+    reflection_history: list
+    round_num: int
+
+
+def context_node(state: AgentState) -> dict:
+    print("[langgraph] context_node 开始执行")
+    ctx_result = ContextAgent().run(state["user_input"].strip())
+    print("[langgraph] context_node 执行完成")
+    return {"context": ctx_result["context"]}
+
+
+def rag_node(state: AgentState) -> dict:
+    next_round = state["round_num"] + 1
+    print(f"[langgraph] rag_node 开始执行，第 {next_round} 轮")
+    report = RAGAgent().run(
+        context=state["context"],
+        correction_guidance=state.get("correction_guidance", ""),
+        reflection_rounds=state["round_num"],
+    )
+    print(f"[langgraph] rag_node 执行完成，第 {next_round} 轮")
+    return {
+        "report": report,
+        "round_num": next_round,
+    }
+
+
+def reflection_node(state: AgentState) -> dict:
+    print(f"[langgraph] reflection_node 开始执行，第 {state['round_num']} 轮")
+    ref_result = ReflectionAgent().run(state["report"])
+    record = {
+        "round": state["round_num"],
+        "passed": ref_result["passed"],
+        "issues": ref_result["issues"],
+        "fallacy_hits": ref_result.get("fallacy_hits", []),
+    }
+    print(
+        f"[langgraph] reflection_node 执行完成，第 {state['round_num']} 轮，"
+        f"passed={ref_result['passed']} issues={len(ref_result['issues'])}"
+    )
+    return {
+        "reflection_history": state.get("reflection_history", []) + [record],
+        "correction_guidance": ref_result.get("correction_guidance", ""),
+    }
+
+
+def should_continue(state: AgentState) -> str:
+    history = state.get("reflection_history", [])
+    if not history:
+        return "end"
+    latest = history[-1]
+    if latest.get("passed") or state["round_num"] >= config.MAX_REFLECTION_ROUNDS:
+        return "end"
+    return "continue"
+
+
+_APP_GRAPH = None
+
+
+def get_app_graph():
+    global _APP_GRAPH
+    if _APP_GRAPH is not None:
+        return _APP_GRAPH
+
+    workflow = StateGraph(AgentState)
+    workflow.add_node("context_node", context_node)
+    workflow.add_node("rag_node", rag_node)
+    workflow.add_node("reflection_node", reflection_node)
+    workflow.add_edge(START, "context_node")
+    workflow.add_edge("context_node", "rag_node")
+    workflow.add_edge("rag_node", "reflection_node")
+    workflow.add_conditional_edges(
+        "reflection_node",
+        should_continue,
+        {
+            "continue": "rag_node",
+            "end": END,
+        },
+    )
+    _APP_GRAPH = workflow.compile()
+    return _APP_GRAPH
+
+
 def analyze_image_risk(image_path: str, additional_context: str):
     print("[analyze_image_risk] 收到图片分析请求")
     if not image_path:
@@ -1316,9 +1405,15 @@ def analyze_streaming(user_input: str):
         "image_seed": _current_result.get("image_seed", ""),
     }
 
-    report = None
-    context = None
-    reflection_history = []
+    state: AgentState = {
+        "user_input": user_input,
+        "context": {},
+        "report": {},
+        "correction_guidance": "",
+        "reflection_history": [],
+        "round_num": 0,
+    }
+
     progress_steps = [
         {
             "title": "Step 1/3 上下文解析",
@@ -1340,173 +1435,140 @@ def analyze_streaming(user_input: str):
     )
 
     try:
-        print("[analyze_streaming] 正在执行：Step 1/3 上下文解析")
-        ctx_result = ContextAgent().run(user_input.strip())
-        context = ctx_result["context"]
-        progress_steps[0] = {
-            "title": "Step 1/3 上下文解析",
-            "desc": f"已完成，识别到 {context['equipment']} / {context['parameter']} / {context['deviation_direction']}",
-            "status": "done",
-        }
-        progress_steps[1] = {
-            "title": "Step 2/3 RAG分析",
-            "desc": "正在检索相似案例并生成结构化报告...",
-            "status": "running",
-        }
-        progress = render_progress_panel(progress_steps)
-        print("[analyze_streaming] Step 1/3 完成，准备推进到 Step 2/3")
+        app_graph = get_app_graph()
+        print("[analyze_streaming] 正在执行：LangGraph stream")
+        for output in app_graph.stream(state, stream_mode="updates"):
+            node_name, node_update = next(iter(output.items()))
+            print(f"[analyze_streaming] LangGraph 节点完成：{node_name}")
+            state.update(node_update)
+
+            if node_name == "context_node":
+                context = state["context"]
+                progress_steps[0] = {
+                    "title": "Step 1/3 上下文解析",
+                    "desc": f"已完成，识别到 {context['equipment']} / {context['parameter']} / {context['deviation_direction']}",
+                    "status": "done",
+                }
+                progress_steps[1] = {
+                    "title": "Step 2/3 RAG分析",
+                    "desc": "正在检索相似案例并生成结构化报告...",
+                    "status": "running",
+                }
+                progress = render_progress_panel(progress_steps)
+                print("[analyze_streaming] 正在执行：context_node 完成后的 yield")
+                yield (
+                    "正在执行 RAG 检索与报告生成...",
+                    "正在汇总参考案例...",
+                    "等待反思日志...",
+                    "{}",
+                    None,
+                    progress,
+                )
+
+            elif node_name == "rag_node":
+                report = state["report"]
+                matched_count = len(report.get("analysis_metadata", {}).get("referenced_cases", []))
+                progress_steps[1] = {
+                    "title": "Step 2/3 RAG分析",
+                    "desc": f"已完成，匹配 {matched_count} 个相似案例",
+                    "status": "done",
+                }
+                progress_steps[2] = {
+                    "title": "Step 3/3 物理反思",
+                    "desc": f"第 {state['round_num']} 轮双层校验中，三个智能体正在接力思考...",
+                    "status": "running",
+                }
+                progress = render_progress_panel(progress_steps)
+                print("[analyze_streaming] 正在执行：rag_node 完成后的 yield")
+                yield (
+                    "正在执行物理校验与反思修正...",
+                    render_sources_panel(report),
+                    "正在生成反思日志...",
+                    json.dumps(report, ensure_ascii=False, indent=2),
+                    None,
+                    progress,
+                )
+
+            elif node_name == "reflection_node":
+                report = state["report"]
+                reflection_history = state["reflection_history"]
+                latest = reflection_history[-1] if reflection_history else {}
+
+                if latest.get("passed"):
+                    progress_steps[2] = {
+                        "title": "Step 3/3 物理反思",
+                        "desc": "已完成，通过双层物理校验",
+                        "status": "done",
+                    }
+                    progress = render_progress_panel(progress_steps)
+                    print("[analyze_streaming] 正在执行：reflection_node 通过后的 yield")
+                    yield (
+                        render_report(report),
+                        render_sources_panel(report),
+                        render_reflection_panel(reflection_history),
+                        json.dumps(report, ensure_ascii=False, indent=2),
+                        None,
+                        progress,
+                    )
+                else:
+                    progress_steps[2] = {
+                        "title": "Step 3/3 物理反思",
+                        "desc": f"发现 {len(latest.get('issues', []))} 个问题，正在回传修正意见并重新生成...",
+                        "status": "running",
+                    }
+                    progress = render_progress_panel(progress_steps)
+                    print("[analyze_streaming] 正在执行：reflection_node 发现问题后的 yield")
+                    yield (
+                        "正在根据反思结果修正报告...",
+                        render_sources_panel(report),
+                        render_reflection_panel(reflection_history),
+                        json.dumps(report, ensure_ascii=False, indent=2),
+                        None,
+                        progress,
+                    )
+                    progress_steps[1] = {
+                        "title": "Step 2/3 RAG分析",
+                        "desc": f"收到第 {state['round_num']} 轮修正意见，准备重新生成...",
+                        "status": "running",
+                    }
+                    progress_steps[2] = {
+                        "title": "Step 3/3 物理反思",
+                        "desc": "等待修正后的报告进入下一轮校验...",
+                        "status": "pending",
+                    }
+
     except Exception as exc:
-        print(f"[analyze_streaming] Step 1/3 失败：{exc}")
-        progress_steps[0] = {
-            "title": "Step 1/3 上下文解析",
-            "desc": f"执行失败：{exc}",
-            "status": "error",
-        }
-        print("[analyze_streaming] 正在执行：Step 1/3 失败后的 yield")
-        yield (
-            f"上下文解析失败：{exc}",
-            "未生成知识溯源。",
-            "未生成反思日志。",
-            "{}",
-            None,
-            render_progress_panel(progress_steps),
-        )
-        return
-
-    print("[analyze_streaming] 正在执行：Step 2/3 开始前的过渡 yield")
-    yield (
-        "正在执行 RAG 检索与报告生成...",
-        "正在汇总参考案例...",
-        "等待反思日志...",
-        "{}",
-        None,
-        progress,
-    )
-
-    correction_guidance = ""
-    round_num = 0
-
-    while round_num < config.MAX_REFLECTION_ROUNDS:
-        print(f"[analyze_streaming] 进入反思循环，第 {round_num + 1} 轮")
-        progress_steps[1] = {
-            "title": "Step 2/3 RAG分析",
-            "desc": f"第 {round_num + 1} 轮检索和报告生成中...",
-            "status": "running",
-        }
-        progress = render_progress_panel(progress_steps)
-        print(f"[analyze_streaming] 正在执行：第 {round_num + 1} 轮 Step 2/3 的 yield")
-        yield (
-            "正在执行 RAG 检索与报告生成...",
-            "正在汇总参考案例...",
-            "等待反思日志...",
-            "{}",
-            None,
-            progress,
-        )
-
-        try:
-            print(f"[analyze_streaming] 正在执行：第 {round_num + 1} 轮 RAGAgent.run")
-            report = RAGAgent().run(
-                context=context,
-                correction_guidance=correction_guidance,
-                reflection_rounds=round_num,
-            )
-            matched_count = len(report.get("analysis_metadata", {}).get("referenced_cases", []))
-            print(f"[analyze_streaming] 第 {round_num + 1} 轮 Step 2/3 完成，匹配案例数：{matched_count}")
-            progress_steps[1] = {
-                "title": "Step 2/3 RAG分析",
-                "desc": f"已完成，匹配 {matched_count} 个相似案例",
-                "status": "done",
+        print(f"[analyze_streaming] LangGraph 执行失败：{exc}")
+        if not state.get("context"):
+            progress_steps[0] = {
+                "title": "Step 1/3 上下文解析",
+                "desc": f"执行失败：{exc}",
+                "status": "error",
             }
-        except Exception as exc:
-            print(f"[analyze_streaming] 第 {round_num + 1} 轮 Step 2/3 失败：{exc}")
+        elif not state.get("report"):
             progress_steps[1] = {
                 "title": "Step 2/3 RAG分析",
                 "desc": f"执行失败：{exc}",
                 "status": "error",
             }
-            print("[analyze_streaming] 正在执行：Step 2/3 失败后的 yield")
-            yield (
-                f"RAG 报告生成失败：{exc}",
-                "未生成知识溯源。",
-                "未生成反思日志。",
-                "{}",
-                None,
-                render_progress_panel(progress_steps),
-            )
-            return
-
-        progress_steps[2] = {
-            "title": "Step 3/3 物理反思",
-            "desc": f"第 {round_num + 1} 轮双层校验中，三个智能体正在接力思考...",
-            "status": "running",
-        }
-        progress = render_progress_panel(progress_steps)
-        print(f"[analyze_streaming] 正在执行：第 {round_num + 1} 轮 Step 3/3 的 yield")
-        yield (
-            "正在执行物理校验与反思修正...",
-            render_sources_panel(report),
-            "正在生成反思日志...",
-            json.dumps(report, ensure_ascii=False, indent=2),
-            None,
-            progress,
-        )
-
-        try:
-            print(f"[analyze_streaming] 正在执行：第 {round_num + 1} 轮 ReflectionAgent.run")
-            ref_result = ReflectionAgent().run(report)
-            record = {
-                "round": round_num + 1,
-                "passed": ref_result["passed"],
-                "issues": ref_result["issues"],
-                "fallacy_hits": ref_result.get("fallacy_hits", []),
-            }
-            reflection_history.append(record)
-            print(
-                f"[analyze_streaming] 第 {round_num + 1} 轮反思完成："
-                f"passed={ref_result['passed']} issues={len(ref_result['issues'])}"
-            )
-
-            if ref_result["passed"]:
-                progress_steps[2] = {
-                    "title": "Step 3/3 物理反思",
-                    "desc": "已完成，通过双层物理校验",
-                    "status": "done",
-                }
-                print("[analyze_streaming] Step 3/3 通过，跳出循环")
-                break
-
-            correction_guidance = ref_result["correction_guidance"]
+        else:
             progress_steps[2] = {
                 "title": "Step 3/3 物理反思",
-                "desc": f"发现 {len(ref_result['issues'])} 个问题，正在回传修正意见并重新生成...",
-                "status": "running",
-            }
-            progress = render_progress_panel(progress_steps)
-            print(f"[analyze_streaming] 第 {round_num + 1} 轮发现问题，正在执行修正提示 yield")
-            yield (
-                "正在根据反思结果修正报告...",
-                render_sources_panel(report),
-                render_reflection_panel(reflection_history),
-                json.dumps(report, ensure_ascii=False, indent=2),
-                None,
-                progress,
-            )
-            progress_steps[1] = {
-                "title": "Step 2/3 RAG分析",
-                "desc": f"收到第 {round_num + 1} 轮修正意见，准备重新生成...",
-                "status": "running",
-            }
-            round_num += 1
-            print(f"[analyze_streaming] 进入下一轮，round_num={round_num}")
-        except Exception as exc:
-            print(f"[analyze_streaming] 第 {round_num + 1} 轮 Step 3/3 异常：{exc}")
-            progress_steps[2] = {
-                "title": "Step 3/3 物理反思",
-                "desc": f"校验异常，已保留当前报告（{exc}）",
+                "desc": f"执行失败：{exc}",
                 "status": "error",
             }
-            break
+        yield (
+            f"分析执行失败：{exc}",
+            render_sources_panel(state.get("report")),
+            render_reflection_panel(state.get("reflection_history", [])),
+            json.dumps(state.get("report", {}), ensure_ascii=False, indent=2),
+            None,
+            render_progress_panel(progress_steps),
+        )
+        return
+
+    report = state.get("report")
+    reflection_history = state.get("reflection_history", [])
 
     if not report:
         print("[analyze_streaming] 未生成 report，返回失败态")
