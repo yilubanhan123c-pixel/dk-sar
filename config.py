@@ -13,15 +13,12 @@ LLM_API_KEY = os.getenv("DASHSCOPE_API_KEY", "")
 LLM_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 LLM_MODEL = "qwen-plus"
 
-# 如果你用 OpenAI，把上面三行替换成下面三行：
-# LLM_API_KEY = os.getenv("OPENAI_API_KEY", "")
-# LLM_BASE_URL = None  # OpenAI 不需要自定义 URL
-# LLM_MODEL = "gpt-4o-mini"
+
 
 # ── 智能体参数 ─────────────────────────────────────────
-MAX_REFLECTION_ROUNDS = 3      # 最多反思修正几轮
+MAX_REFLECTION_ROUNDS = 5      # 最多反思修正几轮
 TOP_K_CASES = 3                # 检索几个相似案例
-SIMILARITY_THRESHOLD = 0.85    # 负样本匹配阈值（0~1，越高越严格）
+SIMILARITY_THRESHOLD = 0.85    # 负样本拦截阈值（0~1，越低防幻觉越严，越高越容易通过）
 
 # ── 数据路径 ───────────────────────────────────────────
 DATA_DIR = "data"
