@@ -68,6 +68,38 @@ def call_llm(prompt: str, system_prompt: str = None, json_mode: bool = False) ->
         raise RuntimeError(f"LLM 调用失败: {e}")
 
 
+def call_llm_vl(image_url: str, prompt: str) -> str:
+    """
+    调用通义千问VL视觉模型，将图片转写为文字描述
+
+    参数:
+        image_url: 图片URL或本地base64 data URI
+        prompt: 对图片的提问/指令
+    返回:
+        模型返回的文字描述
+    """
+    client = get_client()
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {"type": "image_url", "image_url": {"url": image_url}},
+                {"type": "text", "text": prompt},
+            ],
+        }
+    ]
+    try:
+        response = client.chat.completions.create(
+            model=config.VL_MODEL,
+            messages=messages,
+            max_tokens=2000,
+            temperature=0.3,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        raise RuntimeError(f"VL 模型调用失败: {e}")
+
+
 def call_llm_json(prompt: str, system_prompt: str = None) -> dict:
     """
     调用大模型并返回解析后的 JSON 字典

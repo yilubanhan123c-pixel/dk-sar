@@ -12,6 +12,7 @@ load_dotenv()  # 自动读取 .env 文件
 LLM_API_KEY = os.getenv("DASHSCOPE_API_KEY", "")
 LLM_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 LLM_MODEL = "qwen-plus"
+VL_MODEL = "qwen-vl-plus"          # 通义千问视觉模型，用于图片转写
 
 
 
