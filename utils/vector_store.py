@@ -93,29 +93,40 @@ class VectorStore:
         在正样本库中检索相似案例
         返回 top_k 个最相似的完整案例 JSON
         """
+        scored = self.search_similar_cases_with_scores(query_text, top_k)
+        return [item["case"] for item in scored]
+
+    def search_similar_cases_with_scores(self, query_text: str, top_k: int = None) -> list:
+        """
+        在正样本库中检索相似案例，同时返回相似度分数
+        返回: [{"case": {完整案例}, "similarity": 0~1}, ...]
+        """
         if top_k is None:
             top_k = config.TOP_K_CASES
-        
+
         pos_col = self._get_positive_collection()
         if pos_col.count() == 0:
             raise RuntimeError("正样本库为空！请先运行 build_index()")
-        
+
         query_embedding = self.model.encode([query_text]).tolist()
         results = pos_col.query(
             query_embeddings=query_embedding,
-            n_results=min(top_k, pos_col.count())
+            n_results=min(top_k, pos_col.count()),
+            include=["distances"],
         )
-        
+
         # 加载完整案例数据
         with open(config.POSITIVE_CASES_FILE, 'r', encoding='utf-8') as f:
             all_cases = {case["case_id"]: case for case in json.load(f)}
-        
-        matched_cases = []
-        for case_id in results["ids"][0]:
+
+        matched = []
+        for i, case_id in enumerate(results["ids"][0]):
             if case_id in all_cases:
-                matched_cases.append(all_cases[case_id])
-        
-        return matched_cases
+                distance = results["distances"][0][i]
+                similarity = max(0, 1 - distance / 2)
+                matched.append({"case": all_cases[case_id], "similarity": similarity})
+
+        return matched
     
     def search_similar_fallacies(self, query_text: str, top_k: int = 5) -> list:
         """
