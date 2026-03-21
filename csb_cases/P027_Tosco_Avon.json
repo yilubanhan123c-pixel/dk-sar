@@ -1,0 +1,48 @@
+{
+  "case_id": "P027",
+  "basic_info": {
+    "incident_name": "Tosco Avon Refinery Fire",
+    "incident_name_cn": "托斯科阿冯炼油厂火灾事故",
+    "date": "1999-02-23",
+    "location": "Martinez, California, USA",
+    "company": "Tosco Corporation",
+    "fatalities": 4,
+    "injuries": 1
+  },
+  "process_context": {
+    "process_type": "蒸馏",
+    "equipment": [
+      "Crude Fractionator",
+      "Naphtha System"
+    ],
+    "materials": [
+      "Crude Oil",
+      "Naphtha"
+    ],
+    "operating_conditions": "高温高压常减压蒸馏工况；涉及含硫腐蚀性介质，长期运行导致设备壁厚减薄"
+  },
+  "failure_mechanism": {
+    "root_cause": "Inadequate corrosion control and failure to identify thinning in a naphtha line during nonroutine maintenance planning, leading to catastrophic rupture under operating pressure.",
+    "deviation_type": "泄漏",
+    "guide_word": "No",
+    "parameter": "Integrity",
+    "causal_chain": "Inadequate corrosion monitoring → Undetected wall thinning in naphtha transfer line → Loss of mechanical integrity during maintenance activity → Sudden rupture → Release of flammable hydrocarbons → Ignition → Fireball and flash fire",
+    "physical_principles": "Corrosion fatigue, pressure containment failure, vapor cloud ignition dynamics, thermal radiation propagation"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Pressure relief valves",
+      "Fire detection system",
+      "Emergency shutdown procedure",
+      "Lockout/Tagout (LOTO) for maintenance"
+    ],
+    "safeguard_failures": "LOTO was not properly applied because the line was incorrectly assumed to be isolated; corrosion inspection data was not integrated into maintenance planning; no independent verification of isolation integrity prior to work.",
+    "csb_recommendations": [
+      "Implement rigorous management of change (MOC) for all nonroutine maintenance activities",
+      "Establish comprehensive corrosion control program with risk-based inspection and thickness monitoring",
+      "Require positive verification of isolation (e.g., double block and bleed, physical disconnect) before hazardous maintenance"
+    ]
+  },
+  "embedding_text": "The Tosco Avon incident involved a catastrophic rupture of a corroded naphtha transfer line in a crude fractionation unit. Under high-temperature, high-pressure distillation conditions, undetected wall thinning led to sudden loss of containment. Flammable naphtha released, ignited, and caused a fatal fireball. Root cause was failure in corrosion control and hazardous maintenance isolation verification, resulting in four fatalities and one critical injury during nonroutine work.",
+  "source_pdf": "Tosco_Avon.pdf"
+}

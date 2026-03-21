@@ -1,0 +1,51 @@
+{
+  "case_id": "P025",
+  "basic_info": {
+    "incident_name": "Synthron Runaway Chemical Reaction and Vapor Cloud Explosion",
+    "incident_name_cn": "辛索恩公司失控化学反应及蒸气云爆炸事故",
+    "date": "2006-01-31",
+    "location": "Morganton, North Carolina, USA",
+    "company": "Synthron, LLC",
+    "fatalities": 1,
+    "injuries": 14
+  },
+  "process_context": {
+    "process_type": "反应",
+    "equipment": [
+      "1500-gallon polymerization reactor",
+      "jacketed cooling system",
+      "condenser with sight glass",
+      "manway"
+    ],
+    "materials": [
+      "acrylic monomers",
+      "solvent",
+      "initiator"
+    ],
+    "operating_conditions": "Batch polymerization at elevated temperature; scaled-up charge without reassessment of thermal balance or cooling capacity"
+  },
+  "failure_mechanism": {
+    "root_cause": "Scaling up the monomer charge without evaluating thermal accumulation and cooling capacity led to excessive heat generation exceeding condenser removal capability.",
+    "deviation_type": "温度偏高",
+    "guide_word": "More",
+    "parameter": "Energy release rate",
+    "causal_chain": "Recipe scaling → excess monomer in initial charge → increased exothermic reaction rate → heat generation > condenser removal capacity → reactor temperature and pressure rise → solvent vapor venting via manway → flammable vapor cloud formation → ignition → explosion",
+    "physical_principles": "Exothermic polymerization kinetics, heat transfer limitation, vapor pressure–temperature relationship, deflagration of stoichiometric hydrocarbon-air mixture"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Reactor condenser",
+      "Jacket steam heating control",
+      "Visual monitoring via condenser sight glass",
+      "Written batch instructions"
+    ],
+    "safeguard_failures": "No independent thermal hazard review; no high-temperature/high-pressure alarms; no automatic emergency cooling activation; no relief system designed for runaway scenario; reliance on operator observation only",
+    "csb_recommendations": [
+      "Conduct rigorous reactive hazard assessments (e.g., RC1, ARC, DSC) for all processes involving energetic chemistry",
+      "Implement automated process safety interlocks including temperature/pressure trip to emergency cooling and reactor isolation",
+      "Establish and enforce management of change (MOC) procedures for any recipe or operating parameter modification"
+    ]
+  },
+  "embedding_text": "At Synthron’s NC facility, a 1500-gallon batch reactor experienced runaway polymerization of acrylic monomers due to unassessed recipe scaling. Excess initial monomer caused more rapid exothermic energy release than the condenser could remove, leading to temperature and pressure escalation. Solvent vapors vented through the manway, forming an ignitable vapor cloud inside the building. Ignition triggered a vapor cloud explosion, killing one worker and destroying the facility. No thermal hazard analysis or automated safeguards were in place.",
+  "source_pdf": "Synthron.pdf"
+}

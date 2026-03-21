@@ -1,0 +1,53 @@
+{
+  "case_id": "P014",
+  "basic_info": {
+    "incident_name": "Goodyear Heat Exchanger Rupture and Ammonia Release",
+    "incident_name_cn": "固特异换热器破裂及氨泄漏事故",
+    "date": "2008-06-11",
+    "location": "Houston, Texas",
+    "company": "The Goodyear Tire and Rubber Company",
+    "fatalities": 1,
+    "injuries": 6
+  },
+  "process_context": {
+    "process_type": "换热",
+    "equipment": [
+      "shell-and-tube heat exchanger",
+      "isolation valve",
+      "rupture disk",
+      "relief valve",
+      "ammonia pressure control valve"
+    ],
+    "materials": [
+      "anhydrous ammonia",
+      "process chemicals",
+      "steam"
+    ],
+    "operating_conditions": "Pressurized anhydrous ammonia in shell side (cooling medium); process fluids in tube side; operating near design pressure; steam cleaning conducted during maintenance"
+  },
+  "failure_mechanism": {
+    "root_cause": "Failure to reopen the isolation valve after rupture disk replacement, combined with subsequent steam heating of trapped liquid ammonia causing uncontrolled pressure buildup.",
+    "deviation_type": "压力偏高",
+    "guide_word": "More",
+    "parameter": "pressure",
+    "causal_chain": "Isolation valve left closed after maintenance → ammonia trapped in shell → steam introduced into tubes → heat transfer to shell-side liquid ammonia → phase change and vapor pressure rise → no pressure relief path → overpressure beyond vessel MAWP → catastrophic rupture",
+    "physical_principles": "Thermal expansion of liquid ammonia, vapor pressure-temperature relationship (Clausius-Clapeyron), adiabatic heating, mechanical failure under tensile stress exceeding ultimate tensile strength"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Rupture disk and relief valve assembly",
+      "Ammonia pressure control valve",
+      "Isolation valves for maintenance",
+      "Emergency shutdown procedures",
+      "Employee accountability system"
+    ],
+    "safeguard_failures": "Isolation valve remained closed post-maintenance, blocking both primary (relief valve) and secondary (pressure control valve) overpressure protection paths; no interlock or verification step ensured valve reopening; accountability system failed to detect missing worker due to poor lighting, debris, and procedural gaps.",
+    "csb_recommendations": [
+      "Implement positive verification (e.g., checklist, electronic tagout, dual-person signoff) for critical valve repositioning after maintenance",
+      "Install pressure monitoring with high-pressure alarms and automatic shutdown on heat exchanger shells containing volatile refrigerants",
+      "Redesign overpressure protection to be inherently fail-safe (e.g., direct-mounted relief device without isolatable upstream valve)"
+    ]
+  },
+  "embedding_text": "Shell-and-tube heat exchanger ruptured due to overpressure caused by steam heating trapped liquid anhydrous ammonia; isolation valve remained closed after rupture disk replacement, disabling all pressure relief paths; pressure exceeded MAWP leading to violent failure, fatal projectile impact, and toxic ammonia release; root cause was procedural failure in maintenance completion and inadequate overpressure protection design.",
+  "source_pdf": "Goodyear_Heat_Exchanger.pdf"
+}

@@ -1,0 +1,50 @@
+{
+  "case_id": "P015",
+  "basic_info": {
+    "incident_name": "Hoeganaes Flash Fires and Hydrogen Explosion",
+    "incident_name_cn": "霍格纳斯金属粉尘闪火及氢气爆炸事故",
+    "date": "2011-01-31; 2011-03-29; 2011-05-27",
+    "location": "Gallatin, TN, USA",
+    "company": "Hoeganaes Corporation (subsidiary of GKN)",
+    "fatalities": 5,
+    "injuries": 3
+  },
+  "process_context": {
+    "process_type": "粉尘处理与热还原",
+    "equipment": [
+      "band furnace (annealing furnace)",
+      "cake breaker",
+      "hydrogen supply trench",
+      "conveyor belt"
+    ],
+    "materials": [
+      "iron powder",
+      "hydrogen",
+      "iron oxide"
+    ],
+    "operating_conditions": "Continuous annealing of iron powder under hydrogen atmosphere at elevated temperature (~700–900°C); hydrogen conveyed via buried trench with metal plate covers; fine combustible metal dust present throughout handling areas"
+  },
+  "failure_mechanism": {
+    "root_cause": "Failure to recognize iron dust as explosible and implement appropriate explosion prevention/mitigation measures despite known combustibility and historical incidents.",
+    "deviation_type": "hydrogen leakage + iron dust accumulation + ignition source",
+    "guide_word": "No",
+    "parameter": "containment integrity",
+    "causal_chain": "Hydrogen leak from trench piping → hydrogen migration into dust-laden work areas → formation of flammable mixture → ignition by unknown source (e.g., static, hot surface) → flash fire/explosion → secondary iron dust explosions",
+    "physical_principles": "Metal dust explosibility (Kst, Pmax), deflagration propagation in confined/dusty environments, hydrogen flammability limits (4–75% vol), thermal runaway in exothermic oxidation of fine iron particles"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Ventilation systems",
+      "Fire extinguishers",
+      "Hydrogen supplier contract oversight"
+    ],
+    "safeguard_failures": "No explosion protection (e.g., inerting, suppression, venting) for band furnaces or dust handling equipment; inadequate housekeeping allowed combustible dust accumulation; no hydrogen gas detection or interlocks; ventilation insufficient to prevent explosive atmospheres.",
+    "csb_recommendations": [
+      "Require NFPA 484 compliance for metal dust hazards",
+      "Mandate combustible dust hazard analysis (e.g., DHA per NFPA 652)",
+      "Implement continuous hydrogen monitoring with automatic shutoff and ventilation interlocks"
+    ]
+  },
+  "embedding_text": "Hoeganaes Gallatin facility experienced three fatal incidents involving iron powder dust flash fires and a hydrogen explosion. The band annealing furnace used hydrogen to reduce iron oxide in fine iron powder under high temperature. Hydrogen leaked from buried trench piping, migrated into dusty work areas, formed flammable mixtures, and ignited—triggering primary hydrogen explosions and secondary metal dust explosions. Root cause was failure to recognize iron dust explosibility and lack of explosion protection. Result: 5 fatalities, 3 injuries, and catastrophic facility damage.",
+  "source_pdf": "Hoeganaes_Flash_Fires.pdf"
+}

@@ -1,0 +1,49 @@
+{
+  "case_id": "P001",
+  "basic_info": {
+    "incident_name": "Barton Solvents Static Ignition Incident",
+    "incident_name_cn": "巴顿溶剂公司静电火花引燃储罐爆炸事故",
+    "date": "2007-07-17",
+    "location": "Valley Center, Kansas, USA",
+    "company": "Barton Solvents",
+    "fatalities": 0,
+    "injuries": 12
+  },
+  "process_context": {
+    "process_type": "储运",
+    "equipment": [
+      "垂直地上储罐",
+      "罐车-储罐输送系统",
+      "压力/真空阀",
+      "浮子液位计",
+      "接地系统"
+    ],
+    "materials": [
+      "VM&P naphtha（涂料用松节油）"
+    ],
+    "operating_conditions": "常温常压下向空罐充装低电导率（<50 pS/m）IB类易燃液体，罐内存在可燃蒸气-空气混合物"
+  },
+  "failure_mechanism": {
+    "root_cause": "未实施有效静电接地与控制措施，导致VM&P naphtha在充装过程中积聚静电并产生火花放电，引燃罐内可燃蒸气云。",
+    "deviation_type": "静电积累",
+    "guide_word": "More",
+    "parameter": "静电电荷",
+    "causal_chain": "使用非导电性易燃液体（VM&P naphtha）→高速泵送充装→液体与管壁/罐壁摩擦产生静电→缺乏有效接地和等电位连接→电荷持续累积→达到击穿电压→火花放电→引燃罐内处于爆炸极限内的蒸气-空气混合物→蒸气云爆燃→超压→储罐破裂爆炸",
+    "physical_principles": "静电起电（流动带电）、电荷弛豫时间延长（低电导率液体）、气体爆炸动力学、Paschen击穿定律"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "压力/真空阀",
+      "目视液位计",
+      "人工接地夹"
+    ],
+    "safeguard_failures": "人工接地夹未被正确连接或验证；压力/真空阀仅用于超压泄放，无法防止内部爆炸；无静电电位监测、流速限制、浸没式充装或导电添加剂等主动防静电措施",
+    "csb_recommendations": [
+      "要求MSDS明确标识物料静电危害及最小点火能、电导率、推荐最大流速和接地要求",
+      "对低电导率易燃液体储罐充装实施浸没式入口管+底部进料+流速≤1 m/s+连续接地监控",
+      "修订行业标准（如API RP 2003）强制要求静电风险评估与验证性接地测试"
+    ]
+  },
+  "embedding_text": "Explosion occurred inside a vertical above-ground storage tank during filling with VM&P naphtha—a low-conductivity (non-conductive) NFPA Class IB flammable liquid. The deviation was excessive static charge accumulation (More Static Charge) due to ungrounded transfer operations. Root cause: absence of verified bonding/grounding and failure to control flow velocity. Result: electrostatic spark ignited flammable vapor-air mixture inside the tank, causing catastrophic overpressure, tank rupture, fire, evacuation of 6,000 residents, and facility destruction.",
+  "source_pdf": "Barton_Solvents.pdf"
+}

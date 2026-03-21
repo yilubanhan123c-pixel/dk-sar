@@ -1,0 +1,49 @@
+{
+  "case_id": "P024",
+  "basic_info": {
+    "incident_name": "Silver Eagle Refinery Explosion",
+    "incident_name_cn": "银鹰炼油厂爆炸事故",
+    "date": "2009-11-04",
+    "location": "Woods Cross, Utah, USA",
+    "company": "Silver Eagle Refining Company",
+    "fatalities": 0,
+    "injuries": 0
+  },
+  "process_context": {
+    "process_type": "distillation",
+    "equipment": [
+      "fractionation column",
+      "reboiler",
+      "overhead condenser"
+    ],
+    "materials": [
+      "hydrocarbons",
+      "naphtha",
+      "light ends"
+    ],
+    "operating_conditions": "atmospheric to low-pressure distillation of crude fractions; elevated temperature (≈150–300°C)"
+  },
+  "failure_mechanism": {
+    "root_cause": "Inadequate mechanical integrity management leading to undetected corrosion-thinning and subsequent catastrophic rupture of a hydrocarbon overhead line.",
+    "deviation_type": "leakage",
+    "guide_word": "No",
+    "parameter": "containment",
+    "causal_chain": "Poor inspection program → undetected wall thinning due to acidic corrosion → loss of containment → hydrocarbon vapor release → ignition → explosion",
+    "physical_principles": "Corrosion fatigue, stress corrosion cracking, flammability limits, deflagration-to-detonation transition"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "pressure relief valves",
+      "fire detection system",
+      "process hazard analysis (PHA) records"
+    ],
+    "safeguard_failures": "Relief valves were not sized for the failure mode; PHA had not identified the specific corrosion mechanism in overhead piping; fire detection lacked coverage for vapor cloud ignition initiation.",
+    "csb_recommendations": [
+      "Implement risk-based inspection (RBI) programs focused on corrosion mechanisms in overhead systems",
+      "Require revalidation of PHA for all piping systems exposed to wet acidic vapors",
+      "Mandate dispersion modeling and ignition source control for atmospheric hydrocarbon releases"
+    ]
+  },
+  "embedding_text": "The Silver Eagle explosion involved a corroded overhead hydrocarbon line in an atmospheric distillation unit. Light naphtha vapors leaked due to loss of containment (HAZOP deviation: No containment), caused by undetected acid corrosion from wet H2S/CO2 service. The released flammable vapor formed a cloud that ignited, causing a large-scale vapor cloud explosion near residential areas. Root cause was deficient mechanical integrity practices and PHA gaps.",
+  "source_pdf": "Silver_Eagle.pdf"
+}

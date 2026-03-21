@@ -1,0 +1,48 @@
+{
+  "case_id": "P029",
+  "basic_info": {
+    "incident_name": "Union Carbide Nitrogen Asphyxiation",
+    "incident_name_cn": "联合碳化物氮气窒息事故",
+    "date": "1998-03-27",
+    "location": "Hahnville, Louisiana, USA",
+    "company": "Union Carbide (Taft/Star Plant)",
+    "fatalities": 1,
+    "injuries": 1
+  },
+  "process_context": {
+    "process_type": "管道",
+    "equipment": [
+      "48-inch open pipe",
+      "ethylene oxide production unit"
+    ],
+    "materials": [
+      "nitrogen",
+      "air",
+      "ethylene oxide (residual)"
+    ],
+    "operating_conditions": "Major maintenance; process equipment temporarily removed; nitrogen purging ongoing to remove air/moisture; pipe end open but temporarily enclosed with black plastic sheet"
+  },
+  "failure_mechanism": {
+    "root_cause": "Failure to recognize and control the hazard of temporary confined space creation during nitrogen purging operations.",
+    "deviation_type": "oxygen deficiency due to nitrogen accumulation",
+    "guide_word": "No",
+    "parameter": "oxygen",
+    "causal_chain": "Nitrogen purge active → plastic sheet sealed open pipe end → formation of temporary confined space → nitrogen displaced ambient oxygen → undetected hypoxic atmosphere → worker asphyxiation",
+    "physical_principles": "Gas density similarity (N2 ≈ air), inert gas displacement of O2, absence of sensory warning (odorless, colorless), rapid O2 depletion in enclosed volume"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Confined space entry procedures",
+      "Nitrogen purging protocols",
+      "OSHA-compliant safety training"
+    ],
+    "safeguard_failures": "Procedures excluded temporary enclosures; no permit required for makeshift confined space; no atmospheric monitoring prior to or during entry; lack of real-time O2 detection or ventilation",
+    "csb_recommendations": [
+      "Revise confined space program to explicitly cover temporary enclosures created during maintenance",
+      "Mandate continuous atmospheric monitoring (O2 < 19.5%) before and during all such entries",
+      "Implement a positive ventilation requirement and lockout/tagout for purge gas sources during inspection activities"
+    ]
+  },
+  "embedding_text": "A 48-inch open pipe in an ethylene oxide unit was temporarily sealed with plastic during maintenance, creating an unpermitted confined space. Nitrogen used for purging accumulated, displacing oxygen. Workers entered without atmospheric monitoring or permit, leading to fatal asphyxiation. Root cause: unrecognized temporary confined space hazard under inert gas purging. Consequence: rapid O2 depletion (<5%) causing unconsciousness and death.",
+  "source_pdf": "Union_Carbide_N2.pdf"
+}

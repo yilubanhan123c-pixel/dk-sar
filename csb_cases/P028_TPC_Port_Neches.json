@@ -1,0 +1,52 @@
+{
+  "case_id": "P028",
+  "basic_info": {
+    "incident_name": "TPC Group Port Neches Explosion and Fire",
+    "incident_name_cn": "TPC集团波特尼谢斯工厂爆炸火灾事故",
+    "date": "2019-11-27",
+    "location": "Port Neches, Texas, USA",
+    "company": "TPC Group",
+    "fatalities": 0,
+    "injuries": 3
+  },
+  "process_context": {
+    "process_type": "储运与蒸馏",
+    "equipment": [
+      "丁二烯精馏塔T-101",
+      "再沸器E-101",
+      "冷凝器E-102",
+      "储罐V-101/V-102"
+    ],
+    "materials": [
+      "丁二烯",
+      "叔丁基硫醇(TBTM)",
+      "聚合抑制剂"
+    ],
+    "operating_conditions": "高温真空精馏，操作温度约65°C，塔顶压力约-0.8 bar(g)，含氧量未受控，长期存在过氧化物积累风险"
+  },
+  "failure_mechanism": {
+    "root_cause": "丁二烯系统中过氧化物持续积累并发生绝热自分解，引发连锁放热反应和压力骤升。",
+    "deviation_type": "压力偏高",
+    "guide_word": "More",
+    "parameter": "pressure",
+    "causal_chain": "抑制剂注入中断和监测缺失→丁二烯过氧化物生成并富集→局部热点诱发自加速分解→快速放热和气体膨胀→设备超压破裂→蒸气云形成→点火源引燃爆炸",
+    "physical_principles": "绝热自分解动力学、过氧化物热不稳定性、气液相平衡突变、压力容器失效准则"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "TBTM抑制剂加注系统",
+      "在线氧分析仪（未投用）",
+      "安全阀",
+      "DCS报警系统",
+      "工艺危害分析（PHA）记录"
+    ],
+    "safeguard_failures": "抑制剂加注长期失效且无备用方案；氧分析仪未安装/未启用；安全阀未考虑分解气体瞬时释放速率；PHA未识别过氧化物积累的动态风险；报警被频繁屏蔽且无响应机制",
+    "csb_recommendations": [
+      "强制要求对丁二烯等易自聚物料实施实时过氧化物浓度在线监测与自动清除",
+      "修订OSHA PSM标准，明确将过氧化物积累列为必须评估的特定工艺危害",
+      "所有丁二烯精馏单元必须配备经验证的紧急泄压与惰化联锁系统"
+    ]
+  },
+  "embedding_text": "The TPC Port Neches incident involved a butadiene distillation column (T-101) under vacuum operation. Accumulated butadiene peroxides underwent uncontrolled exothermic decomposition, causing rapid pressure rise beyond vessel design limits. The deviation was 'More pressure' triggered by inhibitor system failure and lack of peroxide monitoring. Root cause was chronic peroxide buildup leading to thermal runaway, vessel rupture, vapor cloud explosion, and fire. Key materials: butadiene, TBTM inhibitor; equipment: reboiler E-101, condenser E-102, storage tanks.",
+  "source_pdf": "TPC_Port_Neches.pdf"
+}

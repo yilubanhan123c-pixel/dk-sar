@@ -1,0 +1,50 @@
+{
+  "case_id": "P017",
+  "basic_info": {
+    "incident_name": "Imperial Sugar Refinery Dust Explosion",
+    "incident_name_cn": "帝国糖业精炼厂粉尘爆炸事故",
+    "date": "2008-02-07",
+    "location": "Port Wentworth, Georgia, USA",
+    "company": "Imperial Sugar Company",
+    "fatalities": 14,
+    "injuries": 36
+  },
+  "process_context": {
+    "process_type": "粉尘处理",
+    "equipment": [
+      "糖粉磨机",
+      "包装线",
+      "输送带",
+      "除尘风管",
+      "电机外壳",
+      "开关箱"
+    ],
+    "materials": [
+      "蔗糖粉尘"
+    ],
+    "operating_conditions": "常温常压，干法糖粉加工与自动包装，高浓度悬浮及表面沉积粉尘环境"
+  },
+  "failure_mechanism": {
+    "root_cause": "长期缺乏有效粉尘控制程序和可燃粉尘危害认知，导致大量糖尘在设备表面及空间持续累积，形成可爆云与可燃层。",
+    "deviation_type": "粉尘积聚超限",
+    "guide_word": "More",
+    "parameter": "粉尘厚度",
+    "causal_chain": "无书面粉尘控制程序→未执行定期清扫→糖尘在管道、电机、开关箱等表面累积达数英寸至数英尺→初始点火（可能来自磨机过热或静电）→粉尘云爆燃→二次爆炸（扰动沉降层引发全厂级爆燃）→结构坍塌与人员伤亡",
+    "physical_principles": "可燃粉尘云的最小点火能（MIE）、爆炸下限（LEL）、Kst值、压力叠加效应、湍流增强传播、层状粉尘再悬浮机制"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "NFPA 654参考实践（未强制执行）",
+      "常规工业清洁（非防爆型）",
+      "基本电气设备（非粉尘防爆认证）"
+    ],
+    "safeguard_failures": "所有保护措施均未制度化、无培训支撑、无检查验证；NFPA建议的1/32英寸积尘限值被完全忽视；电气设备未按Class II Div 1选型；无抑爆、泄爆或隔离系统。",
+    "csb_recommendations": [
+      "制定并实施OSHA可燃粉尘综合强制标准",
+      "强制要求企业建立书面粉尘危害分析（DHA）与控制计划",
+      "全面加强OSHA检查员对粉尘风险识别与执法能力"
+    ]
+  },
+  "embedding_text": "The Imperial Sugar explosion involved sugar dust accumulation on conveyors, mills, ducts, and electrical equipment in a packaging facility. Under normal operating conditions, excessive combustible dust (exceeding NFPA's 1/32-inch limit) formed layers up to several feet deep. The 'More' deviation in dust thickness led to primary ignition—likely from mill overheating or electrostatic discharge—triggering a deflagration that propagated via suspended clouds and secondary explosions. Root cause was absence of a formal dust control program and worker training, resulting in catastrophic structural failure and 14 fatalities.",
+  "source_pdf": "Imperial_Sugar.pdf"
+}

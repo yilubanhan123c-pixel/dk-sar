@@ -1,0 +1,48 @@
+{
+  "case_id": "P012",
+  "basic_info": {
+    "incident_name": "Georgia Pacific H2S",
+    "incident_name_cn": "乔治亚太平洋公司硫化氢中毒事故",
+    "date": "2002-01-16",
+    "location": "Pennington, Alabama",
+    "company": "Georgia-Pacific Naheola Mill",
+    "fatalities": 2,
+    "injuries": 8
+  },
+  "process_context": {
+    "process_type": "waste treatment",
+    "equipment": [
+      "sewer system",
+      "tank truck",
+      "manhole"
+    ],
+    "materials": [
+      "hydrogen sulfide",
+      "sulfide-containing wastewater"
+    ],
+    "operating_conditions": "ambient temperature and pressure; anaerobic decomposition in confined sewer infrastructure"
+  },
+  "failure_mechanism": {
+    "root_cause": "Failure to recognize and control hydrogen sulfide generation during anaerobic decomposition of sulfide-laden wastewater in confined sewer spaces.",
+    "deviation_type": "leakage and accumulation of toxic gas",
+    "guide_word": "More",
+    "parameter": "toxic concentration",
+    "causal_chain": "Inadequate hazard assessment of wastewater chemistry → anaerobic sulfide oxidation in sewer → uncontrolled H2S generation → lack of ventilation and gas monitoring → H2S accumulation in manhole → contractor entry without detection or PPE → acute inhalation exposure and fatalities",
+    "physical_principles": "Gas solubility equilibrium, anaerobic microbial metabolism, density-driven stratification of H2S (heavier than air), confined space atmospheric stagnation"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Confined space entry permit system",
+      "Ventilation fans",
+      "H2S awareness training"
+    ],
+    "safeguard_failures": "Permit system did not require real-time H2S monitoring; ventilation was not verified effective prior to entry; training failed to address site-specific H2S generation potential from process wastewater",
+    "csb_recommendations": [
+      "Implement mandatory continuous direct-reading H2S monitoring before and during confined space entry",
+      "Conduct reactive hazard reviews for all waste streams containing sulfur species",
+      "Require emergency response plans specific to H2S incidents, including immediate evacuation and non-entry rescue protocols"
+    ]
+  },
+  "embedding_text": "At Georgia-Pacific's Naheola mill, contractors entered a sewer manhole during tank truck unloading of sulfide-containing wastewater. Anaerobic decomposition generated high-concentration hydrogen sulfide (H2S) that accumulated due to poor ventilation and lack of real-time monitoring. The deviation was excessive toxic gas concentration (More H2S) caused by unrecognized reactive hazard in waste treatment. Root cause: failure to identify H2S generation potential in confined infrastructure. Result: two deaths and eight injuries from acute inhalation exposure.",
+  "source_pdf": "Georgia_Pacific_H2S.pdf"
+}

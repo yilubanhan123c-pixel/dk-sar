@@ -1,0 +1,50 @@
+{
+  "case_id": "P009",
+  "basic_info": {
+    "incident_name": "West Pharmaceutical Services Dust Explosion",
+    "incident_name_cn": "西制药公司粉尘爆炸事故",
+    "date": "2003-01-29",
+    "location": "Kinston, North Carolina, USA",
+    "company": "West Pharmaceutical Services, Inc.",
+    "fatalities": 6,
+    "injuries": 38
+  },
+  "process_context": {
+    "process_type": "粉尘处理",
+    "equipment": [
+      "高剪切混合机",
+      "旋风分离器",
+      "除尘管道",
+      "袋式除尘器"
+    ],
+    "materials": [
+      "聚乙烯粉末",
+      "聚丙烯粉末",
+      "滑石粉"
+    ],
+    "operating_conditions": "常压、室温，干法高速混合与气力输送，粉尘浓度处于爆炸极限范围内"
+  },
+  "failure_mechanism": {
+    "root_cause": "未识别和控制可燃性粉尘云在工艺设备及通风系统内的积聚与点火风险",
+    "deviation_type": "粉尘积聚+静电点火",
+    "guide_word": "More",
+    "parameter": "dust concentration",
+    "causal_chain": "缺乏粉尘危害识别 → 未实施有效除尘与接地 → 混合机内静电积累 → 粉尘云被静电火花点燃 → 初始爆炸通过未隔离管道传播至除尘系统 → 发生二次爆炸",
+    "physical_principles": "粉尘爆炸五边形（可燃粉尘、氧化剂、点火源、分散、密闭空间）；静电起电与放电能量超过最小点火能（MIE）；爆炸压力波传播与湍流增强火焰速度"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "车间通风系统",
+      "常规清洁制度",
+      "部分设备接地"
+    ],
+    "safeguard_failures": "接地不充分且未验证；除尘系统无爆炸泄压或抑爆装置；未进行粉尘云MIE测试；无HAZOP或DHS（Dust Hazard Analysis）评估",
+    "csb_recommendations": [
+      "强制要求开展Dust Hazard Analysis（DHA）作为OSHA PSM覆盖范围的必要环节",
+      "制定并执行针对可燃粉尘的专项机械完整性程序，包括接地连续性检测",
+      "在所有存在粉尘爆炸风险的除尘系统上安装经认证的爆炸泄压板或化学抑爆系统"
+    ]
+  },
+  "embedding_text": "Explosion occurred in a high-shear powder blender and connected ductwork at West Pharmaceutical Services. Polyethylene and polypropylene dust formed combustible clouds under ambient conditions. More dust concentration combined with inadequate grounding led to electrostatic ignition. Root cause was failure to recognize, assess, and mitigate combustible dust hazards. Resulted in primary explosion inside mixer and catastrophic secondary explosion propagating through unisolated ducting, killing 6 and injuring 38.",
+  "source_pdf": "Dust_Hazard_Study.pdf"
+}

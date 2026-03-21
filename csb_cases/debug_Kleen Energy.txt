@@ -1,0 +1,32 @@
+{
+  "case_id": "CSB-KleenEnergy-2010",
+  "basic_info": {
+    "incident_name": "Kleen Energy Gas Blow Explosion",
+    "incident_name_cn": "克莱恩能源天然气吹扫爆炸事故",
+    "date": "2010-02-07",
+    "location": "Middletown, Connecticut, USA",
+    "company": "Kleen Energy Systems",
+    "fatalities": 6,
+    "injuries": 2"
+  },
+  "process_context": {
+    "process_type": "管道",
+    "equipment": ["natural gas piping", "vent points", "flanged connections"],
+    "materials": ["natural gas"],
+    "operating_conditions": "high-pressure natural gas vented directly to atmosphere during commissioning 'gas blow' procedure"
+  },
+  "failure_mechanism": {
+    "root_cause": "Use of flammable natural gas—instead of inert or non-flammable alternatives—for pipe cleaning, creating an uncontrolled, large-scale flammable vapor cloud.",
+    "deviation_type": "泄漏",
+    "guide_word": "More",
+    "parameter": "flow",
+    "causal_chain": "Decision to use natural gas for blowdown → uncontrolled release of ~2 million SCF gas into open air → formation of large flammable cloud → ignition by unidentified source (e.g., hot work, electrical equipment, static) → catastrophic explosion",
+    "physical_principles": "Flammability limits, vapor cloud dispersion, autoignition temperature, deflagration-to-detonation transition in confined/semi-confined geometry"
+  },
+  "protection_system": {
+    "existing_safeguards": ["pre-job safety meeting (not held)", "ignition source control (not enforced)", "gas detection (absent)", "permits for hot work (not required for blowdown)"],
+    "safeguard_failures": "No formal hazard analysis (e.g., HAZOP/JSA) conducted for gas blow; no ignition source exclusion zone established; lack of administrative controls and engineering safeguards due to absence of regulatory prohibition or industry standard mandating safer alternatives",
+    "csb_recommendations": ["Prohibit use of flammable gases for purging/blowdown unless rigorously justified and mitigated", "Mandate inherently safer alternatives (e.g., nitrogen, air, pigs) for pipe cleaning", "Require site-specific HAZOP or equivalent risk assessment for all commissioning activities involving hazardous materials"]
+  },
+  "embedding_text": "The Kleen Energy explosion occurred during a natural gas blowdown—a pipe cleaning procedure—where high-pressure natural gas was intentionally vented to atmosphere. This created a massive unconfined flammable vapor cloud (More flow deviation). Due to lack of hazard analysis and reliance on inherently hazardous practice instead of safer alternatives like nitrogen, the cloud ignited, causing fatal explosion. Root cause: unjustified use of flammable medium for cleaning. Equipment: piping system; material: natural gas; consequence: 6 fatalities, facility destruction."
+}

@@ -1,0 +1,50 @@
+{
+  "case_id": "P026",
+  "basic_info": {
+    "incident_name": "T2 Laboratories Runaway Reaction",
+    "incident_name_cn": "T2实验室反应失控爆炸事故",
+    "date": "2007-12-19",
+    "location": "Jacksonville, Florida, USA",
+    "company": "T2 Laboratories, Inc.",
+    "fatalities": 4,
+    "injuries": 32
+  },
+  "process_context": {
+    "process_type": "reaction",
+    "equipment": [
+      "batch reactor",
+      "jacketed vessel",
+      "cooling system"
+    ],
+    "materials": [
+      "methylcyclopentadienyl manganese tricarbonyl (MCMT)",
+      "sodium methoxide",
+      "methanol",
+      "manganese metal"
+    ],
+    "operating_conditions": "exothermic batch synthesis at ~140°C; cooling water jacket failure during temperature ramp-up"
+  },
+  "failure_mechanism": {
+    "root_cause": "Inadequate understanding and characterization of the highly exothermic decomposition reaction kinetics and thermal instability of MCMT intermediates.",
+    "deviation_type": "temperature偏高",
+    "guide_word": "More",
+    "parameter": "temperature",
+    "causal_chain": "Lack of reactive hazard assessment → uncharacterized decomposition onset at ~130°C → cooling system undersized and failed → reactor temperature exceeded safe limit → thermal runaway → rapid pressure rise → vessel rupture → explosion",
+    "physical_principles": "Thermal runaway driven by self-heating from adiabatic decomposition kinetics (ARC data later showed T_onset=125°C, ΔH_decomp > 1000 J/g)"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Jacketed cooling system",
+      "Temperature monitoring",
+      "Pressure relief device (rupture disk)"
+    ],
+    "safeguard_failures": "Cooling system lacked redundancy and capacity for worst-case heat release; rupture disk was undersized and vented to confined space; no independent critical temperature interlock or emergency quench system.",
+    "csb_recommendations": [
+      "Require comprehensive reactive hazard evaluation (e.g., ARC, DSC) before scale-up",
+      "Mandate independent safety review for batch chemical processes with high energy potential",
+      "Implement engineered safeguards such as automatic emergency quench or pressure-relief venting to safe location"
+    ]
+  },
+  "embedding_text": "T2 Laboratories experienced a catastrophic runaway reaction in a jacketed batch reactor synthesizing MCMT. The process involved sodium methoxide, methanol, and manganese metal under elevated temperature (~140°C). A 'More Temperature' deviation occurred due to unrecognized exothermic decomposition onset (~125°C) and inadequate cooling capacity. Root cause was absence of thermal stability testing and kinetic characterization. This led to uncontrollable self-heating, rapid pressure rise, vessel rupture, and explosion—killing four and injuring thirty-two.",
+  "source_pdf": "T2_Laboratories.pdf"
+}

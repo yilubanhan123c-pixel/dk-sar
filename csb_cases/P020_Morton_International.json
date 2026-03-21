@@ -1,0 +1,45 @@
+{
+  "case_id": "P020",
+  "basic_info": {
+    "incident_name": "Morton International Reactor Runaway Explosion",
+    "incident_name_cn": "莫顿国际公司反应釜失控爆炸事故",
+    "date": "1998-04-08",
+    "location": "Paterson, NJ, USA",
+    "company": "Morton International, Inc. (now Rohm & Haas)",
+    "fatalities": 0,
+    "injuries": 9
+  },
+  "process_context": {
+    "process_type": "反应",
+    "equipment": [
+      "2000-gallon chemical reactor vessel"
+    ],
+    "materials": [
+      "reactive chemicals (unspecified, but thermally unstable)"
+    ],
+    "operating_conditions": "batch reaction under elevated temperature and pressure; no adequate thermal stability data or runaway prevention measures"
+  },
+  "failure_mechanism": {
+    "root_cause": "Failure to identify, evaluate, and control reactive chemical hazards during process safety management.",
+    "deviation_type": "温度偏高",
+    "guide_word": "More",
+    "parameter": "Temperature",
+    "causal_chain": "Lack of reactive hazard assessment → inadequate understanding of decomposition kinetics → insufficient cooling capacity and no emergency quench → exothermic runaway reaction → rapid pressure rise → reactor over-pressurization → rupture and release of flammable material → ignition",
+    "physical_principles": "Thermal runaway, adiabatic temperature rise, Arrhenius kinetics, gas law (P ∝ nT/V)"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Reactor pressure relief valve",
+      "Cooling water system",
+      "Operator monitoring"
+    ],
+    "safeguard_failures": "Relief valve undersized for runaway gas generation rate; cooling system lacked redundancy and failed to arrest accelerating exotherm; operators had no alarm or procedure for early runaway detection.",
+    "csb_recommendations": [
+      "Implement comprehensive reactive hazard assessment (e.g., RC1, ARC, DSC testing) for all batch processes",
+      "Develop and enforce rigorous process safety information (PSI) standards for thermal stability and reaction kinetics",
+      "Install independent, instrumented emergency shutdown and quench systems with automatic activation on temperature deviation"
+    ]
+  },
+  "embedding_text": "A 2000-gallon batch reactor at Morton International in Paterson, NJ experienced thermal runaway due to unrecognized reactive chemical hazards. Unstable reactants underwent uncontrolled exothermic decomposition, causing rapid temperature rise (More Temperature deviation), overwhelming cooling and relief capacity. Root cause was absence of reactive hazard characterization and process safety information. Result: over-pressurization, vessel rupture, flammable release, fire, and 9 injuries. No automated detection or emergency quench existed.",
+  "source_pdf": "Morton_International.pdf"
+}

@@ -1,0 +1,49 @@
+{
+  "case_id": "P006",
+  "basic_info": {
+    "incident_name": "Concept Sciences Hydroxylamine Explosion",
+    "incident_name_cn": "Concept Sciences羟胺爆炸事故",
+    "date": "1999-02-19",
+    "location": "Hanover Township, Lehigh County, Pennsylvania, USA",
+    "company": "Concept Sciences, Inc. (CSI)",
+    "fatalities": 5,
+    "injuries": 14
+  },
+  "process_context": {
+    "process_type": "蒸馏",
+    "equipment": [
+      "蒸馏釜",
+      "工艺储罐",
+      "相关管道"
+    ],
+    "materials": [
+      "羟胺水溶液",
+      "硫酸钾"
+    ],
+    "operating_conditions": "首次商业化批次蒸馏操作；蒸馏后HA在工艺罐及管道中残留并浓缩，温度升高导致热不稳"
+  },
+  "failure_mechanism": {
+    "root_cause": "未识别羟胺在高温、高浓度条件下的自催化热失控分解风险，缺乏针对性工艺危害分析。",
+    "deviation_type": "温度偏高",
+    "guide_word": "More",
+    "parameter": "Temperature",
+    "causal_chain": "蒸馏停车后残留羟胺溶液局部浓缩→导热不良与绝热条件致温升→超过70°C触发自加速分解→快速放热引发爆炸性分解",
+    "physical_principles": "自催化放热反应动力学、热积累（adiabatic accumulation）、热不稳定性（TGA/DSC显示NH2OH在70°C以上剧烈分解）"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "无温度联锁停机系统",
+      "无浓度监测",
+      "无紧急冷却或泄爆设计",
+      "无HA专用工艺安全程序"
+    ],
+    "safeguard_failures": "所有工程和管理保护层均缺失；未基于HA已知爆炸点（265°C）和70°C空气自燃阈值设置温度控制阈值或报警。",
+    "csb_recommendations": [
+      "对高反应性化学品（如羟胺）开展专项PHA，强制采用热危害分析（e.g., ARC, DSC）",
+      "制定并执行化学设施选址标准，确保高危工艺远离人员密集区及相邻企业",
+      "建立化工过程安全管理体系（PSM）强制覆盖小规模特种化学品生产商"
+    ]
+  },
+  "embedding_text": "Explosion occurred during aqueous hydroxylamine distillation at Concept Sciences; after shutdown, concentrated HA solution accumulated in the distillation vessel and piping, experiencing uncontrolled temperature rise above 70°C. This triggered autocatalytic exothermic decomposition, leading to violent explosion. Root cause was failure to recognize and mitigate HA's thermal instability through HAZOP or thermal hazard analysis. Consequence: 5 fatalities, 14 injuries, and severe facility destruction.",
+  "source_pdf": "Concept_Sciences.pdf"
+}

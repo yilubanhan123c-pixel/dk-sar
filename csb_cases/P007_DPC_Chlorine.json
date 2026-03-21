@@ -1,0 +1,49 @@
+{
+  "case_id": "P007",
+  "basic_info": {
+    "incident_name": "DPC Chlorine",
+    "incident_name_cn": "DPC氯气泄漏事故",
+    "date": "2002-08-14",
+    "location": "Festus, Missouri",
+    "company": "DPC Enterprises, L.P.",
+    "fatalities": 0,
+    "injuries": 66
+  },
+  "process_context": {
+    "process_type": "储运",
+    "equipment": [
+      "氯气铁路罐车",
+      "氯气转移软管",
+      "紧急切断阀（ESD阀）",
+      "罐车过流阀"
+    ],
+    "materials": [
+      "液氯"
+    ],
+    "operating_conditions": "常温、约5–7 bar表压下进行液氯卸车与再包装作业"
+  },
+  "failure_mechanism": {
+    "root_cause": "氯气转移软管机械完整性失效导致突发性破裂，叠加紧急切断阀（ESD阀）未能及时关闭。",
+    "deviation_type": "泄漏",
+    "guide_word": "No",
+    "parameter": "流体隔离",
+    "causal_chain": "软管老化/维护缺失→卸车时承压破裂→ESD阀响应延迟且部分失效→液氯持续释放→人员暴露于高毒性气体",
+    "physical_principles": "压力驱动相变、毒理学吸入剂量-效应关系、阀门执行机构气动延迟与密封失效机理"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "紧急切断阀（ESD）系统",
+      "罐车自带过流阀",
+      "现场应急洗消与呼吸设备",
+      "社区预警协议"
+    ],
+    "safeguard_failures": "ESD阀因气源管路设计缺陷和腐蚀导致动作延迟及不完全关闭；过流阀被软管破裂位置下游的安装方式规避，未触发；应急设备取用路径受阻且员工未接受有效演练。",
+    "csb_recommendations": [
+      "强制实施氯气软管定期无损检测与服役寿命管理",
+      "重新设计ESD系统气源与执行逻辑，确保单点故障下仍能安全关断",
+      "建立基于真实风向与人口密度的动态氯气泄漏后果模拟与社区实时预警机制"
+    ]
+  },
+  "embedding_text": "Chlorine transfer hose rupture during railcar unloading at DPC Festus facility caused uncontrolled liquid chlorine release. The failure involved mechanical integrity loss of the hose under operating pressure, compounded by ESD valve failure to isolate flow. No effective containment or timely emergency response mitigated the toxic gas dispersion, resulting in 66 medical evaluations. Root causes include inadequate hose inspection, flawed ESD design, and insufficient operator training for high-hazard chlorine transfer operations.",
+  "source_pdf": "DPC_Chlorine.pdf"
+}

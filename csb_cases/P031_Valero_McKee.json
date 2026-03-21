@@ -1,0 +1,49 @@
+{
+  "case_id": "P031",
+  "basic_info": {
+    "incident_name": "LPG Fire at Valero – McKee Refinery",
+    "incident_name_cn": "瓦莱罗麦基炼油厂液化石油气火灾事故",
+    "date": "2007-02-16",
+    "location": "Sunray, Texas, USA",
+    "company": "Valero Energy Corporation",
+    "fatalities": 0,
+    "injuries": 4
+  },
+  "process_context": {
+    "process_type": "储运",
+    "equipment": [
+      "LPG piping dead-leg",
+      "emergency isolation valves",
+      "support steel structures"
+    ],
+    "materials": [
+      "Liquefied Petroleum Gas (LPG)",
+      "propane"
+    ],
+    "operating_conditions": "High-pressure, ambient-temperature LPG service; winter conditions with freezing risk"
+  },
+  "failure_mechanism": {
+    "root_cause": "Inadequate freeze protection of a dead-leg section in an LPG transfer line led to ice plug formation, subsequent pressure buildup, and catastrophic pipe rupture during restart.",
+    "deviation_type": "泄漏",
+    "guide_word": "No",
+    "parameter": "flow",
+    "causal_chain": "No flow in dead-leg → ice accumulation → blocked line → pressure buildup on upstream side → pipe rupture → LPG release → ignition → fire → structural failure of un-fireproofed supports → extended refinery evacuation",
+    "physical_principles": "Thermal contraction, phase change (water freezing), hydraulic pressure transmission, combustion kinetics, structural thermal degradation"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Dead-leg insulation",
+      "Emergency isolation valves",
+      "Fireproofing on critical steel supports",
+      "Deluge systems"
+    ],
+    "safeguard_failures": "Insulation was ineffective due to design omission and lack of maintenance; emergency valves were not located close enough to isolate the dead-leg; fireproofing was absent on key support steel; deluge system was not activated in time due to inadequate detection and procedure gaps.",
+    "csb_recommendations": [
+      "Implement rigorous dead-leg management including elimination, heating, or periodic purging",
+      "Install emergency isolation valves within 3 pipe diameters of all dead-legs in flammable service",
+      "Require fireproofing for all structural steel supporting high-pressure hydrocarbon piping above 150 psig"
+    ]
+  },
+  "embedding_text": "LPG transfer line dead-leg at Valero McKee refinery suffered no flow during cold weather, causing ice plugging. Pressure built upstream, rupturing the pipe and releasing propane. Ignition led to intense fire that collapsed un-fireproofed support steel. Root cause was missing freeze protection and poor PHA coverage of dead-leg hazards. Resulted in four injuries, full refinery evacuation, and prolonged shutdown.",
+  "source_pdf": "Valero_McKee.pdf"
+}

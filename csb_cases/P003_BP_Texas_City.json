@@ -1,0 +1,50 @@
+{
+  "case_id": "P003",
+  "basic_info": {
+    "incident_name": "BP Texas City Refinery Explosion and Fire",
+    "incident_name_cn": "英国石油公司德克萨斯城炼油厂爆炸火灾事故",
+    "date": "2005-03-23",
+    "location": "Texas City, Texas, USA",
+    "company": "BP",
+    "fatalities": 15,
+    "injuries": 180
+  },
+  "process_context": {
+    "process_type": "蒸馏",
+    "equipment": [
+      "Raffinate Splitter Tower",
+      "Blowdown Drum",
+      "Disposal Header",
+      "Safety Relief Valves"
+    ],
+    "materials": [
+      "Raffinate (C5–C6 hydrocarbons)",
+      "Gasoline-range hydrocarbons"
+    ],
+    "operating_conditions": "Atmospheric pressure, elevated temperature (~140°C), during startup after turnaround"
+  },
+  "failure_mechanism": {
+    "root_cause": "Overfilling of the raffinate splitter tower due to inadequate level indication, operator misjudgment, and lack of independent high-level protection, leading to hydrocarbon overflow into blowdown drum and subsequent overpressure and rupture.",
+    "deviation_type": "液位偏高",
+    "guide_word": "More",
+    "parameter": "Level",
+    "causal_chain": "Inadequate maintenance of level instrumentation → Incorrect level reading during startup → Operator failed to recognize overfill → Tower overflowed liquid into blowdown drum → Drum overpressurized and ruptured → Hydrocarbon vapor cloud formed → Ignition → Massive explosion and fire",
+    "physical_principles": "Hydrostatic head, vapor-liquid equilibrium, two-phase flow in relief systems, deflagration-to-detonation transition in confined vapor clouds"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Differential pressure level transmitter",
+      "Local glass level gauge",
+      "Relief valves on blowdown drum",
+      "Process Safety Management (PSM) program"
+    ],
+    "safeguard_failures": "Level transmitter was faulty and not calibrated; glass gauge obscured by residue and misread; relief valves undersized and not designed for liquid carryover; PSM lacked effective management of change and mechanical integrity verification",
+    "csb_recommendations": [
+      "Implement independent high-integrity level shutdown systems (SIL-2 or higher) for critical towers",
+      "Require rigorous mechanical integrity verification prior to process startup after turnaround",
+      "Strengthen regulatory oversight of process safety culture and metrics by OSHA and EPA"
+    ]
+  },
+  "embedding_text": "During startup of the ISOM unit raffinate splitter tower at BP Texas City refinery, a faulty level instrument and operator error caused severe overfilling with C5-C6 hydrocarbons. Liquid overflowed into the blowdown drum, exceeding its design capacity and causing catastrophic overpressure and rupture. This released a large flammable vapor cloud that ignited, resulting in a massive explosion killing 15 and injuring 180. The root cause was failure of multiple layers of protection including instrumentation, procedures, and safety culture.",
+  "source_pdf": "BP_Texas_City.pdf"
+}

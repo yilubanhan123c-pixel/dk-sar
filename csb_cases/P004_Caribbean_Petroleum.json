@@ -1,0 +1,50 @@
+{
+  "case_id": "P004",
+  "basic_info": {
+    "incident_name": "Caribbean Petroleum Tank Terminal Explosion and Multiple Tank Fires",
+    "incident_name_cn": "加勒比石油储运码头爆炸及多储罐火灾事故",
+    "date": "2009-10-23",
+    "location": "Bayamón, Puerto Rico",
+    "company": "Caribbean Petroleum Corporation (CAPECO)",
+    "fatalities": 0,
+    "injuries": 0
+  },
+  "process_context": {
+    "process_type": "储运",
+    "equipment": [
+      "固定顶立式储罐",
+      "液位测量系统",
+      "自动切断阀",
+      "船岸装卸臂"
+    ],
+    "materials": [
+      "汽油",
+      "柴油",
+      "航空煤油"
+    ],
+    "operating_conditions": "常压、环境温度，连续卸船作业，高周转率，无实时在线液位联锁"
+  },
+  "failure_mechanism": {
+    "root_cause": "缺乏独立、冗余且功能可靠的高液位报警与紧急切断系统，导致储罐过量充装并溢出可燃蒸气。",
+    "deviation_type": "液位偏高（Overfill）",
+    "guide_word": "More",
+    "parameter": "Level",
+    "causal_chain": "液位仪表校准失效和维护缺失 → DCS显示液位偏低 → 操作员未识别超限风险 → 自动切断阀未联锁动作 → 罐体溢流 → 可燃蒸气云形成 → 遇点火源发生蒸气云爆炸",
+    "physical_principles": "流体静力学（液位压力测量）、可燃性极限（LFL/UFL）、蒸气扩散与点火能量阈值"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "DCS液位指示",
+      "操作员目视巡检",
+      "手动紧急停车按钮"
+    ],
+    "safeguard_failures": "所有保护措施均非独立、非冗余、未按RAGAGEP进行SIL验证；液位变送器单点失效无报警，无高高液位硬线联锁触发紧急切断阀。",
+    "csb_recommendations": [
+      "实施独立于DCS的SIL-2级高高液位联锁系统（含雷达/伺服液位计+硬线逻辑解算器+自动切断阀）",
+      "开展QRA评估厂界外社区风险，并将结果纳入工艺安全信息（PSI）",
+      "强制要求所有易燃液体储罐配备双重液位测量与冗余报警/联锁"
+    ]
+  },
+  "embedding_text": "On October 23, 2009, at the Caribbean Petroleum terminal in Bayamón, PR, gasoline was being unloaded into fixed-roof storage tanks. A 'More Level' deviation occurred due to failed level instrumentation and absence of independent high-high level interlock, causing tank overfill, overflow, and formation of ignitable vapor cloud. The root cause was lack of redundant, RAGAGEP-compliant safeguards against overfilling. This led to a massive vapor cloud explosion and multiple tank fires, with severe off-site consequences.",
+  "source_pdf": "Caribbean_Petroleum.pdf"
+}

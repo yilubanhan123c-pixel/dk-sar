@@ -1,0 +1,50 @@
+{
+  "case_id": "P018",
+  "basic_info": {
+    "incident_name": "ITC Tank Fire",
+    "incident_name_cn": "ITC储罐火灾事故",
+    "date": "2019-03-17",
+    "location": "Deer Park, Texas",
+    "company": "Intercontinental Terminals Company, LLC (ITC)",
+    "fatalities": 0,
+    "injuries": 0
+  },
+  "process_context": {
+    "process_type": "储运",
+    "equipment": [
+      "常压立式拱顶储罐（Tank 80-8）",
+      "丁烷注入系统",
+      "远程操作紧急隔离阀",
+      "围堰"
+    ],
+    "materials": [
+      "丁烷",
+      "富丁烷石脑油"
+    ],
+    "operating_conditions": "常温常压，液相储存，丁烷通过底部注入管向石脑油中掺混"
+  },
+  "failure_mechanism": {
+    "root_cause": "Tank 80-8底部丁烷注入管线焊缝存在未检出的制造缺陷，在反复热应力与操作压力循环下发生疲劳开裂，导致持续微泄漏。",
+    "deviation_type": "泄漏",
+    "guide_word": "No",
+    "parameter": "流体完整性",
+    "causal_chain": "焊缝制造缺陷→服役中疲劳裂纹萌生与扩展→注入管线破裂→丁烷持续泄漏至罐内气相空间→形成可燃蒸气云→遇不明点火源→闪火并引燃罐内物料→火灾蔓延",
+    "physical_principles": "疲劳断裂力学、挥发性有机物相平衡、可燃极限理论、池火与喷射火燃烧动力学"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "可燃气体探测系统",
+      "远程操作紧急隔离阀",
+      "围堰",
+      "工艺安全管理体系（PSM）"
+    ],
+    "safeguard_failures": "可燃气体探测器未覆盖罐顶气相空间关键区域；紧急隔离阀未联锁自动关闭且手动响应延迟；围堰设计高度不足且存在结构性裂缝；PSM未识别丁烷注入系统为高风险机械完整性关注单元。",
+    "csb_recommendations": [
+      "强制要求对所有含轻烃注入系统的储罐实施基于风险的焊缝无损检测（RT/PAUT）周期性复检",
+      "在罐顶气相空间增设全覆盖式可燃气体探测网络，并与DCS联锁触发声光报警及紧急隔离",
+      "修订RMP/PSM法规，明确将常压储罐的轻质组分注入系统纳入机械完整性（MI）重点管理范围"
+    ]
+  },
+  "embedding_text": "The ITC Deer Park tank fire involved a failure of the butane injection line at Tank 80-8, a vertical atmospheric storage tank containing naphtha. A manufacturing weld defect led to fatigue-driven leakage of butane into the vapor space, forming a flammable cloud. Absence of effective gas detection and delayed isolation allowed ignition and catastrophic fire. Root cause: loss of mechanical integrity under cyclic thermal and pressure stress; consequence: large-scale hydrocarbon fire with significant property damage and off-site impacts.",
+  "source_pdf": "ITC_Tank_Fire.pdf"
+}

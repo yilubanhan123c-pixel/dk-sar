@@ -1,0 +1,50 @@
+{
+  "case_id": "P022",
+  "basic_info": {
+    "incident_name": "Nitrogen Asphyxiation",
+    "incident_name_cn": "氮气窒息事故",
+    "date": "1992–2002 (multi-incident analysis)",
+    "location": "US manufacturing, laboratories, trenches, manholes, flare systems",
+    "company": "Multiple unidentified industrial facilities",
+    "fatalities": 80,
+    "injuries": 50
+  },
+  "process_context": {
+    "process_type": "Confined space maintenance, inerting, hot work preparation",
+    "equipment": [
+      "Hydrogen purifying tank",
+      "flare system",
+      "manway",
+      "valve assembly"
+    ],
+    "materials": [
+      "Nitrogen",
+      "Oxygen (ambient air)"
+    ],
+    "operating_conditions": "Atmospheric oxygen concentration reduced below 10% due to nitrogen purge or leakage; undetectable by human senses; performed during cleaning, testing, and valve removal"
+  },
+  "failure_mechanism": {
+    "root_cause": "Failure to recognize nitrogen as a hazardous asphyxiant and to monitor oxygen levels before and during work in potentially nitrogen-enriched environments.",
+    "deviation_type": "Oxygen deficiency",
+    "guide_word": "Less",
+    "parameter": "Oxygen concentration",
+    "causal_chain": "Nitrogen purge/leak → displacement of ambient air → undetected reduction in O₂ (<10%) → rapid loss of consciousness → inability to self-rescue → death",
+    "physical_principles": "Gas mixing by diffusion and density-driven stratification; physiological dependence on partial pressure of O₂; absence of olfactory or visual warning cues for inert gases"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Oxygen monitors",
+      "Permit-to-work systems",
+      "Respiratory protection requirements",
+      "Confined space entry procedures"
+    ],
+    "safeguard_failures": "Oxygen monitoring was omitted or not required; permits failed to mandate atmospheric testing; respirators were not used by all personnel; rescue planning was inadequate; contractors lacked site-specific hazard awareness",
+    "csb_recommendations": [
+      "Mandate real-time oxygen monitoring before and during all confined space and nitrogen-involving work",
+      "Require comprehensive nitrogen hazard training for all workers and contractors",
+      "Implement positive verification of breathable atmosphere prior to removing respiratory protection"
+    ]
+  },
+  "embedding_text": "Nitrogen asphyxiation occurred during confined space maintenance (e.g., hydrogen tank cleaning, flare valve removal) where nitrogen purge or leakage caused 'Less Oxygen' deviation. Root cause: unrecognized asphyxiation hazard and failure to monitor O₂. Equipment included tanks, manways, and flare lines; inert nitrogen displaced breathable air, leading to unconsciousness and death without warning. Physical basis: O₂ partial pressure drop below 10% impairs cognition and respiration irreversibly.",
+  "source_pdf": "Nitrogen_Asphyxiation.pdf"
+}

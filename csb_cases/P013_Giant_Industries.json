@@ -1,0 +1,51 @@
+{
+  "case_id": "P013",
+  "basic_info": {
+    "incident_name": "Giant Industries Ciniza Refinery Fire and Explosion",
+    "incident_name_cn": "巨人工业辛萨炼油厂火灾爆炸事故",
+    "date": "2004-04-08",
+    "location": "Jamestown, NM, USA",
+    "company": "Giant Industries Arizona, Inc.",
+    "fatalities": 0,
+    "injuries": 6
+  },
+  "process_context": {
+    "process_type": "反应",
+    "equipment": [
+      "Iso-Stripper unit",
+      "alkylate recirculation pump (steam-driven spare)",
+      "mechanical seal",
+      "valve"
+    ],
+    "materials": [
+      "alkylate",
+      "isobutane",
+      "olefins",
+      "hydrofluoric acid (HF)"
+    ],
+    "operating_conditions": "HF alkylation unit operating at elevated temperature and pressure; alkylate is highly flammable liquid forming explosive vapor/air mixtures above ambient temperature"
+  },
+  "failure_mechanism": {
+    "root_cause": "Mechanical seal on the spare steam-driven alkylate recirculation pump failed due to prior material buildup and improper verification of pump operability before commissioning.",
+    "deviation_type": "泄漏",
+    "guide_word": "No",
+    "parameter": "flow",
+    "causal_chain": "Mechanical seal degradation from prior leakage → pump shaft seized during startup attempt → operators bypassed verification → subsequent seal repair incomplete → alkylate leak during operation → ignition → fire and explosion",
+    "physical_principles": "Fluid statics and dynamics, mechanical seal hydrodynamic failure, flammability limits of hydrocarbon vapors, autoignition temperature"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Work permit system",
+      "Mechanical integrity program",
+      "Pre-startup safety review (PSSR) for pump switch"
+    ],
+    "safeguard_failures": "PSSR was not performed; operators relied on visual wrench position instead of valve position indicators; no functional test of spare pump prior to service; mechanical integrity program failed to detect seal degradation during inspections",
+    "csb_recommendations": [
+      "Implement mandatory functional testing of standby equipment before switching into service",
+      "Standardize and enforce use of reliable valve position indicators—not tool-based assumptions",
+      "Integrate mechanical seal performance monitoring into predictive maintenance programs"
+    ]
+  },
+  "embedding_text": "Fire and explosion occurred in HF alkylation unit at Giant Ciniza refinery when a steam-driven alkylate recirculation pump with degraded mechanical seal leaked flammable alkylate during startup. The deviation was 'No flow' due to seized shaft, caused by undetected seal damage and lack of pre-service verification. Ignition of released hydrocarbon vapor led to major fire, $13M damage, and six injuries. No HF release occurred.",
+  "source_pdf": "Giant_Industries.pdf"
+}

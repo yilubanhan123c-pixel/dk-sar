@@ -1,0 +1,49 @@
+{
+  "case_id": "P005",
+  "basic_info": {
+    "incident_name": "Chevron Richmond Refinery Pipe Rupture and Fire",
+    "incident_name_cn": "雪佛龙里士满炼油厂管道破裂及火灾事故",
+    "date": "2012-08-06",
+    "location": "Richmond, California, USA",
+    "company": "Chevron Corporation",
+    "fatalities": 0,
+    "injuries": 6
+  },
+  "process_context": {
+    "process_type": "蒸馏",
+    "equipment": [
+      "4-Sidecut line",
+      "Crude Unit #4",
+      "Carbon steel piping"
+    ],
+    "materials": [
+      "Crude oil",
+      "Naphtha",
+      "Gas oil"
+    ],
+    "operating_conditions": "High-temperature (≈270°C), high-pressure service in crude distillation unit; cyclic thermal loading"
+  },
+  "failure_mechanism": {
+    "root_cause": "Chloride-induced stress corrosion cracking (CISCC) of carbon steel pipe due to inadequate inspection and corrosion management.",
+    "deviation_type": "泄漏",
+    "guide_word": "No",
+    "parameter": "Integrity",
+    "causal_chain": "Inadequate mechanical integrity program → Unrecognized chloride contamination → Stress corrosion cracking initiation and growth → Loss of pipe wall thickness → Sudden rupture under operating pressure → Hydrocarbon release → Ignition → Fire",
+    "physical_principles": "Electrochemical corrosion, residual stress, chloride ion diffusion, brittle fracture under tensile stress"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Visual inspections",
+      "Thickness measurements at select locations",
+      "Process safety management (PSM) program"
+    ],
+    "safeguard_failures": "Inspection intervals too long; no targeted CISCC screening; thickness measurements missed cracked regions due to inaccessible geometry and lack of advanced NDE; PSM failed to identify chloride hazard in sidecut stream.",
+    "csb_recommendations": [
+      "Revise API RP 571 to require CISCC risk assessment for all carbon steel piping exposed to chlorides",
+      "Mandate use of advanced NDE (e.g., phased array UT) for high-risk piping circuits",
+      "Require process hazard analyses (PHAs) to explicitly evaluate corrosion mechanisms beyond general 'corrosion' guide words"
+    ]
+  },
+  "embedding_text": "On August 6, 2012, a carbon steel 4-sidecut line in Chevron's Crude Unit #4 ruptured during operation, releasing hot hydrocarbons that ignited into a major fire. The failure resulted from undetected chloride-induced stress corrosion cracking—caused by chronic chloride contamination, insufficient corrosion monitoring, and absence of CISCC-specific safeguards. Operating at ~270°C with naphtha/gas oil, the pipe lost structural integrity without warning. This HAZOP-relevant 'No Integrity' deviation highlights critical gaps in mechanical integrity programs for aging refinery infrastructure.",
+  "source_pdf": "Chevron_Richmond.pdf"
+}

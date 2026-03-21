@@ -1,0 +1,16 @@
+{
+  "total_attempted": 40,
+  "downloaded": 31,
+  "failed": [
+    "Tesoro Anacortes",
+    "West Fertilizer",
+    "DuPont La Porte",
+    "Williams Olefins",
+    "Philadelphia Energy",
+    "KMCO",
+    "ExxonMobil Torrance",
+    "First Chemical",
+    "Carbide Industries"
+  ],
+  "output_dir": "csb_reports"
+}

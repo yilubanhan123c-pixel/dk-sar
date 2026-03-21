@@ -1,0 +1,1489 @@
+[
+  {
+    "case_id": "P001",
+    "basic_info": {
+      "incident_name": "Barton Solvents Static Ignition Incident",
+      "incident_name_cn": "巴顿溶剂公司静电火花引燃储罐爆炸事故",
+      "date": "2007-07-17",
+      "location": "Valley Center, Kansas, USA",
+      "company": "Barton Solvents",
+      "fatalities": 0,
+      "injuries": 12
+    },
+    "process_context": {
+      "process_type": "储运",
+      "equipment": [
+        "垂直地上储罐",
+        "罐车-储罐输送系统",
+        "压力/真空阀",
+        "浮子液位计",
+        "接地系统"
+      ],
+      "materials": [
+        "VM&P naphtha（涂料用松节油）"
+      ],
+      "operating_conditions": "常温常压下向空罐充装低电导率（<50 pS/m）IB类易燃液体，罐内存在可燃蒸气-空气混合物"
+    },
+    "failure_mechanism": {
+      "root_cause": "未实施有效静电接地与控制措施，导致VM&P naphtha在充装过程中积聚静电并产生火花放电，引燃罐内可燃蒸气云。",
+      "deviation_type": "静电积累",
+      "guide_word": "More",
+      "parameter": "静电电荷",
+      "causal_chain": "使用非导电性易燃液体（VM&P naphtha）→高速泵送充装→液体与管壁/罐壁摩擦产生静电→缺乏有效接地和等电位连接→电荷持续累积→达到击穿电压→火花放电→引燃罐内处于爆炸极限内的蒸气-空气混合物→蒸气云爆燃→超压→储罐破裂爆炸",
+      "physical_principles": "静电起电（流动带电）、电荷弛豫时间延长（低电导率液体）、气体爆炸动力学、Paschen击穿定律"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "压力/真空阀",
+        "目视液位计",
+        "人工接地夹"
+      ],
+      "safeguard_failures": "人工接地夹未被正确连接或验证；压力/真空阀仅用于超压泄放，无法防止内部爆炸；无静电电位监测、流速限制、浸没式充装或导电添加剂等主动防静电措施",
+      "csb_recommendations": [
+        "要求MSDS明确标识物料静电危害及最小点火能、电导率、推荐最大流速和接地要求",
+        "对低电导率易燃液体储罐充装实施浸没式入口管+底部进料+流速≤1 m/s+连续接地监控",
+        "修订行业标准（如API RP 2003）强制要求静电风险评估与验证性接地测试"
+      ]
+    },
+    "embedding_text": "Explosion occurred inside a vertical above-ground storage tank during filling with VM&P naphtha—a low-conductivity (non-conductive) NFPA Class IB flammable liquid. The deviation was excessive static charge accumulation (More Static Charge) due to ungrounded transfer operations. Root cause: absence of verified bonding/grounding and failure to control flow velocity. Result: electrostatic spark ignited flammable vapor-air mixture inside the tank, causing catastrophic overpressure, tank rupture, fire, evacuation of 6,000 residents, and facility destruction.",
+    "source_pdf": "Barton_Solvents.pdf"
+  },
+  {
+    "case_id": "P002",
+    "basic_info": {
+      "incident_name": "Bayer CropScience Pesticide Chemical Runaway Reaction",
+      "incident_name_cn": "拜耳作物科学农药化学品失控反应爆炸事故",
+      "date": "2008-08-28",
+      "location": "Institute, West Virginia, USA",
+      "company": "Bayer CropScience, LP",
+      "fatalities": 2,
+      "injuries": 8
+    },
+    "process_context": {
+      "process_type": "reaction",
+      "equipment": [
+        "Residue Treater (pressure vessel)",
+        "Methomyl synthesis reactor"
+      ],
+      "materials": [
+        "Methomyl",
+        "Phosgene",
+        "Methyl isocyanate",
+        "solvents"
+      ],
+      "operating_conditions": "High-pressure, elevated-temperature batch synthesis; residual phosgene and MIC present in equipment during startup"
+    },
+    "failure_mechanism": {
+      "root_cause": "Inadequate process safety information and failure to recognize thermal instability of residue containing phosgene and methyl isocyanate during residue treater startup.",
+      "deviation_type": "temperature偏高",
+      "guide_word": "More",
+      "parameter": "temperature",
+      "causal_chain": "Incomplete solvent flush → residual phosgene/MIC left in residue treater → exothermic decomposition initiated on heating → runaway reaction → overpressure → vessel rupture",
+      "physical_principles": "Exothermic decomposition kinetics, adiabatic temperature rise, pressure accumulation in confined vessel"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Pressure relief valve",
+        "Procedural startup checklist",
+        "Operator training"
+      ],
+      "safeguard_failures": "Relief valve undersized for decomposition gas generation rate; checklist omitted residue chemistry hazards; training lacked specific thermal hazard awareness for mixed residuals",
+      "csb_recommendations": [
+        "Conduct thorough PHA including decomposition hazards of process residuals",
+        "Implement rigorous pre-startup safety review with independent verification of cleaning effectiveness",
+        "Develop and maintain accurate, accessible process safety information on reactive chemical hazards"
+      ]
+    },
+    "embedding_text": "Runaway decomposition occurred in a pressure vessel (Residue Treater) during startup after incomplete solvent flush, leaving unstable residues of phosgene and methyl isocyanate. Heating induced uncontrolled exothermic reaction (More temperature deviation), causing rapid pressure rise and catastrophic explosion. Root cause was absence of process safety information on residual chemistry and inadequate HAZOP/PHA coverage of post-reaction residues. Two fatalities and eight injuries resulted.",
+    "source_pdf": "Bayer_CropScience.pdf"
+  },
+  {
+    "case_id": "P003",
+    "basic_info": {
+      "incident_name": "BP Texas City Refinery Explosion and Fire",
+      "incident_name_cn": "英国石油公司德克萨斯城炼油厂爆炸火灾事故",
+      "date": "2005-03-23",
+      "location": "Texas City, Texas, USA",
+      "company": "BP",
+      "fatalities": 15,
+      "injuries": 180
+    },
+    "process_context": {
+      "process_type": "蒸馏",
+      "equipment": [
+        "Raffinate Splitter Tower",
+        "Blowdown Drum",
+        "Disposal Header",
+        "Safety Relief Valves"
+      ],
+      "materials": [
+        "Raffinate (C5–C6 hydrocarbons)",
+        "Gasoline-range hydrocarbons"
+      ],
+      "operating_conditions": "Atmospheric pressure, elevated temperature (~140°C), during startup after turnaround"
+    },
+    "failure_mechanism": {
+      "root_cause": "Overfilling of the raffinate splitter tower due to inadequate level indication, operator misjudgment, and lack of independent high-level protection, leading to hydrocarbon overflow into blowdown drum and subsequent overpressure and rupture.",
+      "deviation_type": "液位偏高",
+      "guide_word": "More",
+      "parameter": "Level",
+      "causal_chain": "Inadequate maintenance of level instrumentation → Incorrect level reading during startup → Operator failed to recognize overfill → Tower overflowed liquid into blowdown drum → Drum overpressurized and ruptured → Hydrocarbon vapor cloud formed → Ignition → Massive explosion and fire",
+      "physical_principles": "Hydrostatic head, vapor-liquid equilibrium, two-phase flow in relief systems, deflagration-to-detonation transition in confined vapor clouds"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Differential pressure level transmitter",
+        "Local glass level gauge",
+        "Relief valves on blowdown drum",
+        "Process Safety Management (PSM) program"
+      ],
+      "safeguard_failures": "Level transmitter was faulty and not calibrated; glass gauge obscured by residue and misread; relief valves undersized and not designed for liquid carryover; PSM lacked effective management of change and mechanical integrity verification",
+      "csb_recommendations": [
+        "Implement independent high-integrity level shutdown systems (SIL-2 or higher) for critical towers",
+        "Require rigorous mechanical integrity verification prior to process startup after turnaround",
+        "Strengthen regulatory oversight of process safety culture and metrics by OSHA and EPA"
+      ]
+    },
+    "embedding_text": "During startup of the ISOM unit raffinate splitter tower at BP Texas City refinery, a faulty level instrument and operator error caused severe overfilling with C5-C6 hydrocarbons. Liquid overflowed into the blowdown drum, exceeding its design capacity and causing catastrophic overpressure and rupture. This released a large flammable vapor cloud that ignited, resulting in a massive explosion killing 15 and injuring 180. The root cause was failure of multiple layers of protection including instrumentation, procedures, and safety culture.",
+    "source_pdf": "BP_Texas_City.pdf"
+  },
+  {
+    "case_id": "P004",
+    "basic_info": {
+      "incident_name": "Caribbean Petroleum Tank Terminal Explosion and Multiple Tank Fires",
+      "incident_name_cn": "加勒比石油储运码头爆炸及多储罐火灾事故",
+      "date": "2009-10-23",
+      "location": "Bayamón, Puerto Rico",
+      "company": "Caribbean Petroleum Corporation (CAPECO)",
+      "fatalities": 0,
+      "injuries": 0
+    },
+    "process_context": {
+      "process_type": "储运",
+      "equipment": [
+        "固定顶立式储罐",
+        "液位测量系统",
+        "自动切断阀",
+        "船岸装卸臂"
+      ],
+      "materials": [
+        "汽油",
+        "柴油",
+        "航空煤油"
+      ],
+      "operating_conditions": "常压、环境温度，连续卸船作业，高周转率，无实时在线液位联锁"
+    },
+    "failure_mechanism": {
+      "root_cause": "缺乏独立、冗余且功能可靠的高液位报警与紧急切断系统，导致储罐过量充装并溢出可燃蒸气。",
+      "deviation_type": "液位偏高（Overfill）",
+      "guide_word": "More",
+      "parameter": "Level",
+      "causal_chain": "液位仪表校准失效和维护缺失 → DCS显示液位偏低 → 操作员未识别超限风险 → 自动切断阀未联锁动作 → 罐体溢流 → 可燃蒸气云形成 → 遇点火源发生蒸气云爆炸",
+      "physical_principles": "流体静力学（液位压力测量）、可燃性极限（LFL/UFL）、蒸气扩散与点火能量阈值"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "DCS液位指示",
+        "操作员目视巡检",
+        "手动紧急停车按钮"
+      ],
+      "safeguard_failures": "所有保护措施均非独立、非冗余、未按RAGAGEP进行SIL验证；液位变送器单点失效无报警，无高高液位硬线联锁触发紧急切断阀。",
+      "csb_recommendations": [
+        "实施独立于DCS的SIL-2级高高液位联锁系统（含雷达/伺服液位计+硬线逻辑解算器+自动切断阀）",
+        "开展QRA评估厂界外社区风险，并将结果纳入工艺安全信息（PSI）",
+        "强制要求所有易燃液体储罐配备双重液位测量与冗余报警/联锁"
+      ]
+    },
+    "embedding_text": "On October 23, 2009, at the Caribbean Petroleum terminal in Bayamón, PR, gasoline was being unloaded into fixed-roof storage tanks. A 'More Level' deviation occurred due to failed level instrumentation and absence of independent high-high level interlock, causing tank overfill, overflow, and formation of ignitable vapor cloud. The root cause was lack of redundant, RAGAGEP-compliant safeguards against overfilling. This led to a massive vapor cloud explosion and multiple tank fires, with severe off-site consequences.",
+    "source_pdf": "Caribbean_Petroleum.pdf"
+  },
+  {
+    "case_id": "P005",
+    "basic_info": {
+      "incident_name": "Chevron Richmond Refinery Pipe Rupture and Fire",
+      "incident_name_cn": "雪佛龙里士满炼油厂管道破裂及火灾事故",
+      "date": "2012-08-06",
+      "location": "Richmond, California, USA",
+      "company": "Chevron Corporation",
+      "fatalities": 0,
+      "injuries": 6
+    },
+    "process_context": {
+      "process_type": "蒸馏",
+      "equipment": [
+        "4-Sidecut line",
+        "Crude Unit #4",
+        "Carbon steel piping"
+      ],
+      "materials": [
+        "Crude oil",
+        "Naphtha",
+        "Gas oil"
+      ],
+      "operating_conditions": "High-temperature (≈270°C), high-pressure service in crude distillation unit; cyclic thermal loading"
+    },
+    "failure_mechanism": {
+      "root_cause": "Chloride-induced stress corrosion cracking (CISCC) of carbon steel pipe due to inadequate inspection and corrosion management.",
+      "deviation_type": "泄漏",
+      "guide_word": "No",
+      "parameter": "Integrity",
+      "causal_chain": "Inadequate mechanical integrity program → Unrecognized chloride contamination → Stress corrosion cracking initiation and growth → Loss of pipe wall thickness → Sudden rupture under operating pressure → Hydrocarbon release → Ignition → Fire",
+      "physical_principles": "Electrochemical corrosion, residual stress, chloride ion diffusion, brittle fracture under tensile stress"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Visual inspections",
+        "Thickness measurements at select locations",
+        "Process safety management (PSM) program"
+      ],
+      "safeguard_failures": "Inspection intervals too long; no targeted CISCC screening; thickness measurements missed cracked regions due to inaccessible geometry and lack of advanced NDE; PSM failed to identify chloride hazard in sidecut stream.",
+      "csb_recommendations": [
+        "Revise API RP 571 to require CISCC risk assessment for all carbon steel piping exposed to chlorides",
+        "Mandate use of advanced NDE (e.g., phased array UT) for high-risk piping circuits",
+        "Require process hazard analyses (PHAs) to explicitly evaluate corrosion mechanisms beyond general 'corrosion' guide words"
+      ]
+    },
+    "embedding_text": "On August 6, 2012, a carbon steel 4-sidecut line in Chevron's Crude Unit #4 ruptured during operation, releasing hot hydrocarbons that ignited into a major fire. The failure resulted from undetected chloride-induced stress corrosion cracking—caused by chronic chloride contamination, insufficient corrosion monitoring, and absence of CISCC-specific safeguards. Operating at ~270°C with naphtha/gas oil, the pipe lost structural integrity without warning. This HAZOP-relevant 'No Integrity' deviation highlights critical gaps in mechanical integrity programs for aging refinery infrastructure.",
+    "source_pdf": "Chevron_Richmond.pdf"
+  },
+  {
+    "case_id": "P006",
+    "basic_info": {
+      "incident_name": "Concept Sciences Hydroxylamine Explosion",
+      "incident_name_cn": "Concept Sciences羟胺爆炸事故",
+      "date": "1999-02-19",
+      "location": "Hanover Township, Lehigh County, Pennsylvania, USA",
+      "company": "Concept Sciences, Inc. (CSI)",
+      "fatalities": 5,
+      "injuries": 14
+    },
+    "process_context": {
+      "process_type": "蒸馏",
+      "equipment": [
+        "蒸馏釜",
+        "工艺储罐",
+        "相关管道"
+      ],
+      "materials": [
+        "羟胺水溶液",
+        "硫酸钾"
+      ],
+      "operating_conditions": "首次商业化批次蒸馏操作；蒸馏后HA在工艺罐及管道中残留并浓缩，温度升高导致热不稳"
+    },
+    "failure_mechanism": {
+      "root_cause": "未识别羟胺在高温、高浓度条件下的自催化热失控分解风险，缺乏针对性工艺危害分析。",
+      "deviation_type": "温度偏高",
+      "guide_word": "More",
+      "parameter": "Temperature",
+      "causal_chain": "蒸馏停车后残留羟胺溶液局部浓缩→导热不良与绝热条件致温升→超过70°C触发自加速分解→快速放热引发爆炸性分解",
+      "physical_principles": "自催化放热反应动力学、热积累（adiabatic accumulation）、热不稳定性（TGA/DSC显示NH2OH在70°C以上剧烈分解）"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "无温度联锁停机系统",
+        "无浓度监测",
+        "无紧急冷却或泄爆设计",
+        "无HA专用工艺安全程序"
+      ],
+      "safeguard_failures": "所有工程和管理保护层均缺失；未基于HA已知爆炸点（265°C）和70°C空气自燃阈值设置温度控制阈值或报警。",
+      "csb_recommendations": [
+        "对高反应性化学品（如羟胺）开展专项PHA，强制采用热危害分析（e.g., ARC, DSC）",
+        "制定并执行化学设施选址标准，确保高危工艺远离人员密集区及相邻企业",
+        "建立化工过程安全管理体系（PSM）强制覆盖小规模特种化学品生产商"
+      ]
+    },
+    "embedding_text": "Explosion occurred during aqueous hydroxylamine distillation at Concept Sciences; after shutdown, concentrated HA solution accumulated in the distillation vessel and piping, experiencing uncontrolled temperature rise above 70°C. This triggered autocatalytic exothermic decomposition, leading to violent explosion. Root cause was failure to recognize and mitigate HA's thermal instability through HAZOP or thermal hazard analysis. Consequence: 5 fatalities, 14 injuries, and severe facility destruction.",
+    "source_pdf": "Concept_Sciences.pdf"
+  },
+  {
+    "case_id": "P007",
+    "basic_info": {
+      "incident_name": "DPC Chlorine",
+      "incident_name_cn": "DPC氯气泄漏事故",
+      "date": "2002-08-14",
+      "location": "Festus, Missouri",
+      "company": "DPC Enterprises, L.P.",
+      "fatalities": 0,
+      "injuries": 66
+    },
+    "process_context": {
+      "process_type": "储运",
+      "equipment": [
+        "氯气铁路罐车",
+        "氯气转移软管",
+        "紧急切断阀（ESD阀）",
+        "罐车过流阀"
+      ],
+      "materials": [
+        "液氯"
+      ],
+      "operating_conditions": "常温、约5–7 bar表压下进行液氯卸车与再包装作业"
+    },
+    "failure_mechanism": {
+      "root_cause": "氯气转移软管机械完整性失效导致突发性破裂，叠加紧急切断阀（ESD阀）未能及时关闭。",
+      "deviation_type": "泄漏",
+      "guide_word": "No",
+      "parameter": "流体隔离",
+      "causal_chain": "软管老化/维护缺失→卸车时承压破裂→ESD阀响应延迟且部分失效→液氯持续释放→人员暴露于高毒性气体",
+      "physical_principles": "压力驱动相变、毒理学吸入剂量-效应关系、阀门执行机构气动延迟与密封失效机理"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "紧急切断阀（ESD）系统",
+        "罐车自带过流阀",
+        "现场应急洗消与呼吸设备",
+        "社区预警协议"
+      ],
+      "safeguard_failures": "ESD阀因气源管路设计缺陷和腐蚀导致动作延迟及不完全关闭；过流阀被软管破裂位置下游的安装方式规避，未触发；应急设备取用路径受阻且员工未接受有效演练。",
+      "csb_recommendations": [
+        "强制实施氯气软管定期无损检测与服役寿命管理",
+        "重新设计ESD系统气源与执行逻辑，确保单点故障下仍能安全关断",
+        "建立基于真实风向与人口密度的动态氯气泄漏后果模拟与社区实时预警机制"
+      ]
+    },
+    "embedding_text": "Chlorine transfer hose rupture during railcar unloading at DPC Festus facility caused uncontrolled liquid chlorine release. The failure involved mechanical integrity loss of the hose under operating pressure, compounded by ESD valve failure to isolate flow. No effective containment or timely emergency response mitigated the toxic gas dispersion, resulting in 66 medical evaluations. Root causes include inadequate hose inspection, flawed ESD design, and insufficient operator training for high-hazard chlorine transfer operations.",
+    "source_pdf": "DPC_Chlorine.pdf"
+  },
+  {
+    "case_id": "P008",
+    "basic_info": {
+      "incident_name": "DuPont Hotwork",
+      "incident_name_cn": "杜邦热工作业可燃蒸气爆炸事故",
+      "date": "2010-11-09",
+      "location": "Buffalo, New York",
+      "company": "E.I. duPont de Nemours and Co., Inc.",
+      "fatalities": 1,
+      "injuries": 1
+    },
+    "process_context": {
+      "process_type": "储运",
+      "equipment": [
+        "大气压浆料储存罐（Slurry Holding Tank 3）",
+        "搅拌器支撑结构",
+        "高压VF储罐",
+        "闪蒸罐",
+        "压缩机系统"
+      ],
+      "materials": [
+        "乙烯基氟（Vinyl Fluoride, VF）",
+        "聚乙烯基氟水浆料（PVF slurry）"
+      ],
+      "operating_conditions": "常压、室温；VF为高度挥发性、易燃、低LFL（4.8% v/v）、高蒸气压（~3.5 atm at 25°C）气体；罐体未完全隔离且未惰化，与在役工艺管线连通"
+    },
+    "failure_mechanism": {
+      "root_cause": "互连工艺管线中运行中的VF气体未经检测和隔离，反向流入待维修的大气压浆料罐，形成可燃蒸气云。",
+      "deviation_type": "泄漏+浓度超标",
+      "guide_word": "No",
+      "parameter": "Isolation",
+      "causal_chain": "未执行有效管线隔离→VF从在役高压系统经共用排气/回流管线倒灌入常压空置浆料罐→罐内VF蒸气积聚达爆炸极限→焊接火花引燃→剧烈蒸气云爆炸",
+      "physical_principles": "气体扩散与分压平衡、可燃物-空气混合物爆炸极限（LEL/UEL）、点火能阈值、压力梯度驱动的逆向流动"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "热工作业许可证制度",
+        "便携式可燃气体检测仪（但未持续监测）",
+        "作业前吹扫程序（未执行）",
+        "罐体接地"
+      ],
+      "safeguard_failures": "许可证审批流于形式，未验证物理隔离（盲板/断开）；气体检测仅单次、单点、非连续，未覆盖罐顶作业区；未识别共用管线导致的隐性连通风险；无独立第三方核查",
+      "csb_recommendations": [
+        "强制实施双重隔离（盲板+断开）并由授权人员现场确认",
+        "热工作业期间对受限空间实施连续、多点可燃气体监测并设置自动声光报警",
+        "开展全厂工艺管线连通性审查，绘制并更新‘热工敏感区域’隔离图谱"
+      ]
+    },
+    "embedding_text": "At DuPont Buffalo, welding on an atmospheric slurry holding tank (Tank 3) led to a flammable vapor explosion when vinyl fluoride (VF) — a highly volatile, flammable gas — migrated undetected from interconnected, in-service process tanks due to lack of physical isolation and continuous gas monitoring. The deviation was 'No Isolation', allowing VF accumulation above LEL. Ignition by welding spark caused catastrophic tank-top explosion, killing one worker. Root cause: failure to isolate cross-connected equipment during hot work under NFPA 51B and OSHA 1910.252.",
+    "source_pdf": "DuPont_Hotwork.pdf"
+  },
+  {
+    "case_id": "P009",
+    "basic_info": {
+      "incident_name": "West Pharmaceutical Services Dust Explosion",
+      "incident_name_cn": "西制药公司粉尘爆炸事故",
+      "date": "2003-01-29",
+      "location": "Kinston, North Carolina, USA",
+      "company": "West Pharmaceutical Services, Inc.",
+      "fatalities": 6,
+      "injuries": 38
+    },
+    "process_context": {
+      "process_type": "粉尘处理",
+      "equipment": [
+        "高剪切混合机",
+        "旋风分离器",
+        "除尘管道",
+        "袋式除尘器"
+      ],
+      "materials": [
+        "聚乙烯粉末",
+        "聚丙烯粉末",
+        "滑石粉"
+      ],
+      "operating_conditions": "常压、室温，干法高速混合与气力输送，粉尘浓度处于爆炸极限范围内"
+    },
+    "failure_mechanism": {
+      "root_cause": "未识别和控制可燃性粉尘云在工艺设备及通风系统内的积聚与点火风险",
+      "deviation_type": "粉尘积聚+静电点火",
+      "guide_word": "More",
+      "parameter": "dust concentration",
+      "causal_chain": "缺乏粉尘危害识别 → 未实施有效除尘与接地 → 混合机内静电积累 → 粉尘云被静电火花点燃 → 初始爆炸通过未隔离管道传播至除尘系统 → 发生二次爆炸",
+      "physical_principles": "粉尘爆炸五边形（可燃粉尘、氧化剂、点火源、分散、密闭空间）；静电起电与放电能量超过最小点火能（MIE）；爆炸压力波传播与湍流增强火焰速度"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "车间通风系统",
+        "常规清洁制度",
+        "部分设备接地"
+      ],
+      "safeguard_failures": "接地不充分且未验证；除尘系统无爆炸泄压或抑爆装置；未进行粉尘云MIE测试；无HAZOP或DHS（Dust Hazard Analysis）评估",
+      "csb_recommendations": [
+        "强制要求开展Dust Hazard Analysis（DHA）作为OSHA PSM覆盖范围的必要环节",
+        "制定并执行针对可燃粉尘的专项机械完整性程序，包括接地连续性检测",
+        "在所有存在粉尘爆炸风险的除尘系统上安装经认证的爆炸泄压板或化学抑爆系统"
+      ]
+    },
+    "embedding_text": "Explosion occurred in a high-shear powder blender and connected ductwork at West Pharmaceutical Services. Polyethylene and polypropylene dust formed combustible clouds under ambient conditions. More dust concentration combined with inadequate grounding led to electrostatic ignition. Root cause was failure to recognize, assess, and mitigate combustible dust hazards. Resulted in primary explosion inside mixer and catastrophic secondary explosion propagating through unisolated ducting, killing 6 and injuring 38.",
+    "source_pdf": "Dust_Hazard_Study.pdf"
+  },
+  {
+    "case_id": "P010",
+    "basic_info": {
+      "incident_name": "Formosa Plastics Propylene Fire and Explosions",
+      "incident_name_cn": "台塑丙烯泄漏火灾爆炸事故",
+      "date": "2005-10-06",
+      "location": "Point Comfort, Texas, USA",
+      "company": "Formosa Plastics Corporation USA",
+      "fatalities": 0,
+      "injuries": 16
+    },
+    "process_context": {
+      "process_type": "储运",
+      "equipment": [
+        "strainer",
+        "drain valve",
+        "liquid propylene piping system"
+      ],
+      "materials": [
+        "propylene"
+      ],
+      "operating_conditions": "liquid phase, pressurized hydrocarbon service at ambient temperature"
+    },
+    "failure_mechanism": {
+      "root_cause": "A forklift-towed trailer physically snagged and dislodged a small drain valve from a strainer in the liquid propylene system.",
+      "deviation_type": "泄漏",
+      "guide_word": "No",
+      "parameter": "flow",
+      "causal_chain": "Forklift operation near piping → mechanical impact on drain valve → valve detachment → uncontrolled propylene release → rapid vaporization → flammable vapor cloud formation → ignition → explosion and sustained fire",
+      "physical_principles": "Phase change (liquid to vapor), flammability limits, deflagration dynamics, vapor dispersion"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "manual isolation valves",
+        "control room shutdown capability",
+        "flare system",
+        "Emergency Response Team (ERT)"
+      ],
+      "safeguard_failures": "Operators could not reach manual valves due to advancing vapor cloud; flare system could not handle instantaneous large release; no physical barrier or procedural control preventing vehicle access near critical piping.",
+      "csb_recommendations": [
+        "Implement rigorous management of change (MOC) for all non-routine activities near process equipment",
+        "Install permanent physical barriers to prevent vehicle contact with piping and valves",
+        "Conduct updated, site-specific HAZOP studies incorporating human factors and mechanical integrity hazards"
+      ]
+    },
+    "embedding_text": "Liquid propylene release occurred when a forklift-towed trailer dislodged a drain valve on a strainer in a pressurized piping system. The 'No flow' HAZOP deviation (guide word: No, parameter: flow) led to catastrophic uncontrolled release, rapid vaporization, formation of a large flammable cloud, and subsequent ignition causing an unconfined deflagration. Root cause was inadequate mechanical integrity protection and lack of physical safeguards against vehicular impact. Consequences included 16 injuries, 5-day fire, unit shutdown, and community shelter-in-place.",
+    "source_pdf": "Formosa_Plastics_Propylene.pdf"
+  },
+  {
+    "case_id": "P011",
+    "basic_info": {
+      "incident_name": "Formosa Plastics VCM Explosion",
+      "incident_name_cn": "福尔摩沙塑料氯乙烯单体爆炸事故",
+      "date": "2004-04-23",
+      "location": "Illiopolis, Illinois, USA",
+      "company": "Formosa Plastics Corp. USA",
+      "fatalities": 5,
+      "injuries": 3
+    },
+    "process_context": {
+      "process_type": "反应",
+      "equipment": [
+        "VCM聚合反应釜",
+        "底部排放阀",
+        "紧急泄压系统"
+      ],
+      "materials": [
+        "氯乙烯单体（VCM）",
+        "水",
+        "引发剂"
+      ],
+      "operating_conditions": "高温高压悬浮聚合，反应温度约60–70°C，压力约0.7–1.0 MPa，VCM为易燃易爆、致癌性气态单体"
+    },
+    "failure_mechanism": {
+      "root_cause": "操作员在未确认反应釜内压力已完全释放的情况下，手动强制开启故障的底部排放阀，导致高压VCM蒸气突发性喷出并遇点火源爆炸。",
+      "deviation_type": "泄漏",
+      "guide_word": "No",
+      "parameter": "隔离",
+      "causal_chain": "反应釜底部阀联锁失效→操作员绕过安全程序手动开阀→釜内残余高压VCM瞬间释放→VCM蒸气云扩散→遇未知点火源→蒸气云爆炸",
+      "physical_principles": "理想气体定律（PV=nRT）、可燃蒸气云爆炸极限（VCM LEL 3.6% v/v）、绝热闪蒸导致局部低温与静电积聚"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "反应釜底部阀硬联锁",
+        "VCM浓度报警系统",
+        "deluge喷淋系统",
+        "紧急停车系统（ESD）"
+      ],
+      "safeguard_failures": "联锁被长期旁路且无管理审批；VCM报警系统未覆盖排放区域；deluge系统响应延迟且覆盖不足；ESD未触发因操作员手动干预绕过逻辑",
+      "csb_recommendations": [
+        "实施联锁变更管理（MOC）程序，禁止未经审批的联锁旁路",
+        "对高风险手动操作执行双重确认和独立机械隔离验证",
+        "升级VCM泄漏检测与实时可燃气体云扩散建模预警系统"
+      ]
+    },
+    "embedding_text": "VCM suspension polymerization reactor explosion caused by unisolated manual opening of bottom blowdown valve under residual pressure, releasing flammable vinyl chloride monomer vapor that ignited. Root cause was procedural violation following interlock bypass and inadequate mechanical isolation verification. Consequence: fatal vapor cloud explosion, 5 deaths, facility destruction, and community evacuation. Key elements: PVC reactor, VCM, pressure isolation failure, human factor, deflagration.",
+    "source_pdf": "Formosa_Plastics_VCM.pdf"
+  },
+  {
+    "case_id": "P012",
+    "basic_info": {
+      "incident_name": "Georgia Pacific H2S",
+      "incident_name_cn": "乔治亚太平洋公司硫化氢中毒事故",
+      "date": "2002-01-16",
+      "location": "Pennington, Alabama",
+      "company": "Georgia-Pacific Naheola Mill",
+      "fatalities": 2,
+      "injuries": 8
+    },
+    "process_context": {
+      "process_type": "waste treatment",
+      "equipment": [
+        "sewer system",
+        "tank truck",
+        "manhole"
+      ],
+      "materials": [
+        "hydrogen sulfide",
+        "sulfide-containing wastewater"
+      ],
+      "operating_conditions": "ambient temperature and pressure; anaerobic decomposition in confined sewer infrastructure"
+    },
+    "failure_mechanism": {
+      "root_cause": "Failure to recognize and control hydrogen sulfide generation during anaerobic decomposition of sulfide-laden wastewater in confined sewer spaces.",
+      "deviation_type": "leakage and accumulation of toxic gas",
+      "guide_word": "More",
+      "parameter": "toxic concentration",
+      "causal_chain": "Inadequate hazard assessment of wastewater chemistry → anaerobic sulfide oxidation in sewer → uncontrolled H2S generation → lack of ventilation and gas monitoring → H2S accumulation in manhole → contractor entry without detection or PPE → acute inhalation exposure and fatalities",
+      "physical_principles": "Gas solubility equilibrium, anaerobic microbial metabolism, density-driven stratification of H2S (heavier than air), confined space atmospheric stagnation"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Confined space entry permit system",
+        "Ventilation fans",
+        "H2S awareness training"
+      ],
+      "safeguard_failures": "Permit system did not require real-time H2S monitoring; ventilation was not verified effective prior to entry; training failed to address site-specific H2S generation potential from process wastewater",
+      "csb_recommendations": [
+        "Implement mandatory continuous direct-reading H2S monitoring before and during confined space entry",
+        "Conduct reactive hazard reviews for all waste streams containing sulfur species",
+        "Require emergency response plans specific to H2S incidents, including immediate evacuation and non-entry rescue protocols"
+      ]
+    },
+    "embedding_text": "At Georgia-Pacific's Naheola mill, contractors entered a sewer manhole during tank truck unloading of sulfide-containing wastewater. Anaerobic decomposition generated high-concentration hydrogen sulfide (H2S) that accumulated due to poor ventilation and lack of real-time monitoring. The deviation was excessive toxic gas concentration (More H2S) caused by unrecognized reactive hazard in waste treatment. Root cause: failure to identify H2S generation potential in confined infrastructure. Result: two deaths and eight injuries from acute inhalation exposure.",
+    "source_pdf": "Georgia_Pacific_H2S.pdf"
+  },
+  {
+    "case_id": "P013",
+    "basic_info": {
+      "incident_name": "Giant Industries Ciniza Refinery Fire and Explosion",
+      "incident_name_cn": "巨人工业辛萨炼油厂火灾爆炸事故",
+      "date": "2004-04-08",
+      "location": "Jamestown, NM, USA",
+      "company": "Giant Industries Arizona, Inc.",
+      "fatalities": 0,
+      "injuries": 6
+    },
+    "process_context": {
+      "process_type": "反应",
+      "equipment": [
+        "Iso-Stripper unit",
+        "alkylate recirculation pump (steam-driven spare)",
+        "mechanical seal",
+        "valve"
+      ],
+      "materials": [
+        "alkylate",
+        "isobutane",
+        "olefins",
+        "hydrofluoric acid (HF)"
+      ],
+      "operating_conditions": "HF alkylation unit operating at elevated temperature and pressure; alkylate is highly flammable liquid forming explosive vapor/air mixtures above ambient temperature"
+    },
+    "failure_mechanism": {
+      "root_cause": "Mechanical seal on the spare steam-driven alkylate recirculation pump failed due to prior material buildup and improper verification of pump operability before commissioning.",
+      "deviation_type": "泄漏",
+      "guide_word": "No",
+      "parameter": "flow",
+      "causal_chain": "Mechanical seal degradation from prior leakage → pump shaft seized during startup attempt → operators bypassed verification → subsequent seal repair incomplete → alkylate leak during operation → ignition → fire and explosion",
+      "physical_principles": "Fluid statics and dynamics, mechanical seal hydrodynamic failure, flammability limits of hydrocarbon vapors, autoignition temperature"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Work permit system",
+        "Mechanical integrity program",
+        "Pre-startup safety review (PSSR) for pump switch"
+      ],
+      "safeguard_failures": "PSSR was not performed; operators relied on visual wrench position instead of valve position indicators; no functional test of spare pump prior to service; mechanical integrity program failed to detect seal degradation during inspections",
+      "csb_recommendations": [
+        "Implement mandatory functional testing of standby equipment before switching into service",
+        "Standardize and enforce use of reliable valve position indicators—not tool-based assumptions",
+        "Integrate mechanical seal performance monitoring into predictive maintenance programs"
+      ]
+    },
+    "embedding_text": "Fire and explosion occurred in HF alkylation unit at Giant Ciniza refinery when a steam-driven alkylate recirculation pump with degraded mechanical seal leaked flammable alkylate during startup. The deviation was 'No flow' due to seized shaft, caused by undetected seal damage and lack of pre-service verification. Ignition of released hydrocarbon vapor led to major fire, $13M damage, and six injuries. No HF release occurred.",
+    "source_pdf": "Giant_Industries.pdf"
+  },
+  {
+    "case_id": "P014",
+    "basic_info": {
+      "incident_name": "Goodyear Heat Exchanger Rupture and Ammonia Release",
+      "incident_name_cn": "固特异换热器破裂及氨泄漏事故",
+      "date": "2008-06-11",
+      "location": "Houston, Texas",
+      "company": "The Goodyear Tire and Rubber Company",
+      "fatalities": 1,
+      "injuries": 6
+    },
+    "process_context": {
+      "process_type": "换热",
+      "equipment": [
+        "shell-and-tube heat exchanger",
+        "isolation valve",
+        "rupture disk",
+        "relief valve",
+        "ammonia pressure control valve"
+      ],
+      "materials": [
+        "anhydrous ammonia",
+        "process chemicals",
+        "steam"
+      ],
+      "operating_conditions": "Pressurized anhydrous ammonia in shell side (cooling medium); process fluids in tube side; operating near design pressure; steam cleaning conducted during maintenance"
+    },
+    "failure_mechanism": {
+      "root_cause": "Failure to reopen the isolation valve after rupture disk replacement, combined with subsequent steam heating of trapped liquid ammonia causing uncontrolled pressure buildup.",
+      "deviation_type": "压力偏高",
+      "guide_word": "More",
+      "parameter": "pressure",
+      "causal_chain": "Isolation valve left closed after maintenance → ammonia trapped in shell → steam introduced into tubes → heat transfer to shell-side liquid ammonia → phase change and vapor pressure rise → no pressure relief path → overpressure beyond vessel MAWP → catastrophic rupture",
+      "physical_principles": "Thermal expansion of liquid ammonia, vapor pressure-temperature relationship (Clausius-Clapeyron), adiabatic heating, mechanical failure under tensile stress exceeding ultimate tensile strength"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Rupture disk and relief valve assembly",
+        "Ammonia pressure control valve",
+        "Isolation valves for maintenance",
+        "Emergency shutdown procedures",
+        "Employee accountability system"
+      ],
+      "safeguard_failures": "Isolation valve remained closed post-maintenance, blocking both primary (relief valve) and secondary (pressure control valve) overpressure protection paths; no interlock or verification step ensured valve reopening; accountability system failed to detect missing worker due to poor lighting, debris, and procedural gaps.",
+      "csb_recommendations": [
+        "Implement positive verification (e.g., checklist, electronic tagout, dual-person signoff) for critical valve repositioning after maintenance",
+        "Install pressure monitoring with high-pressure alarms and automatic shutdown on heat exchanger shells containing volatile refrigerants",
+        "Redesign overpressure protection to be inherently fail-safe (e.g., direct-mounted relief device without isolatable upstream valve)"
+      ]
+    },
+    "embedding_text": "Shell-and-tube heat exchanger ruptured due to overpressure caused by steam heating trapped liquid anhydrous ammonia; isolation valve remained closed after rupture disk replacement, disabling all pressure relief paths; pressure exceeded MAWP leading to violent failure, fatal projectile impact, and toxic ammonia release; root cause was procedural failure in maintenance completion and inadequate overpressure protection design.",
+    "source_pdf": "Goodyear_Heat_Exchanger.pdf"
+  },
+  {
+    "case_id": "P015",
+    "basic_info": {
+      "incident_name": "Hoeganaes Flash Fires and Hydrogen Explosion",
+      "incident_name_cn": "霍格纳斯金属粉尘闪火及氢气爆炸事故",
+      "date": "2011-01-31; 2011-03-29; 2011-05-27",
+      "location": "Gallatin, TN, USA",
+      "company": "Hoeganaes Corporation (subsidiary of GKN)",
+      "fatalities": 5,
+      "injuries": 3
+    },
+    "process_context": {
+      "process_type": "粉尘处理与热还原",
+      "equipment": [
+        "band furnace (annealing furnace)",
+        "cake breaker",
+        "hydrogen supply trench",
+        "conveyor belt"
+      ],
+      "materials": [
+        "iron powder",
+        "hydrogen",
+        "iron oxide"
+      ],
+      "operating_conditions": "Continuous annealing of iron powder under hydrogen atmosphere at elevated temperature (~700–900°C); hydrogen conveyed via buried trench with metal plate covers; fine combustible metal dust present throughout handling areas"
+    },
+    "failure_mechanism": {
+      "root_cause": "Failure to recognize iron dust as explosible and implement appropriate explosion prevention/mitigation measures despite known combustibility and historical incidents.",
+      "deviation_type": "hydrogen leakage + iron dust accumulation + ignition source",
+      "guide_word": "No",
+      "parameter": "containment integrity",
+      "causal_chain": "Hydrogen leak from trench piping → hydrogen migration into dust-laden work areas → formation of flammable mixture → ignition by unknown source (e.g., static, hot surface) → flash fire/explosion → secondary iron dust explosions",
+      "physical_principles": "Metal dust explosibility (Kst, Pmax), deflagration propagation in confined/dusty environments, hydrogen flammability limits (4–75% vol), thermal runaway in exothermic oxidation of fine iron particles"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Ventilation systems",
+        "Fire extinguishers",
+        "Hydrogen supplier contract oversight"
+      ],
+      "safeguard_failures": "No explosion protection (e.g., inerting, suppression, venting) for band furnaces or dust handling equipment; inadequate housekeeping allowed combustible dust accumulation; no hydrogen gas detection or interlocks; ventilation insufficient to prevent explosive atmospheres.",
+      "csb_recommendations": [
+        "Require NFPA 484 compliance for metal dust hazards",
+        "Mandate combustible dust hazard analysis (e.g., DHA per NFPA 652)",
+        "Implement continuous hydrogen monitoring with automatic shutoff and ventilation interlocks"
+      ]
+    },
+    "embedding_text": "Hoeganaes Gallatin facility experienced three fatal incidents involving iron powder dust flash fires and a hydrogen explosion. The band annealing furnace used hydrogen to reduce iron oxide in fine iron powder under high temperature. Hydrogen leaked from buried trench piping, migrated into dusty work areas, formed flammable mixtures, and ignited—triggering primary hydrogen explosions and secondary metal dust explosions. Root cause was failure to recognize iron dust explosibility and lack of explosion protection. Result: 5 fatalities, 3 injuries, and catastrophic facility damage.",
+    "source_pdf": "Hoeganaes_Flash_Fires.pdf"
+  },
+  {
+    "case_id": "P016",
+    "basic_info": {
+      "incident_name": "Husky Energy FCC Unit Explosion and Asphalt Fire",
+      "incident_name_cn": "赫斯基能源流化催化裂化装置爆炸及沥青火灾事故",
+      "date": "2018-04-26",
+      "location": "Superior, WI, USA",
+      "company": "Husky Energy",
+      "fatalities": 0,
+      "injuries": 0
+    },
+    "process_context": {
+      "process_type": "反应",
+      "equipment": [
+        "流化催化裂化（FCC）反应器",
+        "再生器",
+        "催化剂滑阀",
+        "主分馏塔"
+      ],
+      "materials": [
+        "催化裂化催化剂",
+        "热油气",
+        "轻质烃类",
+        "沥青质残留物"
+      ],
+      "operating_conditions": "高温（~700°C）、中压、含固体颗粒的气固两相流，处于计划性临时停工（transient shutdown）阶段"
+    },
+    "failure_mechanism": {
+      "root_cause": "在FCC单元临时停运期间，未识别和管控催化剂床层冷却速率过快导致的脆性断裂风险，引发设备突发破裂。",
+      "deviation_type": "温度偏低（局部快速冷却）",
+      "guide_word": "Less",
+      "parameter": "Temperature",
+      "causal_chain": "计划外快速降温→碳钢设备局部热应力超限→脆性断裂→高压热油气泄漏→云爆式点火→爆炸与沥青池火灾",
+      "physical_principles": "热应力集中、低温脆性转变（DBTT）、绝热压缩点火、气固两相流动诱导振动"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "FCC操作规程",
+        "压力安全阀",
+        "火灾探测系统",
+        "工艺安全信息（PSI）文档"
+      ],
+      "safeguard_failures": "PSI未包含脆性断裂风险分析；操作规程未规定停运阶段的最小冷却速率；安全阀未覆盖破裂瞬态超压场景；无针对低温脆断的机械完整性检查程序",
+      "csb_recommendations": [
+        "将瞬态工况（如开停车）纳入HAZOP/LOPA分析范围，并强制评估材料脆性失效模式",
+        "更新工艺安全信息，明确碳钢设备在低于韧脆转变温度下的操作禁令及冷却速率限制",
+        "建立基于失效物理（PoF）的设备退化模型，对FCC关键静设备实施低温韧性状态监测"
+      ]
+    },
+    "embedding_text": "The Husky Superior refinery FCC unit explosion occurred during a transient shutdown when rapid cooling of carbon steel reactor components induced brittle fracture, causing catastrophic rupture. Hot hydrocarbon vapors and catalyst-laden gases leaked into the asphalt-lined containment area, ignited via auto-ignition or static discharge, resulting in a vapor cloud explosion and sustained asphalt fire. Key failure drivers included absence of low-temperature embrittlement awareness in PSI, inadequate transient operating limits, and lack of fracture mechanics-based mechanical integrity verification.",
+    "source_pdf": "Husky_Energy.pdf"
+  },
+  {
+    "case_id": "P017",
+    "basic_info": {
+      "incident_name": "Imperial Sugar Refinery Dust Explosion",
+      "incident_name_cn": "帝国糖业精炼厂粉尘爆炸事故",
+      "date": "2008-02-07",
+      "location": "Port Wentworth, Georgia, USA",
+      "company": "Imperial Sugar Company",
+      "fatalities": 14,
+      "injuries": 36
+    },
+    "process_context": {
+      "process_type": "粉尘处理",
+      "equipment": [
+        "糖粉磨机",
+        "包装线",
+        "输送带",
+        "除尘风管",
+        "电机外壳",
+        "开关箱"
+      ],
+      "materials": [
+        "蔗糖粉尘"
+      ],
+      "operating_conditions": "常温常压，干法糖粉加工与自动包装，高浓度悬浮及表面沉积粉尘环境"
+    },
+    "failure_mechanism": {
+      "root_cause": "长期缺乏有效粉尘控制程序和可燃粉尘危害认知，导致大量糖尘在设备表面及空间持续累积，形成可爆云与可燃层。",
+      "deviation_type": "粉尘积聚超限",
+      "guide_word": "More",
+      "parameter": "粉尘厚度",
+      "causal_chain": "无书面粉尘控制程序→未执行定期清扫→糖尘在管道、电机、开关箱等表面累积达数英寸至数英尺→初始点火（可能来自磨机过热或静电）→粉尘云爆燃→二次爆炸（扰动沉降层引发全厂级爆燃）→结构坍塌与人员伤亡",
+      "physical_principles": "可燃粉尘云的最小点火能（MIE）、爆炸下限（LEL）、Kst值、压力叠加效应、湍流增强传播、层状粉尘再悬浮机制"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "NFPA 654参考实践（未强制执行）",
+        "常规工业清洁（非防爆型）",
+        "基本电气设备（非粉尘防爆认证）"
+      ],
+      "safeguard_failures": "所有保护措施均未制度化、无培训支撑、无检查验证；NFPA建议的1/32英寸积尘限值被完全忽视；电气设备未按Class II Div 1选型；无抑爆、泄爆或隔离系统。",
+      "csb_recommendations": [
+        "制定并实施OSHA可燃粉尘综合强制标准",
+        "强制要求企业建立书面粉尘危害分析（DHA）与控制计划",
+        "全面加强OSHA检查员对粉尘风险识别与执法能力"
+      ]
+    },
+    "embedding_text": "The Imperial Sugar explosion involved sugar dust accumulation on conveyors, mills, ducts, and electrical equipment in a packaging facility. Under normal operating conditions, excessive combustible dust (exceeding NFPA's 1/32-inch limit) formed layers up to several feet deep. The 'More' deviation in dust thickness led to primary ignition—likely from mill overheating or electrostatic discharge—triggering a deflagration that propagated via suspended clouds and secondary explosions. Root cause was absence of a formal dust control program and worker training, resulting in catastrophic structural failure and 14 fatalities.",
+    "source_pdf": "Imperial_Sugar.pdf"
+  },
+  {
+    "case_id": "P018",
+    "basic_info": {
+      "incident_name": "ITC Tank Fire",
+      "incident_name_cn": "ITC储罐火灾事故",
+      "date": "2019-03-17",
+      "location": "Deer Park, Texas",
+      "company": "Intercontinental Terminals Company, LLC (ITC)",
+      "fatalities": 0,
+      "injuries": 0
+    },
+    "process_context": {
+      "process_type": "储运",
+      "equipment": [
+        "常压立式拱顶储罐（Tank 80-8）",
+        "丁烷注入系统",
+        "远程操作紧急隔离阀",
+        "围堰"
+      ],
+      "materials": [
+        "丁烷",
+        "富丁烷石脑油"
+      ],
+      "operating_conditions": "常温常压，液相储存，丁烷通过底部注入管向石脑油中掺混"
+    },
+    "failure_mechanism": {
+      "root_cause": "Tank 80-8底部丁烷注入管线焊缝存在未检出的制造缺陷，在反复热应力与操作压力循环下发生疲劳开裂，导致持续微泄漏。",
+      "deviation_type": "泄漏",
+      "guide_word": "No",
+      "parameter": "流体完整性",
+      "causal_chain": "焊缝制造缺陷→服役中疲劳裂纹萌生与扩展→注入管线破裂→丁烷持续泄漏至罐内气相空间→形成可燃蒸气云→遇不明点火源→闪火并引燃罐内物料→火灾蔓延",
+      "physical_principles": "疲劳断裂力学、挥发性有机物相平衡、可燃极限理论、池火与喷射火燃烧动力学"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "可燃气体探测系统",
+        "远程操作紧急隔离阀",
+        "围堰",
+        "工艺安全管理体系（PSM）"
+      ],
+      "safeguard_failures": "可燃气体探测器未覆盖罐顶气相空间关键区域；紧急隔离阀未联锁自动关闭且手动响应延迟；围堰设计高度不足且存在结构性裂缝；PSM未识别丁烷注入系统为高风险机械完整性关注单元。",
+      "csb_recommendations": [
+        "强制要求对所有含轻烃注入系统的储罐实施基于风险的焊缝无损检测（RT/PAUT）周期性复检",
+        "在罐顶气相空间增设全覆盖式可燃气体探测网络，并与DCS联锁触发声光报警及紧急隔离",
+        "修订RMP/PSM法规，明确将常压储罐的轻质组分注入系统纳入机械完整性（MI）重点管理范围"
+      ]
+    },
+    "embedding_text": "The ITC Deer Park tank fire involved a failure of the butane injection line at Tank 80-8, a vertical atmospheric storage tank containing naphtha. A manufacturing weld defect led to fatigue-driven leakage of butane into the vapor space, forming a flammable cloud. Absence of effective gas detection and delayed isolation allowed ignition and catastrophic fire. Root cause: loss of mechanical integrity under cyclic thermal and pressure stress; consequence: large-scale hydrocarbon fire with significant property damage and off-site impacts.",
+    "source_pdf": "ITC_Tank_Fire.pdf"
+  },
+  {
+    "case_id": "P020",
+    "basic_info": {
+      "incident_name": "Morton International Reactor Runaway Explosion",
+      "incident_name_cn": "莫顿国际公司反应釜失控爆炸事故",
+      "date": "1998-04-08",
+      "location": "Paterson, NJ, USA",
+      "company": "Morton International, Inc. (now Rohm & Haas)",
+      "fatalities": 0,
+      "injuries": 9
+    },
+    "process_context": {
+      "process_type": "反应",
+      "equipment": [
+        "2000-gallon chemical reactor vessel"
+      ],
+      "materials": [
+        "reactive chemicals (unspecified, but thermally unstable)"
+      ],
+      "operating_conditions": "batch reaction under elevated temperature and pressure; no adequate thermal stability data or runaway prevention measures"
+    },
+    "failure_mechanism": {
+      "root_cause": "Failure to identify, evaluate, and control reactive chemical hazards during process safety management.",
+      "deviation_type": "温度偏高",
+      "guide_word": "More",
+      "parameter": "Temperature",
+      "causal_chain": "Lack of reactive hazard assessment → inadequate understanding of decomposition kinetics → insufficient cooling capacity and no emergency quench → exothermic runaway reaction → rapid pressure rise → reactor over-pressurization → rupture and release of flammable material → ignition",
+      "physical_principles": "Thermal runaway, adiabatic temperature rise, Arrhenius kinetics, gas law (P ∝ nT/V)"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Reactor pressure relief valve",
+        "Cooling water system",
+        "Operator monitoring"
+      ],
+      "safeguard_failures": "Relief valve undersized for runaway gas generation rate; cooling system lacked redundancy and failed to arrest accelerating exotherm; operators had no alarm or procedure for early runaway detection.",
+      "csb_recommendations": [
+        "Implement comprehensive reactive hazard assessment (e.g., RC1, ARC, DSC testing) for all batch processes",
+        "Develop and enforce rigorous process safety information (PSI) standards for thermal stability and reaction kinetics",
+        "Install independent, instrumented emergency shutdown and quench systems with automatic activation on temperature deviation"
+      ]
+    },
+    "embedding_text": "A 2000-gallon batch reactor at Morton International in Paterson, NJ experienced thermal runaway due to unrecognized reactive chemical hazards. Unstable reactants underwent uncontrolled exothermic decomposition, causing rapid temperature rise (More Temperature deviation), overwhelming cooling and relief capacity. Root cause was absence of reactive hazard characterization and process safety information. Result: over-pressurization, vessel rupture, flammable release, fire, and 9 injuries. No automated detection or emergency quench existed.",
+    "source_pdf": "Morton_International.pdf"
+  },
+  {
+    "case_id": "P021",
+    "basic_info": {
+      "incident_name": "Motiva Sulfuric Acid Incident",
+      "incident_name_cn": "莫蒂瓦硫酸事故",
+      "date": "2001-07-17",
+      "location": "Delaware City, Delaware, USA",
+      "company": "Motiva Enterprises LLC",
+      "fatalities": 1,
+      "injuries": 8
+    },
+    "process_context": {
+      "process_type": "储运",
+      "equipment": [
+        "硫酸储罐",
+        "氮气吹扫管线",
+        "人孔盖"
+      ],
+      "materials": [
+        "浓硫酸",
+        "氮气"
+      ],
+      "operating_conditions": "常压、常温储存；氮气惰化保护；检修前需彻底隔离与吹扫"
+    },
+    "failure_mechanism": {
+      "root_cause": "未执行有效的管理变更（MOC）和机械完整性程序，导致氮气吹扫管线误接至含氢气的火炬系统，引发爆炸性混合气体在罐内积聚。",
+      "deviation_type": "泄漏与可燃气体意外引入",
+      "guide_word": "No",
+      "parameter": "隔离",
+      "causal_chain": "未执行MOC→错误连接氮气管线→氮气携带氢气进入酸罐→形成爆炸性气氛→热工作业引燃→罐体超压破裂",
+      "physical_principles": "气体扩散与混合动力学、爆炸极限理论、压力容器失效力学"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "氮气惰化系统",
+        "热工作业许可制度",
+        "储罐人孔物理隔离"
+      ],
+      "safeguard_failures": "MOC缺失导致管线误接未被识别；热工作业前未检测罐内气体成分；惰化系统因错误连接实际引入可燃气体而非惰性气体",
+      "csb_recommendations": [
+        "强制实施全生命周期管理变更（MOC）程序，涵盖所有工艺修改",
+        "建立独立的机械完整性审核机制，覆盖临时改造与管线连接",
+        "热工作业前必须进行多点可燃气体与氧气浓度实时检测并连续监控"
+      ]
+    },
+    "embedding_text": "The Motiva sulfuric acid incident involved a storage tank at the Delaware City Refinery where improper nitrogen purge line connection—due to failed management of change—introduced hydrogen into the tank, creating an explosive atmosphere. During hot work on the tank roof, ignition occurred, causing catastrophic overpressure failure. Key elements: sulfuric acid storage tank, hydrogen contamination, loss of isolation, and inadequate gas testing prior to hot work, resulting in 1 fatality and offsite environmental release.",
+    "source_pdf": "Motiva_Sulfuric_Acid.pdf"
+  },
+  {
+    "case_id": "P022",
+    "basic_info": {
+      "incident_name": "Nitrogen Asphyxiation",
+      "incident_name_cn": "氮气窒息事故",
+      "date": "1992–2002 (multi-incident analysis)",
+      "location": "US manufacturing, laboratories, trenches, manholes, flare systems",
+      "company": "Multiple unidentified industrial facilities",
+      "fatalities": 80,
+      "injuries": 50
+    },
+    "process_context": {
+      "process_type": "Confined space maintenance, inerting, hot work preparation",
+      "equipment": [
+        "Hydrogen purifying tank",
+        "flare system",
+        "manway",
+        "valve assembly"
+      ],
+      "materials": [
+        "Nitrogen",
+        "Oxygen (ambient air)"
+      ],
+      "operating_conditions": "Atmospheric oxygen concentration reduced below 10% due to nitrogen purge or leakage; undetectable by human senses; performed during cleaning, testing, and valve removal"
+    },
+    "failure_mechanism": {
+      "root_cause": "Failure to recognize nitrogen as a hazardous asphyxiant and to monitor oxygen levels before and during work in potentially nitrogen-enriched environments.",
+      "deviation_type": "Oxygen deficiency",
+      "guide_word": "Less",
+      "parameter": "Oxygen concentration",
+      "causal_chain": "Nitrogen purge/leak → displacement of ambient air → undetected reduction in O₂ (<10%) → rapid loss of consciousness → inability to self-rescue → death",
+      "physical_principles": "Gas mixing by diffusion and density-driven stratification; physiological dependence on partial pressure of O₂; absence of olfactory or visual warning cues for inert gases"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Oxygen monitors",
+        "Permit-to-work systems",
+        "Respiratory protection requirements",
+        "Confined space entry procedures"
+      ],
+      "safeguard_failures": "Oxygen monitoring was omitted or not required; permits failed to mandate atmospheric testing; respirators were not used by all personnel; rescue planning was inadequate; contractors lacked site-specific hazard awareness",
+      "csb_recommendations": [
+        "Mandate real-time oxygen monitoring before and during all confined space and nitrogen-involving work",
+        "Require comprehensive nitrogen hazard training for all workers and contractors",
+        "Implement positive verification of breathable atmosphere prior to removing respiratory protection"
+      ]
+    },
+    "embedding_text": "Nitrogen asphyxiation occurred during confined space maintenance (e.g., hydrogen tank cleaning, flare valve removal) where nitrogen purge or leakage caused 'Less Oxygen' deviation. Root cause: unrecognized asphyxiation hazard and failure to monitor O₂. Equipment included tanks, manways, and flare lines; inert nitrogen displaced breathable air, leading to unconsciousness and death without warning. Physical basis: O₂ partial pressure drop below 10% impairs cognition and respiration irreversibly.",
+    "source_pdf": "Nitrogen_Asphyxiation.pdf"
+  },
+  {
+    "case_id": "P023",
+    "basic_info": {
+      "incident_name": "Reactive Hazard",
+      "incident_name_cn": "反应性危害事故",
+      "date": "Unknown (reported in October 2002; incidents occurred prior to 2002)",
+      "location": "Multiple U.S. sites including New Jersey, Ohio, Pennsylvania, and California",
+      "company": "Napp Technologies, Bartlo Packaging Inc., Whitehall Leather Company, Concept Sciences Inc.",
+      "fatalities": 0,
+      "injuries": 0
+    },
+    "process_context": {
+      "process_type": "reaction",
+      "equipment": [
+        "reactor",
+        "batch reactor",
+        "storage tank"
+      ],
+      "materials": [
+        "organic peroxides",
+        "nitrocellulose",
+        "amine-based catalysts",
+        "polymerizable monomers"
+      ],
+      "operating_conditions": "Batch thermal processing, inadequate temperature control, no real-time reaction calorimetry"
+    },
+    "failure_mechanism": {
+      "root_cause": "Lack of systematic reactive hazard identification and thermal runaway assessment prior to scale-up or process change.",
+      "deviation_type": "temperature偏高",
+      "guide_word": "More",
+      "parameter": "temperature",
+      "causal_chain": "Inadequate process safety information → uncharacterized exothermic decomposition kinetics → unintended temperature increase → thermal runaway → overpressurization → vessel rupture or fire",
+      "physical_principles": "Exothermic reaction kinetics, adiabatic temperature rise, heat accumulation, Arrhenius rate dependence on temperature"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "pressure relief valves",
+        "cooling water systems",
+        "operator monitoring"
+      ],
+      "safeguard_failures": "Relief devices undersized for runaway gas generation; cooling systems lacked redundancy and automatic activation; operators lacked thermal hazard awareness and alarm response protocols.",
+      "csb_recommendations": [
+        "Implement mandatory reactive hazard assessment (e.g., RC1, ARC, DSC) for all new and modified processes",
+        "Require process safety information (PSI) to include thermal stability data and safe operating limits",
+        "Develop and enforce industry-wide reactive hazard management guidance aligned with CCPS and NFPA 498"
+      ]
+    },
+    "embedding_text": "Multiple U.S. chemical incidents involved batch reactors and storage tanks handling organic peroxides, nitrocellulose, or monomers. Unrecognized exothermic decomposition led to More temperature deviations, triggering thermal runaway due to absent calorimetric data and inadequate relief sizing. Root cause was failure to identify reactive hazards during process development. Consequences included fires, explosions, facility damage, and near-miss public exposures—highlighting critical gaps in thermal hazard assessment, operating limit definition, and emergency mitigation for runaway reactions.",
+    "source_pdf": "Reactive_Hazard.pdf"
+  },
+  {
+    "case_id": "P024",
+    "basic_info": {
+      "incident_name": "Silver Eagle Refinery Explosion",
+      "incident_name_cn": "银鹰炼油厂爆炸事故",
+      "date": "2009-11-04",
+      "location": "Woods Cross, Utah, USA",
+      "company": "Silver Eagle Refining Company",
+      "fatalities": 0,
+      "injuries": 0
+    },
+    "process_context": {
+      "process_type": "distillation",
+      "equipment": [
+        "fractionation column",
+        "reboiler",
+        "overhead condenser"
+      ],
+      "materials": [
+        "hydrocarbons",
+        "naphtha",
+        "light ends"
+      ],
+      "operating_conditions": "atmospheric to low-pressure distillation of crude fractions; elevated temperature (≈150–300°C)"
+    },
+    "failure_mechanism": {
+      "root_cause": "Inadequate mechanical integrity management leading to undetected corrosion-thinning and subsequent catastrophic rupture of a hydrocarbon overhead line.",
+      "deviation_type": "leakage",
+      "guide_word": "No",
+      "parameter": "containment",
+      "causal_chain": "Poor inspection program → undetected wall thinning due to acidic corrosion → loss of containment → hydrocarbon vapor release → ignition → explosion",
+      "physical_principles": "Corrosion fatigue, stress corrosion cracking, flammability limits, deflagration-to-detonation transition"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "pressure relief valves",
+        "fire detection system",
+        "process hazard analysis (PHA) records"
+      ],
+      "safeguard_failures": "Relief valves were not sized for the failure mode; PHA had not identified the specific corrosion mechanism in overhead piping; fire detection lacked coverage for vapor cloud ignition initiation.",
+      "csb_recommendations": [
+        "Implement risk-based inspection (RBI) programs focused on corrosion mechanisms in overhead systems",
+        "Require revalidation of PHA for all piping systems exposed to wet acidic vapors",
+        "Mandate dispersion modeling and ignition source control for atmospheric hydrocarbon releases"
+      ]
+    },
+    "embedding_text": "The Silver Eagle explosion involved a corroded overhead hydrocarbon line in an atmospheric distillation unit. Light naphtha vapors leaked due to loss of containment (HAZOP deviation: No containment), caused by undetected acid corrosion from wet H2S/CO2 service. The released flammable vapor formed a cloud that ignited, causing a large-scale vapor cloud explosion near residential areas. Root cause was deficient mechanical integrity practices and PHA gaps.",
+    "source_pdf": "Silver_Eagle.pdf"
+  },
+  {
+    "case_id": "P025",
+    "basic_info": {
+      "incident_name": "Synthron Runaway Chemical Reaction and Vapor Cloud Explosion",
+      "incident_name_cn": "辛索恩公司失控化学反应及蒸气云爆炸事故",
+      "date": "2006-01-31",
+      "location": "Morganton, North Carolina, USA",
+      "company": "Synthron, LLC",
+      "fatalities": 1,
+      "injuries": 14
+    },
+    "process_context": {
+      "process_type": "反应",
+      "equipment": [
+        "1500-gallon polymerization reactor",
+        "jacketed cooling system",
+        "condenser with sight glass",
+        "manway"
+      ],
+      "materials": [
+        "acrylic monomers",
+        "solvent",
+        "initiator"
+      ],
+      "operating_conditions": "Batch polymerization at elevated temperature; scaled-up charge without reassessment of thermal balance or cooling capacity"
+    },
+    "failure_mechanism": {
+      "root_cause": "Scaling up the monomer charge without evaluating thermal accumulation and cooling capacity led to excessive heat generation exceeding condenser removal capability.",
+      "deviation_type": "温度偏高",
+      "guide_word": "More",
+      "parameter": "Energy release rate",
+      "causal_chain": "Recipe scaling → excess monomer in initial charge → increased exothermic reaction rate → heat generation > condenser removal capacity → reactor temperature and pressure rise → solvent vapor venting via manway → flammable vapor cloud formation → ignition → explosion",
+      "physical_principles": "Exothermic polymerization kinetics, heat transfer limitation, vapor pressure–temperature relationship, deflagration of stoichiometric hydrocarbon-air mixture"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Reactor condenser",
+        "Jacket steam heating control",
+        "Visual monitoring via condenser sight glass",
+        "Written batch instructions"
+      ],
+      "safeguard_failures": "No independent thermal hazard review; no high-temperature/high-pressure alarms; no automatic emergency cooling activation; no relief system designed for runaway scenario; reliance on operator observation only",
+      "csb_recommendations": [
+        "Conduct rigorous reactive hazard assessments (e.g., RC1, ARC, DSC) for all processes involving energetic chemistry",
+        "Implement automated process safety interlocks including temperature/pressure trip to emergency cooling and reactor isolation",
+        "Establish and enforce management of change (MOC) procedures for any recipe or operating parameter modification"
+      ]
+    },
+    "embedding_text": "At Synthron’s NC facility, a 1500-gallon batch reactor experienced runaway polymerization of acrylic monomers due to unassessed recipe scaling. Excess initial monomer caused more rapid exothermic energy release than the condenser could remove, leading to temperature and pressure escalation. Solvent vapors vented through the manway, forming an ignitable vapor cloud inside the building. Ignition triggered a vapor cloud explosion, killing one worker and destroying the facility. No thermal hazard analysis or automated safeguards were in place.",
+    "source_pdf": "Synthron.pdf"
+  },
+  {
+    "case_id": "P026",
+    "basic_info": {
+      "incident_name": "T2 Laboratories Runaway Reaction",
+      "incident_name_cn": "T2实验室反应失控爆炸事故",
+      "date": "2007-12-19",
+      "location": "Jacksonville, Florida, USA",
+      "company": "T2 Laboratories, Inc.",
+      "fatalities": 4,
+      "injuries": 32
+    },
+    "process_context": {
+      "process_type": "reaction",
+      "equipment": [
+        "batch reactor",
+        "jacketed vessel",
+        "cooling system"
+      ],
+      "materials": [
+        "methylcyclopentadienyl manganese tricarbonyl (MCMT)",
+        "sodium methoxide",
+        "methanol",
+        "manganese metal"
+      ],
+      "operating_conditions": "exothermic batch synthesis at ~140°C; cooling water jacket failure during temperature ramp-up"
+    },
+    "failure_mechanism": {
+      "root_cause": "Inadequate understanding and characterization of the highly exothermic decomposition reaction kinetics and thermal instability of MCMT intermediates.",
+      "deviation_type": "temperature偏高",
+      "guide_word": "More",
+      "parameter": "temperature",
+      "causal_chain": "Lack of reactive hazard assessment → uncharacterized decomposition onset at ~130°C → cooling system undersized and failed → reactor temperature exceeded safe limit → thermal runaway → rapid pressure rise → vessel rupture → explosion",
+      "physical_principles": "Thermal runaway driven by self-heating from adiabatic decomposition kinetics (ARC data later showed T_onset=125°C, ΔH_decomp > 1000 J/g)"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Jacketed cooling system",
+        "Temperature monitoring",
+        "Pressure relief device (rupture disk)"
+      ],
+      "safeguard_failures": "Cooling system lacked redundancy and capacity for worst-case heat release; rupture disk was undersized and vented to confined space; no independent critical temperature interlock or emergency quench system.",
+      "csb_recommendations": [
+        "Require comprehensive reactive hazard evaluation (e.g., ARC, DSC) before scale-up",
+        "Mandate independent safety review for batch chemical processes with high energy potential",
+        "Implement engineered safeguards such as automatic emergency quench or pressure-relief venting to safe location"
+      ]
+    },
+    "embedding_text": "T2 Laboratories experienced a catastrophic runaway reaction in a jacketed batch reactor synthesizing MCMT. The process involved sodium methoxide, methanol, and manganese metal under elevated temperature (~140°C). A 'More Temperature' deviation occurred due to unrecognized exothermic decomposition onset (~125°C) and inadequate cooling capacity. Root cause was absence of thermal stability testing and kinetic characterization. This led to uncontrollable self-heating, rapid pressure rise, vessel rupture, and explosion—killing four and injuring thirty-two.",
+    "source_pdf": "T2_Laboratories.pdf"
+  },
+  {
+    "case_id": "P027",
+    "basic_info": {
+      "incident_name": "Tosco Avon Refinery Fire",
+      "incident_name_cn": "托斯科阿冯炼油厂火灾事故",
+      "date": "1999-02-23",
+      "location": "Martinez, California, USA",
+      "company": "Tosco Corporation",
+      "fatalities": 4,
+      "injuries": 1
+    },
+    "process_context": {
+      "process_type": "蒸馏",
+      "equipment": [
+        "Crude Fractionator",
+        "Naphtha System"
+      ],
+      "materials": [
+        "Crude Oil",
+        "Naphtha"
+      ],
+      "operating_conditions": "高温高压常减压蒸馏工况；涉及含硫腐蚀性介质，长期运行导致设备壁厚减薄"
+    },
+    "failure_mechanism": {
+      "root_cause": "Inadequate corrosion control and failure to identify thinning in a naphtha line during nonroutine maintenance planning, leading to catastrophic rupture under operating pressure.",
+      "deviation_type": "泄漏",
+      "guide_word": "No",
+      "parameter": "Integrity",
+      "causal_chain": "Inadequate corrosion monitoring → Undetected wall thinning in naphtha transfer line → Loss of mechanical integrity during maintenance activity → Sudden rupture → Release of flammable hydrocarbons → Ignition → Fireball and flash fire",
+      "physical_principles": "Corrosion fatigue, pressure containment failure, vapor cloud ignition dynamics, thermal radiation propagation"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Pressure relief valves",
+        "Fire detection system",
+        "Emergency shutdown procedure",
+        "Lockout/Tagout (LOTO) for maintenance"
+      ],
+      "safeguard_failures": "LOTO was not properly applied because the line was incorrectly assumed to be isolated; corrosion inspection data was not integrated into maintenance planning; no independent verification of isolation integrity prior to work.",
+      "csb_recommendations": [
+        "Implement rigorous management of change (MOC) for all nonroutine maintenance activities",
+        "Establish comprehensive corrosion control program with risk-based inspection and thickness monitoring",
+        "Require positive verification of isolation (e.g., double block and bleed, physical disconnect) before hazardous maintenance"
+      ]
+    },
+    "embedding_text": "The Tosco Avon incident involved a catastrophic rupture of a corroded naphtha transfer line in a crude fractionation unit. Under high-temperature, high-pressure distillation conditions, undetected wall thinning led to sudden loss of containment. Flammable naphtha released, ignited, and caused a fatal fireball. Root cause was failure in corrosion control and hazardous maintenance isolation verification, resulting in four fatalities and one critical injury during nonroutine work.",
+    "source_pdf": "Tosco_Avon.pdf"
+  },
+  {
+    "case_id": "P028",
+    "basic_info": {
+      "incident_name": "TPC Group Port Neches Explosion and Fire",
+      "incident_name_cn": "TPC集团波特尼谢斯工厂爆炸火灾事故",
+      "date": "2019-11-27",
+      "location": "Port Neches, Texas, USA",
+      "company": "TPC Group",
+      "fatalities": 0,
+      "injuries": 3
+    },
+    "process_context": {
+      "process_type": "储运与蒸馏",
+      "equipment": [
+        "丁二烯精馏塔T-101",
+        "再沸器E-101",
+        "冷凝器E-102",
+        "储罐V-101/V-102"
+      ],
+      "materials": [
+        "丁二烯",
+        "叔丁基硫醇(TBTM)",
+        "聚合抑制剂"
+      ],
+      "operating_conditions": "高温真空精馏，操作温度约65°C，塔顶压力约-0.8 bar(g)，含氧量未受控，长期存在过氧化物积累风险"
+    },
+    "failure_mechanism": {
+      "root_cause": "丁二烯系统中过氧化物持续积累并发生绝热自分解，引发连锁放热反应和压力骤升。",
+      "deviation_type": "压力偏高",
+      "guide_word": "More",
+      "parameter": "pressure",
+      "causal_chain": "抑制剂注入中断和监测缺失→丁二烯过氧化物生成并富集→局部热点诱发自加速分解→快速放热和气体膨胀→设备超压破裂→蒸气云形成→点火源引燃爆炸",
+      "physical_principles": "绝热自分解动力学、过氧化物热不稳定性、气液相平衡突变、压力容器失效准则"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "TBTM抑制剂加注系统",
+        "在线氧分析仪（未投用）",
+        "安全阀",
+        "DCS报警系统",
+        "工艺危害分析（PHA）记录"
+      ],
+      "safeguard_failures": "抑制剂加注长期失效且无备用方案；氧分析仪未安装/未启用；安全阀未考虑分解气体瞬时释放速率；PHA未识别过氧化物积累的动态风险；报警被频繁屏蔽且无响应机制",
+      "csb_recommendations": [
+        "强制要求对丁二烯等易自聚物料实施实时过氧化物浓度在线监测与自动清除",
+        "修订OSHA PSM标准，明确将过氧化物积累列为必须评估的特定工艺危害",
+        "所有丁二烯精馏单元必须配备经验证的紧急泄压与惰化联锁系统"
+      ]
+    },
+    "embedding_text": "The TPC Port Neches incident involved a butadiene distillation column (T-101) under vacuum operation. Accumulated butadiene peroxides underwent uncontrolled exothermic decomposition, causing rapid pressure rise beyond vessel design limits. The deviation was 'More pressure' triggered by inhibitor system failure and lack of peroxide monitoring. Root cause was chronic peroxide buildup leading to thermal runaway, vessel rupture, vapor cloud explosion, and fire. Key materials: butadiene, TBTM inhibitor; equipment: reboiler E-101, condenser E-102, storage tanks.",
+    "source_pdf": "TPC_Port_Neches.pdf"
+  },
+  {
+    "case_id": "P029",
+    "basic_info": {
+      "incident_name": "Union Carbide Nitrogen Asphyxiation",
+      "incident_name_cn": "联合碳化物氮气窒息事故",
+      "date": "1998-03-27",
+      "location": "Hahnville, Louisiana, USA",
+      "company": "Union Carbide (Taft/Star Plant)",
+      "fatalities": 1,
+      "injuries": 1
+    },
+    "process_context": {
+      "process_type": "管道",
+      "equipment": [
+        "48-inch open pipe",
+        "ethylene oxide production unit"
+      ],
+      "materials": [
+        "nitrogen",
+        "air",
+        "ethylene oxide (residual)"
+      ],
+      "operating_conditions": "Major maintenance; process equipment temporarily removed; nitrogen purging ongoing to remove air/moisture; pipe end open but temporarily enclosed with black plastic sheet"
+    },
+    "failure_mechanism": {
+      "root_cause": "Failure to recognize and control the hazard of temporary confined space creation during nitrogen purging operations.",
+      "deviation_type": "oxygen deficiency due to nitrogen accumulation",
+      "guide_word": "No",
+      "parameter": "oxygen",
+      "causal_chain": "Nitrogen purge active → plastic sheet sealed open pipe end → formation of temporary confined space → nitrogen displaced ambient oxygen → undetected hypoxic atmosphere → worker asphyxiation",
+      "physical_principles": "Gas density similarity (N2 ≈ air), inert gas displacement of O2, absence of sensory warning (odorless, colorless), rapid O2 depletion in enclosed volume"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Confined space entry procedures",
+        "Nitrogen purging protocols",
+        "OSHA-compliant safety training"
+      ],
+      "safeguard_failures": "Procedures excluded temporary enclosures; no permit required for makeshift confined space; no atmospheric monitoring prior to or during entry; lack of real-time O2 detection or ventilation",
+      "csb_recommendations": [
+        "Revise confined space program to explicitly cover temporary enclosures created during maintenance",
+        "Mandate continuous atmospheric monitoring (O2 < 19.5%) before and during all such entries",
+        "Implement a positive ventilation requirement and lockout/tagout for purge gas sources during inspection activities"
+      ]
+    },
+    "embedding_text": "A 48-inch open pipe in an ethylene oxide unit was temporarily sealed with plastic during maintenance, creating an unpermitted confined space. Nitrogen used for purging accumulated, displacing oxygen. Workers entered without atmospheric monitoring or permit, leading to fatal asphyxiation. Root cause: unrecognized temporary confined space hazard under inert gas purging. Consequence: rapid O2 depletion (<5%) causing unconsciousness and death.",
+    "source_pdf": "Union_Carbide_N2.pdf"
+  },
+  {
+    "case_id": "P030",
+    "basic_info": {
+      "incident_name": "Valero Asphyxiation",
+      "incident_name_cn": "瓦莱罗氮气窒息事故",
+      "date": "2005-11-05",
+      "location": "Delaware City, DE, USA",
+      "company": "Valero Energy Corporation (operator), Matrix Service Industrial Contractors (contractor)",
+      "fatalities": 2,
+      "injuries": 0
+    },
+    "process_context": {
+      "process_type": "催化剂装填与惰化",
+      "equipment": [
+        "hydrocracker reactor (R1)",
+        "top manway"
+      ],
+      "materials": [
+        "nitrogen",
+        "catalyst",
+        "air"
+      ],
+      "operating_conditions": "Reactor undergoing nitrogen purge post-catalyst loading; slow continuous N2 flow through unsealed top manway; ambient temperature and atmospheric pressure"
+    },
+    "failure_mechanism": {
+      "root_cause": "Failure to recognize and control nitrogen-induced oxygen-deficient atmosphere outside the confined space opening due to inadequate hazard communication and isolation.",
+      "deviation_type": "Oxygen deficiency in vicinity of equipment opening",
+      "guide_word": "Less",
+      "parameter": "oxygen concentration",
+      "causal_chain": "Nitrogen purge initiated → N2 leaked from unsealed manway → displaced ambient air → O2 concentration dropped below 19.5% near opening → workers entered low-O2 zone without monitoring or PPE → asphyxiation → unplanned rescue → second fatality",
+      "physical_principles": "Gas density-driven stratification and diffusion; inert gas displacement of breathable air; silent, odorless, non-irritating nature of nitrogen leading to undetected hypoxia"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Confined space entry permit system",
+        "CSB-referenced Valero safety procedures requiring warning signs/barricades",
+        "CHSC temporary tarp and danger tape",
+        "Catalyst contractor’s confined space sign"
+      ],
+      "safeguard_failures": "No nitrogen-specific warning sign or physical barricade installed per procedure; danger tape and tarp provided insufficient hazard identification for nitrogen asphyxiation risk; no continuous O2 monitoring at manway perimeter; rescue plan absent for nitrogen-purged equipment",
+      "csb_recommendations": [
+        "Implement mandatory nitrogen hazard awareness training for all personnel working near inerted equipment",
+        "Require physical barricades and nitrogen-specific warning signage whenever inert gas purging is active—even outside confined space boundaries",
+        "Prohibit unauthorized entry near open purged equipment and enforce rescue-by-qualified-team-only policy"
+      ]
+    },
+    "embedding_text": "Nitrogen purge of hydrocracker reactor R1 created undetected oxygen-deficient atmosphere around its unsealed top manway. Workers approached the opening without monitoring, inhaled hypoxic air, and rapidly lost consciousness. Root cause was failure to recognize nitrogen's hazard beyond confined space boundaries. Two contractor fatalities occurred: first worker entering to retrieve tape, second attempting untrained rescue. No alarm, no signage, no O2 verification.",
+    "source_pdf": "Valero_Asphyxiation.pdf"
+  },
+  {
+    "case_id": "P031",
+    "basic_info": {
+      "incident_name": "LPG Fire at Valero – McKee Refinery",
+      "incident_name_cn": "瓦莱罗麦基炼油厂液化石油气火灾事故",
+      "date": "2007-02-16",
+      "location": "Sunray, Texas, USA",
+      "company": "Valero Energy Corporation",
+      "fatalities": 0,
+      "injuries": 4
+    },
+    "process_context": {
+      "process_type": "储运",
+      "equipment": [
+        "LPG piping dead-leg",
+        "emergency isolation valves",
+        "support steel structures"
+      ],
+      "materials": [
+        "Liquefied Petroleum Gas (LPG)",
+        "propane"
+      ],
+      "operating_conditions": "High-pressure, ambient-temperature LPG service; winter conditions with freezing risk"
+    },
+    "failure_mechanism": {
+      "root_cause": "Inadequate freeze protection of a dead-leg section in an LPG transfer line led to ice plug formation, subsequent pressure buildup, and catastrophic pipe rupture during restart.",
+      "deviation_type": "泄漏",
+      "guide_word": "No",
+      "parameter": "flow",
+      "causal_chain": "No flow in dead-leg → ice accumulation → blocked line → pressure buildup on upstream side → pipe rupture → LPG release → ignition → fire → structural failure of un-fireproofed supports → extended refinery evacuation",
+      "physical_principles": "Thermal contraction, phase change (water freezing), hydraulic pressure transmission, combustion kinetics, structural thermal degradation"
+    },
+    "protection_system": {
+      "existing_safeguards": [
+        "Dead-leg insulation",
+        "Emergency isolation valves",
+        "Fireproofing on critical steel supports",
+        "Deluge systems"
+      ],
+      "safeguard_failures": "Insulation was ineffective due to design omission and lack of maintenance; emergency valves were not located close enough to isolate the dead-leg; fireproofing was absent on key support steel; deluge system was not activated in time due to inadequate detection and procedure gaps.",
+      "csb_recommendations": [
+        "Implement rigorous dead-leg management including elimination, heating, or periodic purging",
+        "Install emergency isolation valves within 3 pipe diameters of all dead-legs in flammable service",
+        "Require fireproofing for all structural steel supporting high-pressure hydrocarbon piping above 150 psig"
+      ]
+    },
+    "embedding_text": "LPG transfer line dead-leg at Valero McKee refinery suffered no flow during cold weather, causing ice plugging. Pressure built upstream, rupturing the pipe and releasing propane. Ignition led to intense fire that collapsed un-fireproofed support steel. Root cause was missing freeze protection and poor PHA coverage of dead-leg hazards. Resulted in four injuries, full refinery evacuation, and prolonged shutdown.",
+    "source_pdf": "Valero_McKee.pdf"
+  }
+]

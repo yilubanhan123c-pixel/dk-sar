@@ -1,0 +1,50 @@
+{
+  "case_id": "P011",
+  "basic_info": {
+    "incident_name": "Formosa Plastics VCM Explosion",
+    "incident_name_cn": "福尔摩沙塑料氯乙烯单体爆炸事故",
+    "date": "2004-04-23",
+    "location": "Illiopolis, Illinois, USA",
+    "company": "Formosa Plastics Corp. USA",
+    "fatalities": 5,
+    "injuries": 3
+  },
+  "process_context": {
+    "process_type": "反应",
+    "equipment": [
+      "VCM聚合反应釜",
+      "底部排放阀",
+      "紧急泄压系统"
+    ],
+    "materials": [
+      "氯乙烯单体（VCM）",
+      "水",
+      "引发剂"
+    ],
+    "operating_conditions": "高温高压悬浮聚合，反应温度约60–70°C，压力约0.7–1.0 MPa，VCM为易燃易爆、致癌性气态单体"
+  },
+  "failure_mechanism": {
+    "root_cause": "操作员在未确认反应釜内压力已完全释放的情况下，手动强制开启故障的底部排放阀，导致高压VCM蒸气突发性喷出并遇点火源爆炸。",
+    "deviation_type": "泄漏",
+    "guide_word": "No",
+    "parameter": "隔离",
+    "causal_chain": "反应釜底部阀联锁失效→操作员绕过安全程序手动开阀→釜内残余高压VCM瞬间释放→VCM蒸气云扩散→遇未知点火源→蒸气云爆炸",
+    "physical_principles": "理想气体定律（PV=nRT）、可燃蒸气云爆炸极限（VCM LEL 3.6% v/v）、绝热闪蒸导致局部低温与静电积聚"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "反应釜底部阀硬联锁",
+      "VCM浓度报警系统",
+      "deluge喷淋系统",
+      "紧急停车系统（ESD）"
+    ],
+    "safeguard_failures": "联锁被长期旁路且无管理审批；VCM报警系统未覆盖排放区域；deluge系统响应延迟且覆盖不足；ESD未触发因操作员手动干预绕过逻辑",
+    "csb_recommendations": [
+      "实施联锁变更管理（MOC）程序，禁止未经审批的联锁旁路",
+      "对高风险手动操作执行双重确认和独立机械隔离验证",
+      "升级VCM泄漏检测与实时可燃气体云扩散建模预警系统"
+    ]
+  },
+  "embedding_text": "VCM suspension polymerization reactor explosion caused by unisolated manual opening of bottom blowdown valve under residual pressure, releasing flammable vinyl chloride monomer vapor that ignited. Root cause was procedural violation following interlock bypass and inadequate mechanical isolation verification. Consequence: fatal vapor cloud explosion, 5 deaths, facility destruction, and community evacuation. Key elements: PVC reactor, VCM, pressure isolation failure, human factor, deflagration.",
+  "source_pdf": "Formosa_Plastics_VCM.pdf"
+}

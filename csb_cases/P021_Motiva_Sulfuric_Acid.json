@@ -1,0 +1,48 @@
+{
+  "case_id": "P021",
+  "basic_info": {
+    "incident_name": "Motiva Sulfuric Acid Incident",
+    "incident_name_cn": "莫蒂瓦硫酸事故",
+    "date": "2001-07-17",
+    "location": "Delaware City, Delaware, USA",
+    "company": "Motiva Enterprises LLC",
+    "fatalities": 1,
+    "injuries": 8
+  },
+  "process_context": {
+    "process_type": "储运",
+    "equipment": [
+      "硫酸储罐",
+      "氮气吹扫管线",
+      "人孔盖"
+    ],
+    "materials": [
+      "浓硫酸",
+      "氮气"
+    ],
+    "operating_conditions": "常压、常温储存；氮气惰化保护；检修前需彻底隔离与吹扫"
+  },
+  "failure_mechanism": {
+    "root_cause": "未执行有效的管理变更（MOC）和机械完整性程序，导致氮气吹扫管线误接至含氢气的火炬系统，引发爆炸性混合气体在罐内积聚。",
+    "deviation_type": "泄漏与可燃气体意外引入",
+    "guide_word": "No",
+    "parameter": "隔离",
+    "causal_chain": "未执行MOC→错误连接氮气管线→氮气携带氢气进入酸罐→形成爆炸性气氛→热工作业引燃→罐体超压破裂",
+    "physical_principles": "气体扩散与混合动力学、爆炸极限理论、压力容器失效力学"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "氮气惰化系统",
+      "热工作业许可制度",
+      "储罐人孔物理隔离"
+    ],
+    "safeguard_failures": "MOC缺失导致管线误接未被识别；热工作业前未检测罐内气体成分；惰化系统因错误连接实际引入可燃气体而非惰性气体",
+    "csb_recommendations": [
+      "强制实施全生命周期管理变更（MOC）程序，涵盖所有工艺修改",
+      "建立独立的机械完整性审核机制，覆盖临时改造与管线连接",
+      "热工作业前必须进行多点可燃气体与氧气浓度实时检测并连续监控"
+    ]
+  },
+  "embedding_text": "The Motiva sulfuric acid incident involved a storage tank at the Delaware City Refinery where improper nitrogen purge line connection—due to failed management of change—introduced hydrogen into the tank, creating an explosive atmosphere. During hot work on the tank roof, ignition occurred, causing catastrophic overpressure failure. Key elements: sulfuric acid storage tank, hydrogen contamination, loss of isolation, and inadequate gas testing prior to hot work, resulting in 1 fatality and offsite environmental release.",
+  "source_pdf": "Motiva_Sulfuric_Acid.pdf"
+}

@@ -1,0 +1,52 @@
+{
+  "case_id": "P016",
+  "basic_info": {
+    "incident_name": "Husky Energy FCC Unit Explosion and Asphalt Fire",
+    "incident_name_cn": "赫斯基能源流化催化裂化装置爆炸及沥青火灾事故",
+    "date": "2018-04-26",
+    "location": "Superior, WI, USA",
+    "company": "Husky Energy",
+    "fatalities": 0,
+    "injuries": 0
+  },
+  "process_context": {
+    "process_type": "反应",
+    "equipment": [
+      "流化催化裂化（FCC）反应器",
+      "再生器",
+      "催化剂滑阀",
+      "主分馏塔"
+    ],
+    "materials": [
+      "催化裂化催化剂",
+      "热油气",
+      "轻质烃类",
+      "沥青质残留物"
+    ],
+    "operating_conditions": "高温（~700°C）、中压、含固体颗粒的气固两相流，处于计划性临时停工（transient shutdown）阶段"
+  },
+  "failure_mechanism": {
+    "root_cause": "在FCC单元临时停运期间，未识别和管控催化剂床层冷却速率过快导致的脆性断裂风险，引发设备突发破裂。",
+    "deviation_type": "温度偏低（局部快速冷却）",
+    "guide_word": "Less",
+    "parameter": "Temperature",
+    "causal_chain": "计划外快速降温→碳钢设备局部热应力超限→脆性断裂→高压热油气泄漏→云爆式点火→爆炸与沥青池火灾",
+    "physical_principles": "热应力集中、低温脆性转变（DBTT）、绝热压缩点火、气固两相流动诱导振动"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "FCC操作规程",
+      "压力安全阀",
+      "火灾探测系统",
+      "工艺安全信息（PSI）文档"
+    ],
+    "safeguard_failures": "PSI未包含脆性断裂风险分析；操作规程未规定停运阶段的最小冷却速率；安全阀未覆盖破裂瞬态超压场景；无针对低温脆断的机械完整性检查程序",
+    "csb_recommendations": [
+      "将瞬态工况（如开停车）纳入HAZOP/LOPA分析范围，并强制评估材料脆性失效模式",
+      "更新工艺安全信息，明确碳钢设备在低于韧脆转变温度下的操作禁令及冷却速率限制",
+      "建立基于失效物理（PoF）的设备退化模型，对FCC关键静设备实施低温韧性状态监测"
+    ]
+  },
+  "embedding_text": "The Husky Superior refinery FCC unit explosion occurred during a transient shutdown when rapid cooling of carbon steel reactor components induced brittle fracture, causing catastrophic rupture. Hot hydrocarbon vapors and catalyst-laden gases leaked into the asphalt-lined containment area, ignited via auto-ignition or static discharge, resulting in a vapor cloud explosion and sustained asphalt fire. Key failure drivers included absence of low-temperature embrittlement awareness in PSI, inadequate transient operating limits, and lack of fracture mechanics-based mechanical integrity verification.",
+  "source_pdf": "Husky_Energy.pdf"
+}

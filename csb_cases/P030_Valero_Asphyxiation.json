@@ -1,0 +1,49 @@
+{
+  "case_id": "P030",
+  "basic_info": {
+    "incident_name": "Valero Asphyxiation",
+    "incident_name_cn": "瓦莱罗氮气窒息事故",
+    "date": "2005-11-05",
+    "location": "Delaware City, DE, USA",
+    "company": "Valero Energy Corporation (operator), Matrix Service Industrial Contractors (contractor)",
+    "fatalities": 2,
+    "injuries": 0
+  },
+  "process_context": {
+    "process_type": "催化剂装填与惰化",
+    "equipment": [
+      "hydrocracker reactor (R1)",
+      "top manway"
+    ],
+    "materials": [
+      "nitrogen",
+      "catalyst",
+      "air"
+    ],
+    "operating_conditions": "Reactor undergoing nitrogen purge post-catalyst loading; slow continuous N2 flow through unsealed top manway; ambient temperature and atmospheric pressure"
+  },
+  "failure_mechanism": {
+    "root_cause": "Failure to recognize and control nitrogen-induced oxygen-deficient atmosphere outside the confined space opening due to inadequate hazard communication and isolation.",
+    "deviation_type": "Oxygen deficiency in vicinity of equipment opening",
+    "guide_word": "Less",
+    "parameter": "oxygen concentration",
+    "causal_chain": "Nitrogen purge initiated → N2 leaked from unsealed manway → displaced ambient air → O2 concentration dropped below 19.5% near opening → workers entered low-O2 zone without monitoring or PPE → asphyxiation → unplanned rescue → second fatality",
+    "physical_principles": "Gas density-driven stratification and diffusion; inert gas displacement of breathable air; silent, odorless, non-irritating nature of nitrogen leading to undetected hypoxia"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Confined space entry permit system",
+      "CSB-referenced Valero safety procedures requiring warning signs/barricades",
+      "CHSC temporary tarp and danger tape",
+      "Catalyst contractor’s confined space sign"
+    ],
+    "safeguard_failures": "No nitrogen-specific warning sign or physical barricade installed per procedure; danger tape and tarp provided insufficient hazard identification for nitrogen asphyxiation risk; no continuous O2 monitoring at manway perimeter; rescue plan absent for nitrogen-purged equipment",
+    "csb_recommendations": [
+      "Implement mandatory nitrogen hazard awareness training for all personnel working near inerted equipment",
+      "Require physical barricades and nitrogen-specific warning signage whenever inert gas purging is active—even outside confined space boundaries",
+      "Prohibit unauthorized entry near open purged equipment and enforce rescue-by-qualified-team-only policy"
+    ]
+  },
+  "embedding_text": "Nitrogen purge of hydrocracker reactor R1 created undetected oxygen-deficient atmosphere around its unsealed top manway. Workers approached the opening without monitoring, inhaled hypoxic air, and rapidly lost consciousness. Root cause was failure to recognize nitrogen's hazard beyond confined space boundaries. Two contractor fatalities occurred: first worker entering to retrieve tape, second attempting untrained rescue. No alarm, no signage, no O2 verification.",
+  "source_pdf": "Valero_Asphyxiation.pdf"
+}

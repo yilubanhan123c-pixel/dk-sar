@@ -1,0 +1,51 @@
+{
+  "case_id": "P008",
+  "basic_info": {
+    "incident_name": "DuPont Hotwork",
+    "incident_name_cn": "杜邦热工作业可燃蒸气爆炸事故",
+    "date": "2010-11-09",
+    "location": "Buffalo, New York",
+    "company": "E.I. duPont de Nemours and Co., Inc.",
+    "fatalities": 1,
+    "injuries": 1
+  },
+  "process_context": {
+    "process_type": "储运",
+    "equipment": [
+      "大气压浆料储存罐（Slurry Holding Tank 3）",
+      "搅拌器支撑结构",
+      "高压VF储罐",
+      "闪蒸罐",
+      "压缩机系统"
+    ],
+    "materials": [
+      "乙烯基氟（Vinyl Fluoride, VF）",
+      "聚乙烯基氟水浆料（PVF slurry）"
+    ],
+    "operating_conditions": "常压、室温；VF为高度挥发性、易燃、低LFL（4.8% v/v）、高蒸气压（~3.5 atm at 25°C）气体；罐体未完全隔离且未惰化，与在役工艺管线连通"
+  },
+  "failure_mechanism": {
+    "root_cause": "互连工艺管线中运行中的VF气体未经检测和隔离，反向流入待维修的大气压浆料罐，形成可燃蒸气云。",
+    "deviation_type": "泄漏+浓度超标",
+    "guide_word": "No",
+    "parameter": "Isolation",
+    "causal_chain": "未执行有效管线隔离→VF从在役高压系统经共用排气/回流管线倒灌入常压空置浆料罐→罐内VF蒸气积聚达爆炸极限→焊接火花引燃→剧烈蒸气云爆炸",
+    "physical_principles": "气体扩散与分压平衡、可燃物-空气混合物爆炸极限（LEL/UEL）、点火能阈值、压力梯度驱动的逆向流动"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "热工作业许可证制度",
+      "便携式可燃气体检测仪（但未持续监测）",
+      "作业前吹扫程序（未执行）",
+      "罐体接地"
+    ],
+    "safeguard_failures": "许可证审批流于形式，未验证物理隔离（盲板/断开）；气体检测仅单次、单点、非连续，未覆盖罐顶作业区；未识别共用管线导致的隐性连通风险；无独立第三方核查",
+    "csb_recommendations": [
+      "强制实施双重隔离（盲板+断开）并由授权人员现场确认",
+      "热工作业期间对受限空间实施连续、多点可燃气体监测并设置自动声光报警",
+      "开展全厂工艺管线连通性审查，绘制并更新‘热工敏感区域’隔离图谱"
+    ]
+  },
+  "embedding_text": "At DuPont Buffalo, welding on an atmospheric slurry holding tank (Tank 3) led to a flammable vapor explosion when vinyl fluoride (VF) — a highly volatile, flammable gas — migrated undetected from interconnected, in-service process tanks due to lack of physical isolation and continuous gas monitoring. The deviation was 'No Isolation', allowing VF accumulation above LEL. Ignition by welding spark caused catastrophic tank-top explosion, killing one worker. Root cause: failure to isolate cross-connected equipment during hot work under NFPA 51B and OSHA 1910.252.",
+  "source_pdf": "DuPont_Hotwork.pdf"
+}

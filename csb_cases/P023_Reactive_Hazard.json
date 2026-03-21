@@ -1,0 +1,50 @@
+{
+  "case_id": "P023",
+  "basic_info": {
+    "incident_name": "Reactive Hazard",
+    "incident_name_cn": "反应性危害事故",
+    "date": "Unknown (reported in October 2002; incidents occurred prior to 2002)",
+    "location": "Multiple U.S. sites including New Jersey, Ohio, Pennsylvania, and California",
+    "company": "Napp Technologies, Bartlo Packaging Inc., Whitehall Leather Company, Concept Sciences Inc.",
+    "fatalities": 0,
+    "injuries": 0
+  },
+  "process_context": {
+    "process_type": "reaction",
+    "equipment": [
+      "reactor",
+      "batch reactor",
+      "storage tank"
+    ],
+    "materials": [
+      "organic peroxides",
+      "nitrocellulose",
+      "amine-based catalysts",
+      "polymerizable monomers"
+    ],
+    "operating_conditions": "Batch thermal processing, inadequate temperature control, no real-time reaction calorimetry"
+  },
+  "failure_mechanism": {
+    "root_cause": "Lack of systematic reactive hazard identification and thermal runaway assessment prior to scale-up or process change.",
+    "deviation_type": "temperature偏高",
+    "guide_word": "More",
+    "parameter": "temperature",
+    "causal_chain": "Inadequate process safety information → uncharacterized exothermic decomposition kinetics → unintended temperature increase → thermal runaway → overpressurization → vessel rupture or fire",
+    "physical_principles": "Exothermic reaction kinetics, adiabatic temperature rise, heat accumulation, Arrhenius rate dependence on temperature"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "pressure relief valves",
+      "cooling water systems",
+      "operator monitoring"
+    ],
+    "safeguard_failures": "Relief devices undersized for runaway gas generation; cooling systems lacked redundancy and automatic activation; operators lacked thermal hazard awareness and alarm response protocols.",
+    "csb_recommendations": [
+      "Implement mandatory reactive hazard assessment (e.g., RC1, ARC, DSC) for all new and modified processes",
+      "Require process safety information (PSI) to include thermal stability data and safe operating limits",
+      "Develop and enforce industry-wide reactive hazard management guidance aligned with CCPS and NFPA 498"
+    ]
+  },
+  "embedding_text": "Multiple U.S. chemical incidents involved batch reactors and storage tanks handling organic peroxides, nitrocellulose, or monomers. Unrecognized exothermic decomposition led to More temperature deviations, triggering thermal runaway due to absent calorimetric data and inadequate relief sizing. Root cause was failure to identify reactive hazards during process development. Consequences included fires, explosions, facility damage, and near-miss public exposures—highlighting critical gaps in thermal hazard assessment, operating limit definition, and emergency mitigation for runaway reactions.",
+  "source_pdf": "Reactive_Hazard.pdf"
+}

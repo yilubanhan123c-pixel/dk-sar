@@ -1,0 +1,48 @@
+{
+  "case_id": "P010",
+  "basic_info": {
+    "incident_name": "Formosa Plastics Propylene Fire and Explosions",
+    "incident_name_cn": "台塑丙烯泄漏火灾爆炸事故",
+    "date": "2005-10-06",
+    "location": "Point Comfort, Texas, USA",
+    "company": "Formosa Plastics Corporation USA",
+    "fatalities": 0,
+    "injuries": 16
+  },
+  "process_context": {
+    "process_type": "储运",
+    "equipment": [
+      "strainer",
+      "drain valve",
+      "liquid propylene piping system"
+    ],
+    "materials": [
+      "propylene"
+    ],
+    "operating_conditions": "liquid phase, pressurized hydrocarbon service at ambient temperature"
+  },
+  "failure_mechanism": {
+    "root_cause": "A forklift-towed trailer physically snagged and dislodged a small drain valve from a strainer in the liquid propylene system.",
+    "deviation_type": "泄漏",
+    "guide_word": "No",
+    "parameter": "flow",
+    "causal_chain": "Forklift operation near piping → mechanical impact on drain valve → valve detachment → uncontrolled propylene release → rapid vaporization → flammable vapor cloud formation → ignition → explosion and sustained fire",
+    "physical_principles": "Phase change (liquid to vapor), flammability limits, deflagration dynamics, vapor dispersion"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "manual isolation valves",
+      "control room shutdown capability",
+      "flare system",
+      "Emergency Response Team (ERT)"
+    ],
+    "safeguard_failures": "Operators could not reach manual valves due to advancing vapor cloud; flare system could not handle instantaneous large release; no physical barrier or procedural control preventing vehicle access near critical piping.",
+    "csb_recommendations": [
+      "Implement rigorous management of change (MOC) for all non-routine activities near process equipment",
+      "Install permanent physical barriers to prevent vehicle contact with piping and valves",
+      "Conduct updated, site-specific HAZOP studies incorporating human factors and mechanical integrity hazards"
+    ]
+  },
+  "embedding_text": "Liquid propylene release occurred when a forklift-towed trailer dislodged a drain valve on a strainer in a pressurized piping system. The 'No flow' HAZOP deviation (guide word: No, parameter: flow) led to catastrophic uncontrolled release, rapid vaporization, formation of a large flammable cloud, and subsequent ignition causing an unconfined deflagration. Root cause was inadequate mechanical integrity protection and lack of physical safeguards against vehicular impact. Consequences included 16 injuries, 5-day fire, unit shutdown, and community shelter-in-place.",
+  "source_pdf": "Formosa_Plastics_Propylene.pdf"
+}

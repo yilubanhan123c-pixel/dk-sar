@@ -1,0 +1,49 @@
+{
+  "case_id": "P002",
+  "basic_info": {
+    "incident_name": "Bayer CropScience Pesticide Chemical Runaway Reaction",
+    "incident_name_cn": "拜耳作物科学农药化学品失控反应爆炸事故",
+    "date": "2008-08-28",
+    "location": "Institute, West Virginia, USA",
+    "company": "Bayer CropScience, LP",
+    "fatalities": 2,
+    "injuries": 8
+  },
+  "process_context": {
+    "process_type": "reaction",
+    "equipment": [
+      "Residue Treater (pressure vessel)",
+      "Methomyl synthesis reactor"
+    ],
+    "materials": [
+      "Methomyl",
+      "Phosgene",
+      "Methyl isocyanate",
+      "solvents"
+    ],
+    "operating_conditions": "High-pressure, elevated-temperature batch synthesis; residual phosgene and MIC present in equipment during startup"
+  },
+  "failure_mechanism": {
+    "root_cause": "Inadequate process safety information and failure to recognize thermal instability of residue containing phosgene and methyl isocyanate during residue treater startup.",
+    "deviation_type": "temperature偏高",
+    "guide_word": "More",
+    "parameter": "temperature",
+    "causal_chain": "Incomplete solvent flush → residual phosgene/MIC left in residue treater → exothermic decomposition initiated on heating → runaway reaction → overpressure → vessel rupture",
+    "physical_principles": "Exothermic decomposition kinetics, adiabatic temperature rise, pressure accumulation in confined vessel"
+  },
+  "protection_system": {
+    "existing_safeguards": [
+      "Pressure relief valve",
+      "Procedural startup checklist",
+      "Operator training"
+    ],
+    "safeguard_failures": "Relief valve undersized for decomposition gas generation rate; checklist omitted residue chemistry hazards; training lacked specific thermal hazard awareness for mixed residuals",
+    "csb_recommendations": [
+      "Conduct thorough PHA including decomposition hazards of process residuals",
+      "Implement rigorous pre-startup safety review with independent verification of cleaning effectiveness",
+      "Develop and maintain accurate, accessible process safety information on reactive chemical hazards"
+    ]
+  },
+  "embedding_text": "Runaway decomposition occurred in a pressure vessel (Residue Treater) during startup after incomplete solvent flush, leaving unstable residues of phosgene and methyl isocyanate. Heating induced uncontrolled exothermic reaction (More temperature deviation), causing rapid pressure rise and catastrophic explosion. Root cause was absence of process safety information on residual chemistry and inadequate HAZOP/PHA coverage of post-reaction residues. Two fatalities and eight injuries resulted.",
+  "source_pdf": "Bayer_CropScience.pdf"
+}
