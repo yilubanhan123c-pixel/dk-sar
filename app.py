@@ -964,6 +964,7 @@ def render_reflection_panel(reflection_history: list) -> str:
         round_num = record.get("round", "?")
         issues = record.get("issues", [])
         fallacy_hits = record.get("fallacy_hits", [])
+        counterfactual_results = record.get("counterfactual_results", [])
         open_attr = " open" if (not passed or not has_issue_round) else ""
         box_class = "dk-reflection-pass" if passed else "dk-reflection-issue"
         icon = "✅" if passed else "⚠️"
@@ -985,18 +986,55 @@ def render_reflection_panel(reflection_history: list) -> str:
                 f"<li><span class='dk-reflection-badge hit'>{label}</span>{proposition}</li>"
             )
 
+        # 反事实物理验证结果
+        cf_items = []
+        for cf in counterfactual_results:
+            verdict = esc(cf.get("step3_verdict", ""))
+            verdict_upper = verdict.upper()
+            suggestion_text = esc(cf.get("suggestion", ""))[:80]
+            badge_cls = "pass" if verdict_upper == "PASS" else "issue"
+            step1 = esc(cf.get("step1_hypothesis", ""))
+            step2_pos = esc(cf.get("step2_positive", ""))
+            step2_neg = esc(cf.get("step2_negative", ""))
+            step2_law = esc(cf.get("step2_physics_law", ""))
+            step3_net = esc(cf.get("step3_net_effect", ""))
+            correction = esc(cf.get("correction", ""))
+
+            detail_html = (
+                f"<div style='margin:6px 0 2px 18px;font-size:13px;color:#444;'>"
+                f"<div><b>Step 1 反事实假设：</b>{step1}</div>"
+                f"<div style='margin-top:3px;'><b>Step 2 效果推演：</b></div>"
+                f"<div style='margin-left:12px;'>正面效果：{step2_pos}</div>"
+                f"<div style='margin-left:12px;'>负面副作用：{step2_neg}</div>"
+                f"<div style='margin-left:12px;'>物理定律：{step2_law}</div>"
+                f"<div style='margin-top:3px;'><b>Step 3 净效果判定：</b>{step3_net}</div>"
+            )
+            if correction:
+                detail_html += f"<div style='margin-top:3px;color:#c0392b;'><b>修正方向：</b>{correction}</div>"
+            detail_html += "</div>"
+
+            cf_items.append(
+                f"<li><span class='dk-reflection-badge {badge_cls}'>{verdict}</span>"
+                f"{suggestion_text}{detail_html}</li>"
+            )
+
         body_parts = []
         if hit_items:
             body_parts.append(
                 "<div class='dk-reflection-subtitle'>负样本库命中</div>"
                 f"<ul class='dk-reflection-list'>{''.join(hit_items)}</ul>"
             )
+        if cf_items:
+            body_parts.append(
+                "<div class='dk-reflection-subtitle'>反事实物理验证</div>"
+                f"<ul class='dk-reflection-list'>{''.join(cf_items)}</ul>"
+            )
         if issue_items:
             body_parts.append(
                 "<div class='dk-reflection-subtitle'>问题清单</div>"
                 f"<ul class='dk-reflection-list'>{''.join(issue_items)}</ul>"
             )
-        if not issue_items and not hit_items:
+        if not issue_items and not hit_items and not cf_items:
             body_parts.append(
                 "<div class='dk-reflection-subtitle'>校验结果</div>"
                 "<ul class='dk-reflection-list'><li>本轮未发现新的物理问题，报告通过校验。</li></ul>"
@@ -1229,6 +1267,7 @@ def reflection_node(state: AgentState) -> dict:
         "passed": ref_result["passed"],
         "issues": ref_result["issues"],
         "fallacy_hits": ref_result.get("fallacy_hits", []),
+        "counterfactual_results": ref_result.get("counterfactual_results", []),
     }
     print(
         f"[langgraph] reflection_node 执行完成，第 {state['round_num']} 轮，"

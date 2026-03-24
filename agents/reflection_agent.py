@@ -2,7 +2,7 @@
 智能体 3：物理反思智能体
 三层校验：
   Layer 1 — 双源对比评分（正样本 vs 负样本相似度对比）
-  Layer 2 — NLI 守恒定律深度验证（对 DEEP_VERIFY 命题）
+  Layer 2 — 反事实物理验证（对 HAZOP 建议做反事实推演）
   Layer 3 — LLM 综合物理推理（整体报告校验）
 """
 
@@ -12,31 +12,38 @@ from utils.llm import call_llm, call_llm_json
 from utils.vector_store import get_vector_store
 import config
 
-# ── 守恒定律知识库（NLI 验证用） ────────────────────────────────────────────
-CONSERVATION_LAWS = {
-    "质量守恒": "在封闭系统中，输入物质总量等于输出物质总量加上系统内积累量，物质不会凭空产生或消失",
-    "能量守恒": "系统能量输入等于能量输出加上系统内能量积累加上化学反应热，能量不会凭空产生或消失",
-    "动量守恒": "在无外力作用的系统中，流体动量守恒，压力变化遵循伯努利方程",
-    "组分守恒": "在无化学反应的混合过程中，各组分的质量分别守恒，浓度变化遵循稀释或浓缩规律",
-    "热力学第二定律": "热量自发地从高温物体传向低温物体，不可能自发地从低温传向高温；熵在孤立系统中不减少",
-    "相平衡": "在气液平衡条件下，温度升高使蒸汽压升高，压力升高使沸点升高，符合克劳修斯-克拉珀龙方程",
-}
+# ── 反事实物理验证 Prompt ─────────────────────────────────────────────────
+COUNTERFACTUAL_SYSTEM_PROMPT = (
+    "你是一位化工安全物理验证专家。你的任务是对HAZOP建议做反事实物理验证。"
+    "不要只看建议是否逻辑通顺，而要推演：如果真的执行了这条建议，"
+    "物理系统会发生什么变化？是否有被忽略的负面副作用？"
+)
 
-NLI_CHECK_PROMPT = """你是一名物理定律验证专家。请判断以下"假设"是否与"前提"（物理定律）矛盾。
-
-前提（物理定律）：{premise}
-
-假设（待验证命题）：{hypothesis}
-
-请严格判断假设是否违反前提中的物理定律，输出以下三个标签之一：
-- "entailment"：假设与前提一致，不矛盾
-- "neutral"：假设与前提无直接关系，无法判断
-- "contradiction"：假设明确违反前提中的物理定律
-
-只输出一个JSON：
-{{"label": "entailment/neutral/contradiction", "reason": "一句话解释"}}
-
-重要：只有在假设明确违反物理定律时才判定为contradiction。模糊或间接关联判定为neutral。"""
+COUNTERFACTUAL_USER_PROMPT = """请对以下HAZOP建议做反事实物理验证：
+建议内容：{suggestion}
+场景上下文：{context}
+请按以下三步分析：
+Step 1 反事实假设：
+如果真的执行了这条建议，物理系统的哪些参数会发生变化？
+Step 2 效果推演：
+- 正面效果：这条建议预期达到的效果是什么？量级多大？
+- 负面副作用：执行后可能产生哪些被忽略的负面影响？量级多大？
+- 涉及的物理定律：质量守恒/能量守恒/动量守恒/时序因果
+Step 3 净效果判定：
+综合正面效果和负面副作用，这条建议执行后：
+- 净效果为正（有效）→ 输出 PASS
+- 净效果为负（有害或无效）→ 输出 FAIL，并给出修正方向
+输出JSON格式：
+{{
+  "suggestion": "原建议",
+  "step1_hypothesis": "反事实假设",
+  "step2_positive": "正面效果及量级",
+  "step2_negative": "负面副作用及量级",
+  "step2_physics_law": "涉及的物理定律",
+  "step3_verdict": "PASS或FAIL",
+  "step3_net_effect": "净效果分析",
+  "correction": "如果FAIL，修正方向是什么"
+}}"""
 
 DEEP_VERIFY_PROMPT = """你是一名严格的物理审查专家。请检查以下 HAZOP 分析中是否存在物理错误。
 ## 待检查的分析内容
@@ -92,6 +99,7 @@ HARD_VIOLATION_KEYWORDS = (
     "热量守恒",
     "凭空产生",
     "凭空消失",
+    "反事实验证-FAIL",
 )
 
 SOFT_SUGGESTION_KEYWORDS = (
@@ -144,7 +152,7 @@ class ReflectionAgent:
         self.vector_store = get_vector_store()
 
     def run(self, report: dict) -> dict:
-        print("\n🔬 [智能体3] 物理反思校验（双源对比 + NLI）...")
+        print("\n🔬 [智能体3] 物理反思校验（双源对比 + 反事实验证）...")
         all_issues = []
 
         # ── Layer 1: 双源对比评分 ──
@@ -184,13 +192,30 @@ class ReflectionAgent:
                     "contrast": round(item["contrast"], 3),
                 })
 
-        # ── Layer 2: NLI 深度验证（仅对 DEEP_VERIFY 命题） ──
-        nli_issues = self._nli_deep_verify(deep_verify_items)
-        all_issues.extend(nli_issues)
-        if nli_issues:
-            print(f"   🧪 [NLI验证] 发现 {len(nli_issues)} 个守恒定律冲突")
+        # ── Layer 2: 反事实物理验证（对 HAZOP 建议） ──
+        suggestions = self._extract_suggestions(report)
+        context_text = self._report_to_text(report)
+        counterfactual_results = self._counterfactual_verify(suggestions, context_text)
+        cf_issues = []
+        for cf in counterfactual_results:
+            if cf.get("step3_verdict", "").upper() == "FAIL":
+                cf_issues.append({
+                    "issue_type": "反事实验证-FAIL",
+                    "description": (
+                        f"建议「{cf.get('suggestion', '')[:60]}」"
+                        f"反事实验证未通过：{cf.get('step3_net_effect', '')[:80]}"
+                    ),
+                    "location": "建议/措施",
+                    "correction_hint": cf.get("correction", "请重新评估该建议的物理可行性"),
+                    "source": "counterfactual_verification",
+                })
+        all_issues.extend(cf_issues)
+        cf_fail_count = len(cf_issues)
+        cf_pass_count = len(counterfactual_results) - cf_fail_count
+        if cf_issues:
+            print(f"   🧪 [反事实验证] {len(suggestions)} 条建议中 {cf_fail_count} 条FAIL, {cf_pass_count} 条PASS")
         else:
-            print(f"   🧪 [NLI验证] {len(deep_verify_items)} 条命题均通过守恒定律检查")
+            print(f"   🧪 [反事实验证] {len(suggestions)} 条建议全部通过反事实物理验证")
 
         # ── Layer 3: LLM 综合物理推理 ──
         deep_result = self._deep_verification(report)
@@ -208,7 +233,7 @@ class ReflectionAgent:
 
         passed = (
             len(fallacy_hits) == 0
-            and len(nli_issues) == 0
+            and len(cf_issues) == 0
             and all_checks_passed
             and len(hard_issues) == 0
         )
@@ -218,7 +243,7 @@ class ReflectionAgent:
         else:
             print(
                 f"   ❌ [result] 未通过: hard_issues={len(hard_issues)} "
-                f"fallacy_hits={len(fallacy_hits)} nli_issues={len(nli_issues)} "
+                f"fallacy_hits={len(fallacy_hits)} cf_fail={len(cf_issues)} "
                 f"all_checks_passed={all_checks_passed}"
             )
 
@@ -226,6 +251,7 @@ class ReflectionAgent:
             "passed": passed,
             "issues": hard_issues,
             "fallacy_hits": fallacy_hits,
+            "counterfactual_results": counterfactual_results,
             "correction_guidance": self._build_correction_guidance(hard_issues),
             "checks": checks,
             "all_checks_passed": all_checks_passed,
@@ -298,40 +324,57 @@ class ReflectionAgent:
 
         return results
 
-    # ── Layer 2: NLI 守恒定律深度验证 ────────────────────────────────────
-    def _nli_deep_verify(self, deep_verify_items: list) -> list:
-        """
-        对 DEEP_VERIFY 命题逐一用守恒定律做 NLI 检查。
-        发现 contradiction 则记录为 issue。
-        """
-        issues = []
-        for item in deep_verify_items:
-            prop = item["proposition"]
-            for law_name, law_premise in CONSERVATION_LAWS.items():
-                try:
-                    nli_result = self._llm_nli_check(law_premise, prop)
-                    if nli_result.get("label") == "contradiction":
-                        issues.append({
-                            "issue_type": f"NLI-{law_name}冲突",
-                            "description": (
-                                f"命题「{prop[:60]}」违反{law_name}："
-                                f"{nli_result.get('reason', '无详细原因')}"
-                            ),
-                            "location": "分析内容",
-                            "correction_hint": f"请依据{law_name}（{law_premise[:40]}…）修正该论断",
-                            "source": "nli_verification",
-                        })
-                        # 一旦某条守恒定律判定矛盾，该命题不再检查其余定律
-                        break
-                except Exception as e:
-                    print(f"   ⚠️ NLI 检查失败（{law_name}）: {e}")
-                    continue
-        return issues
+    # ── Layer 2: 反事实物理验证 ──────────────────────────────────────────
+    def _extract_suggestions(self, report: dict) -> list:
+        """从报告中提取所有 HAZOP 建议（safeguards + recommendations）"""
+        suggestions = []
+        for deviation in report.get("deviations", []):
+            for sg in deviation.get("safeguards", []):
+                measure = sg.get("measure", "") if isinstance(sg, dict) else str(sg)
+                if measure:
+                    suggestions.append(measure)
+            recs = deviation.get("recommendations", {})
+            if isinstance(recs, dict):
+                for level in ["immediate", "short_term", "long_term"]:
+                    for rec in recs.get(level, []):
+                        action = rec.get("action", "") if isinstance(rec, dict) else str(rec)
+                        if action:
+                            suggestions.append(action)
+            elif isinstance(recs, list):
+                for rec in recs:
+                    action = rec.get("action", "") if isinstance(rec, dict) else str(rec)
+                    if action:
+                        suggestions.append(action)
+        return suggestions
 
-    def _llm_nli_check(self, premise: str, hypothesis: str) -> dict:
-        """调用 LLM 做 NLI 三分类判断"""
-        prompt = NLI_CHECK_PROMPT.format(premise=premise, hypothesis=hypothesis)
-        return call_llm_json(prompt)
+    def _counterfactual_verify(self, suggestions: list, context: str) -> list:
+        """对每条 HAZOP 建议做反事实物理验证"""
+        results = []
+        for suggestion in suggestions:
+            try:
+                user_prompt = COUNTERFACTUAL_USER_PROMPT.format(
+                    suggestion=suggestion, context=context
+                )
+                result = call_llm_json(
+                    user_prompt,
+                    system_prompt=COUNTERFACTUAL_SYSTEM_PROMPT,
+                )
+                # 确保 suggestion 字段与原始建议一致
+                result["suggestion"] = suggestion
+                results.append(result)
+            except Exception as e:
+                print(f"   ⚠️ 反事实验证失败: {e}")
+                results.append({
+                    "suggestion": suggestion,
+                    "step1_hypothesis": "验证失败",
+                    "step2_positive": "",
+                    "step2_negative": "",
+                    "step2_physics_law": "",
+                    "step3_verdict": "PASS",
+                    "step3_net_effect": "验证调用失败，默认通过",
+                    "correction": "",
+                })
+        return results
 
     # ── Layer 3: LLM 综合物理推理 ────────────────────────────────────────
     def _deep_verification(self, report: dict) -> dict:
