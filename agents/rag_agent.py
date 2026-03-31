@@ -287,11 +287,32 @@ class RAGAgent:
             return "（未找到相似案例，请基于化工安全通用知识分析）"
         texts = []
         for i, case in enumerate(cases, 1):
+            # 兼容 causes 为 dict 或 list
+            causes_raw = case.get('causes', {})
+            if isinstance(causes_raw, dict):
+                direct_cause = causes_raw.get('direct', 'N/A')
+            elif isinstance(causes_raw, list):
+                direct_cause = '; '.join(str(c) for c in causes_raw[:2])
+            else:
+                direct_cause = str(causes_raw) if causes_raw else 'N/A'
+
+            consequences = case.get('consequences', [])
+            if isinstance(consequences, list):
+                consequence_text = '; '.join(str(c) for c in consequences[:2])
+            else:
+                consequence_text = str(consequences) if consequences else 'N/A'
+
+            key_physics = case.get('key_physics', [])
+            if isinstance(key_physics, list):
+                physics_text = '; '.join(str(p) for p in key_physics[:2])
+            else:
+                physics_text = str(key_physics) if key_physics else 'N/A'
+
             texts.append(
-                f"案例{i} [{case['case_id']}]：{case['name']} ({case.get('year','N/A')})\n"
+                f"案例{i} [{case['case_id']}]：{case['name']} ({case.get('year', 'N/A')})\n"
                 f"  设备: {case.get('equipment')} | 工艺: {case.get('process_type')}\n"
-                f"  直接原因: {case.get('causes',{}).get('direct','N/A')}\n"
-                f"  主要后果: {'; '.join(case.get('consequences',[])[:2])}\n"
-                f"  关键物理机理: {'; '.join(case.get('key_physics',[])[:2])}"
+                f"  直接原因: {direct_cause}\n"
+                f"  主要后果: {consequence_text}\n"
+                f"  关键物理机理: {physics_text}"
             )
         return "\n\n".join(texts)
