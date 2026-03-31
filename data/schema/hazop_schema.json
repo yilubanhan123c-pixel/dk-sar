@@ -4,15 +4,27 @@
   "properties": {
     "node_info": {
       "type": "object",
-      "required": ["equipment", "parameter", "deviation_type", "deviation_direction"],
+      "required": ["node", "parameter", "guideword", "deviation", "context"],
+      "description": "HAZOP五维节点定义（HA-FCoT抽取结果）",
       "properties": {
-        "equipment":          { "type": "string", "description": "设备名称，如：反应釜、换热器、储罐" },
-        "parameter":          { "type": "string", "description": "分析参数，如：温度、压力、流量、液位" },
-        "deviation_type":     { "type": "string", "description": "偏差类型描述" },
+        "node":      { "type": "string", "description": "节点/设备名称及编号，如：反应釜R-101、换热器E-201" },
+        "parameter": { "type": "string", "description": "工艺参数，如：温度、压力、流量、液位、成分" },
+        "guideword": {
+          "type": "string",
+          "enum": ["无", "过多", "过少", "反向", "部分", "其他"],
+          "description": "HAZOP引导词（中文）"
+        },
+        "guideword_en": {
+          "type": "string",
+          "enum": ["NO", "MORE", "LESS", "REVERSE", "PART OF", "OTHER THAN"],
+          "description": "IEC 61882标准引导词（英文）"
+        },
+        "deviation":  { "type": "string", "description": "偏差方向描述，如：温度偏高、压力偏低" },
+        "context":    { "type": "string", "description": "操作上下文，如：正常运行、开车阶段、停车阶段" },
         "deviation_direction": {
           "type": "string",
           "enum": ["过高", "过低", "无/停止", "反向", "其他"],
-          "description": "偏差方向"
+          "description": "偏差方向（兼容字段）"
         },
         "normal_value":  { "type": "string", "description": "正常操作值或范围" },
         "current_value": { "type": "string", "description": "当前异常值" }
@@ -29,7 +41,7 @@
             "type": "array",
             "minItems": 1,
             "maxItems": 5,
-            "description": "可能原因列表（至少3个，最多5个）",
+            "description": "可能原因列表（至少2个，最多5个）",
             "items": {
               "type": "object",
               "required": ["description", "type"],
@@ -46,7 +58,7 @@
           "consequences": {
             "type": "array",
             "minItems": 1,
-            "description": "后果链描述（从初始事件到最终后果）",
+            "description": "后果链描述（从直接后果→升级后果→极端后果）",
             "items": { "type": "string" }
           },
           "safeguards": {
@@ -68,22 +80,40 @@
           "recommendations": {
             "type": "array",
             "minItems": 1,
-            "description": "建议措施",
+            "description": "改进建议（分immediate/short_term/long_term三级）",
             "items": {
               "type": "object",
-              "required": ["action", "priority"],
+              "required": ["action", "priority", "timeframe"],
               "properties": {
                 "action": { "type": "string", "description": "建议措施描述" },
                 "priority": {
                   "type": "string",
                   "enum": ["高", "中", "低"],
                   "description": "优先级"
+                },
+                "timeframe": {
+                  "type": "string",
+                  "enum": ["immediate", "short_term", "long_term"],
+                  "description": "实施时间框架"
                 }
               }
             }
           }
         }
       }
+    },
+    "reasoning_chain": {
+      "type": "string",
+      "description": "IEC 61882链式推理逻辑描述"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["高", "中", "低"],
+      "description": "综合风险等级"
+    },
+    "embedding_text": {
+      "type": "string",
+      "description": "用于ChromaDB向量检索的拼接文本"
     },
     "analysis_metadata": {
       "type": "object",
